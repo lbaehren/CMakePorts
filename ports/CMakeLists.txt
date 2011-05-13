@@ -19,16 +19,19 @@ add_subdirectory (x11)
 ##____________________________________________________________________
 ##                                                Package dependencies
 
+add_dependencies (cloog polylib ppl)
+
 ## ___ devel _________________
 
 add_dependencies (apr-util apr)
 add_dependencies (bison help2man)
 add_dependencies (cmake git)
 add_dependencies (doxygen swig)
+add_dependencies (git curl)
 add_dependencies (libmpc mpfr)
 add_dependencies (mpfr gmp)
-add_dependencies (git curl)
-add_dependencies (subversion swig expat)
+add_dependencies (ppl gmp)
+add_dependencies (subversion swig expat serf)
 
 ## ___ editors ___________________________________
 
@@ -40,6 +43,7 @@ add_dependencies (paraview treecc)
 
 ## ___ lang ______________________________________
 
+add_dependencies (guile gmp)
 add_dependencies (python readline)
 
 ## ___ multimedia ________________________________
