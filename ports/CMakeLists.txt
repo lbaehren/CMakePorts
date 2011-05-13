@@ -12,6 +12,7 @@ add_subdirectory (multimedia)
 add_subdirectory (net)
 add_subdirectory (parallel)
 add_subdirectory (science)
+add_subdirectory (tex)
 add_subdirectory (textproc)
 add_subdirectory (www)
 add_subdirectory (x11)
@@ -46,7 +47,7 @@ add_dependencies (paraview treecc)
 ## ___ lang ______________________________________
 
 add_dependencies (guile gmp)
-add_dependencies (python readline)
+add_dependencies (python readline gettext zlib)
 
 ## ___ multimedia ________________________________
 
