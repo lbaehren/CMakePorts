@@ -63,6 +63,8 @@ add_dependencies (casacore hdf5 wcslib cfitsio bison)
 add_dependencies (dal casacore doxygen)
 add_dependencies (duchamp wcslib cfitsio)
 add_dependencies (hdf5 openmpi szip)
+#add_dependencies (pelican qt cppunit)
+#add_dependencies (pelican-lofar pelican)
 
 ## ___ www _______________________________________
 
