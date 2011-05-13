@@ -52,6 +52,15 @@ endif (LIBVPX_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
+#	configure.args  --enable-vp8 \
+#	                --enable-psnr \
+#	                --enable-postproc \
+#	                --enable-multithread \
+#	                --enable-runtime-cpu-detect \
+#	                --disable-install-docs \
+#	                --disable-debug-libs \
+#	                --disable-examples
+
 if (LIBVPX_FROM_REPOS)
   set (LIBVPX_FORCE_BUILD TRUE)
 endif (LIBVPX_FROM_REPOS)
@@ -77,7 +86,7 @@ if (NOT LIBVPX_FOUND OR LIBVPX_FORCE_BUILD)
       DOWNLOAD_DIR download
       SOURCE_DIR source
       GIT_REPOSITORY ${LIBVPX_GIT}
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-multithread --enable-runtime-cpu-detect
       INSTALL_COMMAND sudo make install
       )
     
