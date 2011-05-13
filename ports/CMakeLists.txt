@@ -19,6 +19,8 @@ add_subdirectory (textproc)
 add_dependencies (bison help2man)
 add_dependencies (cmake git)
 add_dependencies (doxygen swig)
+add_dependencies (libmpc mpfr)
+add_dependencies (mpfr gmp)
 add_dependencies (git curl)
 add_dependencies (subversion swig expat)
 
