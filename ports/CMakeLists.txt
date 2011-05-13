@@ -1,6 +1,6 @@
 
 ##____________________________________________________________________
-## Port categories
+##                                                     Port categories
 
 add_subdirectory (archivers)
 add_subdirectory (devel)
@@ -10,10 +10,27 @@ add_subdirectory (parallel)
 add_subdirectory (science)
 
 ##____________________________________________________________________
-## Package dependencies
+##                                                Package dependencies
 
 ## ___ devel _________________
 
 ## ___ science _______________
 
 add_dependencies (hdf5 openmpi szip)
+
+
+##____________________________________________________________________
+##                                            Collective build targets
+
+add_custom_target (Daily ALL
+  WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+)
+
+add_dependencies (Daily
+  cmake
+  doxygen
+  mplayer
+  llvm
+  root
+  casacore
+  )
