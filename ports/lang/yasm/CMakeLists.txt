@@ -102,4 +102,11 @@ if (NOT YASM_FOUND OR YASM_FORCE_BUILD)
     
   endif (YASM_FROM_REPOS)
   
+else (NOT YASM_FOUND OR YASM_FORCE_BUILD)
+  
+  add_custom_target (yasm
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    COMMENT "[Yasm] Found system-wide installation; skipping rebuild!"
+    )
+  
 endif (NOT YASM_FOUND OR YASM_FORCE_BUILD)
