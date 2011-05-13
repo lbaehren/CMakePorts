@@ -8,12 +8,14 @@ add_subdirectory (lang)
 add_subdirectory (net)
 add_subdirectory (parallel)
 add_subdirectory (science)
+add_subdirectory (textproc)
 
 ##____________________________________________________________________
 ##                                                Package dependencies
 
 ## ___ devel _________________
 
+add_dependencies (bison help2man)
 add_dependencies (cmake git)
 add_dependencies (doxygen swig)
 add_dependencies (git curl)

@@ -1,4 +1,5 @@
 
+add_subdirectory (bison)
 add_subdirectory (cmake)
 add_subdirectory (doxygen)
 add_subdirectory (git)
