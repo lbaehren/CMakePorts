@@ -1,0 +1,25 @@
+
+set (HDF5_FORCE_BUILD ${HDF5_FORCE_BUILD} CACHE BOOL
+  "Force build and installation of package?" )
+
+set (HDF5_ENABLE_PARALLEL ${HDF5_ENABLE_PARALLEL} CACHE BOOL
+  "Enable parallel build (requires MPI)" )
+
+set (HDF5_ENABLE_Z_LIB_SUPPORT ${HDF5_ENABLE_Z_LIB_SUPPORT} CACHE BOOL
+  "Enable Zlib Filters" )
+
+set (BUILD_TESTING ${HDF5_BUILD_TESTING} CACHE BOOL
+  "Build HDF5 Unit Testing" )
+
+set (HDF5_BUILD_EXAMPLES ${HDF5_BUILD_EXAMPLES} CACHE BOOL
+  "Build HDF5 Library Examples" )
+
+set (HDF5_BUILD_CPP_LIB ${HDF5_BUILD_CPP_LIB} CACHE BOOL
+  "Build HDF5 C++ Library" )
+
+set (HDF5_BUILD_TOOLS ${HDF5_BUILD_TOOLS} CACHE BOOL
+  "Build HDF5 Tools" )
+
+set (HDF5_BUILD_HL_LIB ${HDF5_BUILD_HL_LIB} CACHE BOOL
+  "Build HIGH Level HDF5 Library" )
+
