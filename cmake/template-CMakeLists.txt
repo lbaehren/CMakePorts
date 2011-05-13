@@ -1,0 +1,107 @@
+
+## ==============================================================================
+##
+##  CMake project settings
+##
+## ==============================================================================
+
+## Name of the project handled by CMake
+project (<PACKAGE>)
+
+## Minimum required version of CMake to configure the project
+cmake_minimum_required (VERSION 2.8)
+
+## Enforced CMake policy 
+cmake_policy (VERSION 2.8)
+
+##  Package information
+set (<PACKAGE>_VERSION        "" )
+set (<PACKAGE>_SOURCE_ARCHIVE "" )
+set (<PACKAGE>_URL            "" )
+set (<PACKAGE>_MD5            "" )
+set (<PACKAGE>_SVN            "" )
+
+## ==============================================================================
+##
+##  Options
+##
+## ==============================================================================
+
+option (<PACKAGE>_FORCE_BUILD    "Force build and installation of package?" NO )
+option (<PACKAGE>_FROM_REPOS     "Install package from repository?"         NO )
+option (<PACKAGE>_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+
+## Handle options
+
+if (<PACKAGE>_ENABLE_TESTING)
+  include (CTest)
+  enable_testing()
+endif (<PACKAGE>_ENABLE_TESTING)
+
+## ==============================================================================
+##
+##  System inspection
+##
+## ==============================================================================
+
+include (Find<PACKAGE>)
+
+## ==============================================================================
+##
+##  Build instructions
+##
+## ==============================================================================
+
+if (<PACKAGE>_FROM_REPOS)
+  set (<PACKAGE>_FORCE_BUILD TRUE)
+endif (<PACKAGE>_FROM_REPOS)
+
+if (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+  
+  ## Locate source file to build from
+  
+  find_file (<PACKAGE>_SOURCE ${<PACKAGE>_SOURCE_ARCHIVE}
+    PATHS ${PROJECT_SOURCE_DIR}
+    )
+  
+  if (NOT <PACKAGE>_SOURCE)
+    set (<PACKAGE>_SOURCE ${<PACKAGE>_URL})
+  endif (NOT <PACKAGE>_SOURCE)
+  
+  ## Build package from source
+  
+  if (<PACKAGE>_FROM_REPOS)
+    
+    ExternalProject_Add (<package>
+      PREFIX ${PROJECT_BINARY_DIR}
+      DOWNLOAD_DIR download
+      SOURCE_DIR source
+      SVN_REPOSITORY ${<PACKAGE>_SVN}
+      BUILD_IN_SOURCE 1
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+      INSTALL_COMMAND sudo make install
+      )
+  
+  else (<PACKAGE>_FROM_REPOS)
+    
+    ExternalProject_Add (<package>
+      PREFIX ${PROJECT_BINARY_DIR}
+      DOWNLOAD_DIR download
+      SOURCE_DIR source
+      URL ${<PACKAGE>_SOURCE}
+      URL_MD5 ${<PACKAGE>_MD5}
+      BUILD_IN_SOURCE 1
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+      INSTALL_COMMAND sudo make install
+      )
+    
+  endif (<PACKAGE>_FROM_REPOS)
+  
+else (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+  
+  add_custom_target (<package>
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    COMMENT "[<PACKAGE>] Found system-wide installation; skipping rebuild!"
+    )
+  
+endif (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
