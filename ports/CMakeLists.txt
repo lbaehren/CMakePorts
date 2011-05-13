@@ -4,12 +4,15 @@
 
 add_subdirectory (archivers)
 add_subdirectory (devel)
+add_subdirectory (editors)
 add_subdirectory (graphics)
 add_subdirectory (lang)
+add_subdirectory (math)
 add_subdirectory (net)
 add_subdirectory (parallel)
 add_subdirectory (science)
 add_subdirectory (textproc)
+add_subdirectory (x11)
 
 ##____________________________________________________________________
 ##                                                Package dependencies
@@ -23,6 +26,10 @@ add_dependencies (libmpc mpfr)
 add_dependencies (mpfr gmp)
 add_dependencies (git curl)
 add_dependencies (subversion swig expat)
+
+## ___ editors ___________________________________
+
+add_dependencies (nedit lesstif)
 
 ## ___ graphics __________________________________
 
