@@ -65,6 +65,7 @@ add_dependencies (hdf5 openmpi szip)
 ## ___ www _______________________________________
 
 add_dependencies (neon openssl)
+add_dependencies (serf apr apr-util openssl)
 
 ##____________________________________________________________________
 ##                                            Collective build targets
