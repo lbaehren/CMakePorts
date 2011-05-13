@@ -30,6 +30,7 @@ add_dependencies (curl openssl)
 ## ___ science _______________
 
 add_dependencies (casacore hdf5 wcslib cfitsio bison)
+add_dependencies (duchamp wcslib cfitsio)
 add_dependencies (hdf5 openmpi szip)
 
 
