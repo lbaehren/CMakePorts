@@ -8,6 +8,7 @@ add_subdirectory (editors)
 add_subdirectory (graphics)
 add_subdirectory (lang)
 add_subdirectory (math)
+add_subdirectory (multimedia)
 add_subdirectory (net)
 add_subdirectory (parallel)
 add_subdirectory (science)
@@ -38,6 +39,11 @@ add_dependencies (paraview treecc)
 ## ___ lang ______________________________________
 
 add_dependencies (python readline)
+
+## ___ multimedia ________________________________
+
+add_dependencies (libvpx yasm)
+add_dependencies (mplayer libvpx)
 
 ## ___ net _______________________________________
 
