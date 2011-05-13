@@ -1,4 +1,6 @@
 
+add_subdirectory (apr)
+add_subdirectory (apr-util)
 add_subdirectory (bison)
 add_subdirectory (cmake)
 add_subdirectory (doxygen)

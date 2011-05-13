@@ -13,6 +13,7 @@ add_subdirectory (net)
 add_subdirectory (parallel)
 add_subdirectory (science)
 add_subdirectory (textproc)
+add_subdirectory (www)
 add_subdirectory (x11)
 
 ##____________________________________________________________________
@@ -20,6 +21,7 @@ add_subdirectory (x11)
 
 ## ___ devel _________________
 
+add_dependencies (apr-util apr)
 add_dependencies (bison help2man)
 add_dependencies (cmake git)
 add_dependencies (doxygen swig)
@@ -55,6 +57,10 @@ add_dependencies (casacore hdf5 wcslib cfitsio bison)
 add_dependencies (dal casacore doxygen)
 add_dependencies (duchamp wcslib cfitsio)
 add_dependencies (hdf5 openmpi szip)
+
+## ___ www _______________________________________
+
+add_dependencies (neon openssl)
 
 ##____________________________________________________________________
 ##                                            Collective build targets
