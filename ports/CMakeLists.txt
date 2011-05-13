@@ -4,6 +4,7 @@
 
 add_subdirectory (archivers)
 add_subdirectory (devel)
+add_subdirectory (graphics)
 add_subdirectory (lang)
 add_subdirectory (net)
 add_subdirectory (parallel)
@@ -21,15 +22,19 @@ add_dependencies (doxygen swig)
 add_dependencies (git curl)
 add_dependencies (subversion swig expat)
 
-## ___ lang __________________
+## ___ graphics __________________________________
+
+add_dependencies (paraview treecc)
+
+## ___ lang ______________________________________
 
 add_dependencies (python readline)
 
-## ___ net ___________________
+## ___ net _______________________________________
 
 add_dependencies (curl openssl)
 
-## ___ science _______________
+## ___ science ___________________________________
 
 add_dependencies (casacore hdf5 wcslib cfitsio bison)
 add_dependencies (duchamp wcslib cfitsio)
