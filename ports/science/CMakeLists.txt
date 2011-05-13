@@ -1,7 +1,9 @@
 
 add_subdirectory (casacore)
 add_subdirectory (cfitsio)
+add_subdirectory (cloudy)
 add_subdirectory (dal)
 add_subdirectory (duchamp)
 add_subdirectory (hdf5)
+add_subdirectory (root)
 add_subdirectory (wcslib)
