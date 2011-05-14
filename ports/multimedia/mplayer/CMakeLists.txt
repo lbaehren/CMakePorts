@@ -36,7 +36,7 @@ include (FindYasm)
 if (YASM_EXECUTABLE)
   set (enable_yasm "--yasm=${YASM_EXECUTABLE}")
 else (YASM_EXECUTABLE)
-  message (WARNING "[MPlayer] Unable to find Yasm!")
+  message (STATUS "[MPlayer] Unable to find Yasm!")
   set (enable_yasm "--yasm\"\"")
 endif (YASM_EXECUTABLE)
 
