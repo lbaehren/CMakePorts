@@ -21,6 +21,12 @@ add_subdirectory (x11)
 ##                                                Package dependencies
 
 add_dependencies (cloog polylib ppl)
+#add_dependencies (gdl gsl hdf5 plplot)
+#add_dependencies (mathgl gif)
+#add_dependencies (pnetlib qt)
+#add_dependencies (heasoft cfitsio)
+#add_dependencies (isis slang cfitsio heasoft)
+#add_dependencies (xstar ncurses termcap)
 
 ## ___ devel _________________
 
@@ -29,6 +35,7 @@ add_dependencies (bison help2man)
 add_dependencies (cmake git)
 add_dependencies (cppunit autoconf automake)
 add_dependencies (doxygen swig)
+#add_dependencies (gcc mpc cloog libiconv)
 add_dependencies (git curl)
 add_dependencies (libmpc mpfr)
 add_dependencies (libtool automake)

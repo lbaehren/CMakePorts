@@ -1,6 +1,8 @@
 
 add_subdirectory (apr)
 add_subdirectory (apr-util)
+add_subdirectory (autoconf)
+add_subdirectory (autogen)
 add_subdirectory (automake)
 add_subdirectory (bison)
 add_subdirectory (cloog-ppl)
