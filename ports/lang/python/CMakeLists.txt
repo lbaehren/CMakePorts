@@ -45,6 +45,12 @@ endif (Python_ENABLE_TESTING)
 include (FindPythonInterp)
 include (FindPythonLibs)
 include (FindReadline)
+include (FindZLIB)
+
+# - readline
+# - ncurses
+# - gdbm
+# - gettext
 
 ## ==============================================================================
 ##
@@ -74,7 +80,7 @@ if (APPLE)
     SOURCE_DIR ${Python_BINARY_DIR}/source
     URL ${HAVE_Python_SOURCE}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND ${Python_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-framework
+    CONFIGURE_COMMAND ${Python_BINARY_DIR}/source/configure --enable-framework=${CMAKE_INSTALL_PREFIX}/Library/Frameworks
     INSTALL_COMMAND sudo make install
     )
 else (APPLE)
