@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (GIT_VERSION        "1.7.4")
+set (GIT_VERSION        "1.7.5.1")
 set (GIT_SOURCE_ARCHIVE "git-${GIT_VERSION}.tar.gz")
 set (GIT_URL            "http://kernel.org/pub/software/scm/git/${GIT_SOURCE_ARCHIVE}")
 set (GIT_GIT            "git://git.kernel.org/pub/scm/git/git.git")
@@ -59,6 +59,7 @@ endif (GIT_WITH_ZLIB)
 ##
 ## ==============================================================================
 
+include (FindGit)
 include (FindIconv)
 include (FindOpenSSL)
 include (FindPerlLibs)

@@ -52,12 +52,19 @@ endif (CMake_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
+##  System inspection
+##
+## ==============================================================================
+
+include (FindGit)
+
+## ==============================================================================
+##
 ##  Build instructions
 ##
 ## ==============================================================================
 
 if (GIT_FOUND)
-
   ExternalProject_Add (cmake
     PREFIX ${CMake_BINARY_DIR}
     DOWNLOAD_DIR download
@@ -66,18 +73,10 @@ if (GIT_FOUND)
     CONFIGURE_COMMAND ${CMake_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
     INSTALL_COMMAND sudo make install
     )
-
 else (GIT_FOUND)
-  
-  ExternalProject_Add (cmake
-    PREFIX ${CMake_BINARY_DIR}
-    DOWNLOAD_DIR download
-    SOURCE_DIR source
-    CVS_REPOSITORY ${CMAKE_SVN}
-    CVS_MODULE master
-    CONFIGURE_COMMAND ${CMake_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND sudo make install
+  add_custom_target (cmake
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    COMMENT "[cmake] Missing installation of Git - unable to get source code!"
     )
-  
 endif (GIT_FOUND)
 
