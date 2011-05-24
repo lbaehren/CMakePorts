@@ -2,6 +2,7 @@
 add_subdirectory (casacore)
 add_subdirectory (cfitsio)
 add_subdirectory (cloudy)
+add_subdirectory (cgal)
 add_subdirectory (dal)
 add_subdirectory (duchamp)
 add_subdirectory (hdf5)
