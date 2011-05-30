@@ -15,9 +15,9 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (XZ_VERSION        "4.999" )
-set (XZ_SOURCE_ARCHIVE "xz-${XZ_VERSION}.9beta.tar.gz" )
-set (XZ_URL            "" )
+set (XZ_VERSION        "5.0.3")
+set (XZ_SOURCE_ARCHIVE "xz-${XZ_VERSION}.tar.gz")
+set (XZ_URL            "http://tukaani.org/xz/${XZ_SOURCE_ARCHIVE}" )
 set (XZ_SVN            "" )
 
 ## ==============================================================================
