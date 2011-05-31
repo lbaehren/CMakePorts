@@ -18,7 +18,6 @@ cmake_policy (VERSION 2.8)
 set (<PACKAGE>_VERSION        "" )
 set (<PACKAGE>_SOURCE_ARCHIVE "" )
 set (<PACKAGE>_URL            "" )
-set (<PACKAGE>_MD5            "" )
 set (<PACKAGE>_SVN            "" )
 
 ## ==============================================================================
@@ -89,7 +88,6 @@ if (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
       DOWNLOAD_DIR download
       SOURCE_DIR source
       URL ${<PACKAGE>_SOURCE}
-      URL_MD5 ${<PACKAGE>_MD5}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
