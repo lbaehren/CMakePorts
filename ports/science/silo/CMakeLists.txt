@@ -44,7 +44,7 @@ endif (SILO_ENABLE_TESTING)
 ## ==============================================================================
 
 include (FindHDF5)
-#include (FindSILO)
+include (FindSILO)
 
 if (HDF5_FOUND)
   get_filename_component (HDF5_LIBRARY_DIR ${HDF5_HDF5_LIBRARY} PATH)
