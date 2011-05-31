@@ -17,7 +17,7 @@ cmake_policy (VERSION 2.8)
 ##  Package information
 set (SILO_VERSION        "4.8" )
 set (SILO_SOURCE_ARCHIVE "silo-${SILO_VERSION}.tar.gz" )
-set (SILO_URL            "https://wci.llnl.gov/codes/silo/silo-${SILO_VERSION}/${SILO_SOURCE_ARCHIVE}" )
+set (SILO_URL            "http://wci.llnl.gov/codes/silo/silo-${SILO_VERSION}/${SILO_SOURCE_ARCHIVE}" )
 set (SILO_SVN            "" )
 
 ## ==============================================================================
