@@ -20,20 +20,61 @@ cmake_policy (VERSION 2.8)
 ##
 ## ==============================================================================
 
-macro (add_svn_repository _projectName _projectRepos)
+##____________________________________________________________________
+## Macro for dealing with Git repositories
+
+macro (add_git_repository _projectRepos)
+
+  ## Extract project name
+  get_filename_component (_projectName ${_projectRepos} NAME_WE)
+
+  ## Check if we already have a clone of the repository;
+  ## if yes then update the local version.
+  
   if (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
-    add_custom_target(${_projectName} ALL
+    
+    add_custom_target(update_${_projectName} ALL
+      COMMAND git fetch
+      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/${_projectName}
+      COMMENT "Updating clone of repository ${_projectName} ..."
+      )
+    
+  else (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+    
+    add_custom_target(clone_${_projectName} ALL
+      COMMAND git clone --bare ${_projectRepos} ${_projectName}
+      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+      COMMENT "Cloning repository ${_projectName} ..."
+      )
+    
+  endif (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+  
+
+endmacro (add_git_repository)
+
+##____________________________________________________________________
+## Macro for dealing with Subversion repositories
+
+macro (add_svn_repository _projectName _projectRepos)
+
+  if (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+
+    add_custom_target(update_${_projectName} ALL
       COMMAND git svn rebase
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/${_projectName}
       COMMENT "Updating clone of repository ${_projectName} ..."
       )
+
   else (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
-    add_custom_target(${_projectName} ALL
+
+    add_custom_target(clone_${_projectName} ALL
       COMMAND git svn clone ${_projectRepos} ${_projectName}
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
       COMMENT "Cloning repository ${_projectName} ..."
       )
+
   endif (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+
 endmacro (add_svn_repository)
 
 ## ==============================================================================
@@ -42,46 +83,17 @@ endmacro (add_svn_repository)
 ##
 ## ==============================================================================
 
-foreach (_repos
-    git://github.com/nextgen-astrodata/DAL.git
-    git://cmake.org/cmake.git
-    git://git.kernel.org/pub/scm/git/git.git
-    https://github.com/acaudwell/Gource.git
-    https://github.com/FlowingMedia/TimeFlow.git
-    https://github.com/pelican/pelican.git
-    https://lbaehren@github.com/pelican/pelican-lofar.git
-    https://github.com/pelican/pelican-astro.git
-    https://github.com/pschella/tmf.git
-    https://github.com/numpy/numpy.git
-    https://github.com/scipy/scipy.git
-    )
-
-  ## Extract project name
-  get_filename_component (_projectName ${_repos} NAME_WE)
-
-  ## Check if we already have a clone of the repository
-  
-  if (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
-    
-    ## ... if yes, update the local version
-    add_custom_target(${_projectName} ALL
-      COMMAND git fetch
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/${_projectName}
-      COMMENT "Updating clone of repository ${_projectName} ..."
-      )
-    
-  else (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
-    
-    ## ... if not, make a clone of the original repository
-    add_custom_target(${_projectName} ALL
-      COMMAND git clone --bare ${_repos} ${_projectName}
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-      COMMENT "Cloning repository ${_projectName} ..."
-      )
-    
-  endif (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
-  
-endforeach (_repos)
+add_git_repository (git://github.com/nextgen-astrodata/DAL.git)
+add_git_repository (git://cmake.org/cmake.git)
+add_git_repository (git://git.kernel.org/pub/scm/git/git.git)
+add_git_repository (https://github.com/acaudwell/Gource.git)
+add_git_repository (https://github.com/FlowingMedia/TimeFlow.git)
+add_git_repository (https://github.com/pelican/pelican.git)
+add_git_repository (https://github.com/pelican/pelican-lofar.git)
+add_git_repository (https://github.com/pelican/pelican-astro.git)
+add_git_repository (https://github.com/pschella/tmf.git)
+add_git_repository (https://github.com/numpy/numpy.git)
+add_git_repository (https://github.com/scipy/scipy.git)
 
 ## ==============================================================================
 ##
