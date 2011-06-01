@@ -22,6 +22,12 @@ cmake_policy (VERSION 2.8)
 
 ## ==============================================================================
 ##
+##  System inspection
+##
+## ==============================================================================
+
+## ==============================================================================
+##
 ##  Project settings & sub-directories
 ##
 ## ==============================================================================
@@ -78,6 +84,10 @@ endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 
 add_subdirectory (ports)
 
+## Local clone of code repositories
+
+add_subdirectory (repositories)
+
 ## ==============================================================================
 ##
 ##  Configuration summary
@@ -86,11 +96,12 @@ add_subdirectory (ports)
 
 message (STATUS "+------------------------------------------------------------+")
 
-message (STATUS "CMAKE_SYSTEM           = ${CMAKE_SYSTEM}"           )
-message (STATUS "CMAKE_SYSTEM_NAME      = ${CMAKE_SYSTEM_NAME}"      )
-message (STATUS "CMAKE_SYSTEM_PROCESSOR = ${CMAKE_SYSTEM_PROCESSOR}" )
-message (STATUS "CMAKE_SYSTEM_VERSION   = ${CMAKE_SYSTEM_VERSION}"   )
-message (STATUS "CMAKE_MODULE_PATH      = ${CMAKE_MODULE_PATH}"      )
-message (STATUS "PROJECT_CMAKE_MODULES  = ${PROJECT_CMAKE_MODULES}"  )
+message (STATUS "CMAKE_SYSTEM             = ${CMAKE_SYSTEM}"             )
+message (STATUS "CMAKE_SYSTEM_NAME        = ${CMAKE_SYSTEM_NAME}"        )
+message (STATUS "CMAKE_SYSTEM_PROCESSOR   = ${CMAKE_SYSTEM_PROCESSOR}"   )
+message (STATUS "CMAKE_SYSTEM_VERSION     = ${CMAKE_SYSTEM_VERSION}"     )
+message (STATUS "CMAKE_MODULE_PATH        = ${CMAKE_MODULE_PATH}"        )
+message (STATUS "PROJECT_CMAKE_MODULES    = ${PROJECT_CMAKE_MODULES}"    )
+message (STATUS "LOCAL_REPOSITORIES_FOUND = ${LOCAL_REPOSITORIES_FOUND}" )
 
 message (STATUS "+------------------------------------------------------------+")
