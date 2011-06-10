@@ -44,7 +44,14 @@ endif (AUTOMAKE_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-#include (FindAutomake)
+find_program (AUTOMAKE_EXECUTABLE automake
+  PATHS /sw /usr /usr/local /opt/local ${CMAKE_INSTALL_PREFIX}
+  PATH_SUFFIXES bin
+  )
+
+if (AUTOMAKE_EXECUTABLE)
+  set (AUTOMAKE_FOUND TRUE)
+endif (AUTOMAKE_EXECUTABLE)
 
 ## ==============================================================================
 ##
