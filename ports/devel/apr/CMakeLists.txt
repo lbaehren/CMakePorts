@@ -25,9 +25,10 @@ set (APR_URL            "http://mirror.hostfuss.com/apache//apr/${APR_SOURCE_ARC
 ##
 ## ==============================================================================
 
-option (APR_FORCE_BUILD    "Force build and installation of package?" NO )
-option (APR_FROM_REPOS     "Install package from repository?"         NO )
+option (APR_FORCE_BUILD    "Force build and installation of package?" NO  )
+option (APR_FROM_REPOS     "Install package from repository?"         NO  )
 option (APR_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (APR_ENABLE_THREADS "Enable thread support?"                   YES )
 
 ## Handle options
 
@@ -35,6 +36,12 @@ if (APR_ENABLE_TESTING)
   include (CTest)
   enable_testing()
 endif (APR_ENABLE_TESTING)
+
+if (APR_ENABLE_THREADS)
+  set (enableThread "--enable-threads")
+else (APR_ENABLE_THREADS)
+  set (enableThread "--disable-threads")
+endif (APR_ENABLE_THREADS)
 
 ## ==============================================================================
 ##
@@ -74,7 +81,7 @@ if (NOT APR_FOUND OR APR_FORCE_BUILD)
     SOURCE_DIR source
     URL ${APR_FOUND_SOURCE}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure ${enableThread} --prefix=${CMAKE_INSTALL_PREFIX}
     INSTALL_COMMAND sudo make install
     )
   
