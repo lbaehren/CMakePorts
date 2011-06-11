@@ -6,7 +6,7 @@
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (APR_util)
+project (APR_UTIL)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -15,10 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (APR_util_VERSION        "1.3.11" )
-set (APR_util_SOURCE_ARCHIVE "apr-util-${APR_util_VERSION}.tar.gz" )
-set (APR_util_URL            "http://mirror.hostfuss.com/apache/apr/${APR_util_SOURCE_ARCHIVE}" )
-set (APR_util_SVN            "" )
+set (APR_UTIL_VERSION        "1.3.12" )
+set (APR_UTIL_SOURCE_ARCHIVE "apr-util-${APR_UTIL_VERSION}.tar.gz" )
+set (APR_UTIL_URL            "http://mirror.checkdomain.de/apache//apr/${APR_UTIL_SOURCE_ARCHIVE}" )
+set (APR_UTIL_SVN            "http://svn.apache.org/repos/asf/apr/apr-util/trunk" )
 
 ## ==============================================================================
 ##
@@ -26,16 +26,16 @@ set (APR_util_SVN            "" )
 ##
 ## ==============================================================================
 
-option (APR_util_FORCE_BUILD    "Force build and installation of package?" NO )
-option (APR_util_FROM_REPOS     "Install package from repository?"         NO )
-option (APR_util_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (APR_UTIL_FORCE_BUILD    "Force build and installation of package?" NO )
+option (APR_UTIL_FROM_REPOS     "Install package from repository?"         NO )
+option (APR_UTIL_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (APR_util_ENABLE_TESTING)
+if (APR_UTIL_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-endif (APR_util_ENABLE_TESTING)
+endif (APR_UTIL_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -43,7 +43,7 @@ endif (APR_util_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-#include (FindAPR_util)
+#include (FindAPR_UTIL)
 
 ## ==============================================================================
 ##
@@ -51,21 +51,21 @@ endif (APR_util_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-if (APR_util_FROM_REPOS)
-  set (APR_util_FORCE_BUILD TRUE)
-endif (APR_util_FROM_REPOS)
+if (APR_UTIL_FROM_REPOS)
+  set (APR_UTIL_FORCE_BUILD TRUE)
+endif (APR_UTIL_FROM_REPOS)
 
-if (NOT HAVE_APR_util OR APR_util_FORCE_BUILD)
+if (NOT HAVE_APR_UTIL OR APR_UTIL_FORCE_BUILD)
   
   ## Locate source file to build from
   
-  find_file (APR_util_SOURCE ${APR_util_SOURCE_ARCHIVE}
+  find_file (APR_UTIL_SOURCE ${APR_UTIL_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
   
-  if (NOT APR_util_SOURCE)
-    set (APR_util_SOURCE ${APR_util_URL})
-  endif (NOT APR_util_SOURCE)
+  if (NOT APR_UTIL_SOURCE)
+    set (APR_UTIL_SOURCE ${APR_UTIL_URL})
+  endif (NOT APR_UTIL_SOURCE)
   
   ## Build package from source
   
@@ -73,17 +73,17 @@ if (NOT HAVE_APR_util OR APR_util_FORCE_BUILD)
     PREFIX ${PROJECT_BINARY_DIR}
     DOWNLOAD_DIR download
     SOURCE_DIR source
-    URL ${APR_util_SOURCE}
+    URL ${APR_UTIL_SOURCE}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-apr=${CMAKE_INSTALL_PREFIX}
     INSTALL_COMMAND sudo make install
     )
   
-else (NOT HAVE_APR_util OR APR_util_FORCE_BUILD)
+else (NOT HAVE_APR_UTIL OR APR_UTIL_FORCE_BUILD)
   
   add_custom_target (apr-util
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[APR_util] Found system-wide installation; skipping rebuild!"
+    COMMENT "[APR_UTIL] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT HAVE_APR_util OR APR_util_FORCE_BUILD)
+endif (NOT HAVE_APR_UTIL OR APR_UTIL_FORCE_BUILD)

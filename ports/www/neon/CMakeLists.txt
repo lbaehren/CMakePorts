@@ -15,11 +15,11 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (Neon_VERSION        "0.29.3" )
+set (Neon_VERSION        "0.29.6" )
 set (Neon_SOURCE_ARCHIVE "neon-${Neon_VERSION}.tar.gz" )
 set (Neon_URL            "http://www.webdav.org/neon/${Neon_SOURCE_ARCHIVE}" )
 set (Neon_MD5            "" )
-set (Neon_SVN            "http://svn.webdav.org/repos/projects/neon/" )
+set (Neon_SVN            "http://svn.webdav.org/repos/projects/neon" )
 
 ## ==============================================================================
 ##

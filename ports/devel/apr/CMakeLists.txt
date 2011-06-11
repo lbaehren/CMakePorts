@@ -15,9 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (APR_VERSION        "1.4.4" )
+set (APR_VERSION        "1.4.5" )
 set (APR_SOURCE_ARCHIVE "apr-${APR_VERSION}.tar.gz" )
-set (APR_URL            "http://mirror.hostfuss.com/apache//apr/${APR_SOURCE_ARCHIVE}" )
+set (APR_URL            "http://mirror.checkdomain.de/apache//apr/${APR_SOURCE_ARCHIVE}" )
+set (APR_SVN            "http://svn.apache.org/repos/asf/apr/apr/trunk" )
 
 ## ==============================================================================
 ##

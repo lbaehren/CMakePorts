@@ -70,6 +70,9 @@ if (NOT SUBVERSION_FOUND OR SUBVERSION_FORCE_BUILD)
   endif (NOT SUBVERSION_SOURCE)
   
   ## Build package from source
+
+  set ( ENV{LDFLAGS}  "-L/sw/lib"     )
+  set ( ENV{CPPFLAGS} "-I/sw/include" )
   
   if (SUBVERSION_FROM_REPOS)
     

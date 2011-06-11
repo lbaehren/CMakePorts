@@ -18,7 +18,8 @@ cmake_policy (VERSION 2.8)
 set (EXPAT_VERSION        "2.0.1" )
 set (EXPAT_SOURCE_ARCHIVE "expat-${EXPAT_VERSION}.tar.gz" )
 set (EXPAT_URL            "http://downloads.sourceforge.net/project/expat/expat/${EXPAT_VERSION}/${EXPAT_SOURCE_ARCHIVE}" )
-set (EXPAT_SVN            "" )
+set (EXPAT_CVS_REPOSITORY "anonymous@expat.cvs.sourceforge.net:/cvsroot/expat" )
+set (EXPAT_CVS_MODULE     "" )
 
 ## ==============================================================================
 ##
@@ -75,7 +76,7 @@ if (NOT EXPAT_FOUND OR EXPAT_FORCE_BUILD)
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      SVN_REPOSITORY ${EXPAT_SVN}
+      CVS_REPOSITORY ${EXPAT_CVS_REPOSITORY}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
