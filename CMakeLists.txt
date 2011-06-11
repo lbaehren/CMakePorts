@@ -20,6 +20,8 @@ cmake_policy (VERSION 2.8)
 ##
 ## ==============================================================================
 
+option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" NO )
+
 ## ==============================================================================
 ##
 ##  System inspection
@@ -86,7 +88,9 @@ add_subdirectory (ports)
 
 ## Local clone of code repositories
 
-add_subdirectory (repositories)
+if (ENABLE_LOCAL_REPOSITORIES)
+  add_subdirectory (repositories)
+endif (ENABLE_LOCAL_REPOSITORIES)
 
 ## ==============================================================================
 ##
