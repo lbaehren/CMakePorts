@@ -1,0 +1,57 @@
+
+## -------------------------------------------------------------------
+## Language bindings
+
+set (enable-all OFF CACHE BOOL "Enable all features")
+
+## building of dynamic libraries needs to be enabled to create Python
+## bindings; otherwise the Python bindings are disabled
+set (BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries?")
+
+set (ENABLE_ada    OFF CACHE BOOL "Enable bindings for Ada?")
+set (ENABLE_f77    OFF CACHE BOOL "Enable bindings for Fortran 77?")
+set (ENABLE_f95    OFF CACHE BOOL "Enable bindings for Fortran 95?")
+set (ENABLE_gnome2 OFF CACHE BOOL "Enable bindings for GNOME2?")
+set (ENABLE_itcl   OFF CACHE BOOL "Enable bindings for [incr Tcl]?")
+set (ENABLE_itk    OFF CACHE BOOL "Enable bindings for [incr Tk]?")
+set (ENABLE_python ON  CACHE BOOL "Enable bindings for Python?")
+set (ENABLE_java   OFF CACHE BOOL "Enable bindings for Java?")
+set (ENABLE_pygcw  OFF CACHE BOOL "Enable bindings for Python.gcw?")
+set (ENABLE_octave OFF CACHE BOOL "Enable bindings for Octave?")
+set (ENABLE_tcl    OFF CACHE BOOL "Enable bindings for Tcl?")
+
+if (HAVE_NUMPY)
+  set (NUMERIC_INCLUDE_PATH ${NUMPY_INCLUDES} CACHE PATH "NumPy include directory.")
+  set (PYTHON_NUMERIC_NAME  "numpy" CACHE INTERNAL "Python numeric package")
+  set (HAVE_NUMPY TRUE CACHE BOOL "Have Python NumPy package?")
+else (HAVE_NUMPY)
+  set (HAVE_NUMPY FALSE CACHE BOOL "Have Python NumPy package?")
+endif (HAVE_NUMPY)
+
+##_______________________________________________________________________________
+## Device drivers
+
+set (ENABLE_DYNDRIVERS OFF CACHE BOOL "Enable dynamic drivers?")
+
+set (PLD_aqt       OFF CACHE BOOL "Enable driver aqt")
+set (PLD_hp7470    OFF CACHE BOOL "Enable driver hp7470")
+set (PLD_hp7580    OFF CACHE BOOL "Enable driver hp7580")
+set (PLD_lj_hpgl   OFF CACHE BOOL "Enable driver lj_hpgl")
+set (PLD_psttf     OFF CACHE BOOL "Enable driver psttf")
+set (PLD_svg       OFF CACHE BOOL "Enable driver svg")
+set (PLD_extcairo  OFF CACHE BOOL "Enable driver extcairo")
+set (PLD_memcairo  OFF CACHE BOOL "Enable driver memcairo")
+set (PLD_pdfcairo  OFF CACHE BOOL "Enable driver pdfcairo")
+set (PLD_pngcairo  OFF CACHE BOOL "Enable driver pngcairo")
+set (PLD_pscairo   OFF CACHE BOOL "Enable driver pscairo")
+set (PLD_svgcairo  OFF CACHE BOOL "Enable driver svncairo")
+set (PLD_xcairo    OFF CACHE BOOL "Enable driver xcairo")
+
+if (APPLE)
+  set (PLD_wxwidgets OFF CACHE BOOL "Enable driver wxwidgets")
+endif (APPLE)
+
+##_______________________________________________________________________________
+## Testing
+
+set (BUILD_TEST ON CACHE BOOL "Build test programs?")
