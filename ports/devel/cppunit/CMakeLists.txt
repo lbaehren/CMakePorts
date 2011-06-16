@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (CPPUNIT_VERSION        "1.10.0" )
+set (CPPUNIT_VERSION        "1.12.1" )
 set (CPPUNIT_SOURCE_ARCHIVE "cppunit-${CPPUNIT_VERSION}.tar.gz" )
 set (CPPUNIT_URL            "http://sourceforge.net/projects/cppunit/files/cppunit/${CPPUNIT_VERSION}/${CPPUNIT_SOURCE_ARCHIVE}/download" )
 set (CPPUNIT_SVN            "https://cppunit.svn.sourceforge.net/svnroot/cppunit/trunk/cppunit" )
@@ -90,7 +90,6 @@ if (NOT CPPUNIT_FOUND OR CPPUNIT_FORCE_BUILD)
       SOURCE_DIR source
       URL ${CPPUNIT_SOURCE}
       BUILD_IN_SOURCE 1
-      PATCH_COMMAND ${PROJECT_BINARY_DIR}/source/autogen.sh
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
       )
