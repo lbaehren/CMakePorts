@@ -21,6 +21,7 @@ cmake_policy (VERSION 2.8)
 ## ==============================================================================
 
 option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" NO )
+option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO )
 
 ## ==============================================================================
 ##
@@ -35,17 +36,19 @@ option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" NO )
 ##
 ## ==============================================================================
 
-set ( APR_FIND_QUIETLY      TRUE )
-set ( BLITZ_FIND_QUIETLY    TRUE )
-set ( CFITSIO_FIND_QUIETLY  TRUE )
-set ( CPPUNIT_FIND_QUIETLY  TRUE )
-set ( GIT_FIND_QUIETLY      TRUE )
-set ( GSL_FIND_QUIETLY      TRUE )
-set ( GMP_FIND_QUIETLY      TRUE )
-set ( HDF5_FIND_QUIETLY     TRUE )
-set ( PPL_FIND_QUIETLY      TRUE )
-set ( POPT_FIND_QUIETLY     TRUE )
-set ( READLINE_FIND_QUIETLY TRUE )
+if (NOT VERBOSE_CONFIGURE)
+  set ( APR_FIND_QUIETLY      TRUE )
+  set ( BLITZ_FIND_QUIETLY    TRUE )
+  set ( CFITSIO_FIND_QUIETLY  TRUE )
+  set ( CPPUNIT_FIND_QUIETLY  TRUE )
+  set ( GIT_FIND_QUIETLY      TRUE )
+  set ( GSL_FIND_QUIETLY      TRUE )
+  set ( GMP_FIND_QUIETLY      TRUE )
+  set ( HDF5_FIND_QUIETLY     TRUE )
+  set ( PPL_FIND_QUIETLY      TRUE )
+  set ( POPT_FIND_QUIETLY     TRUE )
+  set ( READLINE_FIND_QUIETLY TRUE )
+endif (NOT VERBOSE_CONFIGURE)
 
 ##____________________________________________________________________
 ##                                                       CMake modules
