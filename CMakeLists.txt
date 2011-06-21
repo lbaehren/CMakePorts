@@ -47,7 +47,10 @@ if (NOT VERBOSE_CONFIGURE)
   set ( HDF5_FIND_QUIETLY     TRUE )
   set ( PPL_FIND_QUIETLY      TRUE )
   set ( POPT_FIND_QUIETLY     TRUE )
+  set ( PTH_FIND_QUIETLY      TRUE )
   set ( READLINE_FIND_QUIETLY TRUE )
+  set ( WCSLIB_FIND_QUIETLY   TRUE )
+  set ( YASM_FIND_QUIETLY     TRUE )
 endif (NOT VERBOSE_CONFIGURE)
 
 ##____________________________________________________________________
