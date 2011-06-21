@@ -1,13 +1,21 @@
 
 ## ==============================================================================
 ##
-##  Macro definitions
+##  Search for directory with local repository clones.
 ##
 ## ==============================================================================
+
+include (FindLocalRepositories)
 
 if (NOT LOCAL_REPOSITORIES)
   set (LOCAL_REPOSITORIES ${CMAKE_CURRENT_SOURCE_DIR})
 endif (NOT LOCAL_REPOSITORIES)
+
+## ==============================================================================
+##
+##  Macro definitions.
+##
+## ==============================================================================
 
 ##____________________________________________________________________
 ## Macro for dealing with Git repositories
