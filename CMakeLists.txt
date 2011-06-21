@@ -80,11 +80,11 @@ enable_testing()
 ##____________________________________________________________________
 ##                                                    Search locations
 
-list (APPEND CMAKE_INCLUDE_PATH ${CMAKE_INSTALL_PREFIX})
-list (APPEND CMAKE_INCLUDE_PATH ${CMAKE_INSTALL_PREFIX}/include)
+list (INSERT CMAKE_INCLUDE_PATH 0 ${CMAKE_INSTALL_PREFIX})
+list (INSERT CMAKE_INCLUDE_PATH 0 ${CMAKE_INSTALL_PREFIX}/include)
 
-list (APPEND CMAKE_LIBRARY_PATH ${CMAKE_INSTALL_PREFIX})
-list (APPEND CMAKE_LIBRARY_PATH ${CMAKE_INSTALL_PREFIX}/lib)
+list (INSERT CMAKE_LIBRARY_PATH 0 ${CMAKE_INSTALL_PREFIX})
+list (INSERT CMAKE_LIBRARY_PATH 0 ${CMAKE_INSTALL_PREFIX}/lib)
 
 ##____________________________________________________________________
 ##                                                        Installation
