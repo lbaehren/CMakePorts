@@ -26,7 +26,8 @@ option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" NO )
 ##
 ##  System inspection
 ##
-## ==============================================================================
+##
+##==============================================================================
 
 ## ==============================================================================
 ##
@@ -34,12 +35,17 @@ option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" NO )
 ##
 ## ==============================================================================
 
-##____________________________________________________________________
-##                                              Required CMake modules
-
-include (ExternalProject)
-include (CTest)
-enable_testing()
+set ( APR_FIND_QUIETLY      TRUE )
+set ( BLITZ_FIND_QUIETLY    TRUE )
+set ( CFITSIO_FIND_QUIETLY  TRUE )
+set ( CPPUNIT_FIND_QUIETLY  TRUE )
+set ( GIT_FIND_QUIETLY      TRUE )
+set ( GSL_FIND_QUIETLY      TRUE )
+set ( GMP_FIND_QUIETLY      TRUE )
+set ( HDF5_FIND_QUIETLY     TRUE )
+set ( PPL_FIND_QUIETLY      TRUE )
+set ( POPT_FIND_QUIETLY     TRUE )
+set ( READLINE_FIND_QUIETLY TRUE )
 
 ##____________________________________________________________________
 ##                                                       CMake modules
@@ -57,6 +63,13 @@ if (PROJECT_CMAKE_MODULES)
     "CMake module path"
     FORCE)
 endif (PROJECT_CMAKE_MODULES)
+
+##____________________________________________________________________
+##                                              Required CMake modules
+
+include (ExternalProject)
+include (CTest)
+enable_testing()
 
 ##____________________________________________________________________
 ##                                                    Search locations
