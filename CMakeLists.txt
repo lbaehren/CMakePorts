@@ -37,6 +37,9 @@ option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  
 ## ==============================================================================
 
 if (NOT VERBOSE_CONFIGURE)
+  ## Private components
+  set ( LOCAL_REPOSITORIES_FIND_QUIETLY TRUE )
+  ## Search for ported packages
   set ( APR_FIND_QUIETLY      TRUE )
   set ( BLITZ_FIND_QUIETLY    TRUE )
   set ( CFITSIO_FIND_QUIETLY  TRUE )
