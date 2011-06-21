@@ -20,8 +20,8 @@ cmake_policy (VERSION 2.8)
 ##
 ## ==============================================================================
 
-option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" NO )
-option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO )
+option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" YES )
+option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  )
 
 ## ==============================================================================
 ##
@@ -101,15 +101,15 @@ if (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
   message (STATUS "Installation location ${CMAKE_INSTALL_PREFIX} does not exist yet.")
 endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 
-## Ports of software packages
-
-add_subdirectory (ports)
-
 ## Local clone of code repositories
 
 if (ENABLE_LOCAL_REPOSITORIES)
   add_subdirectory (repositories)
 endif (ENABLE_LOCAL_REPOSITORIES)
+
+## Ports of software packages
+
+add_subdirectory (ports)
 
 ## ==============================================================================
 ##
