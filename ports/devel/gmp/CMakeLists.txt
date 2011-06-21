@@ -104,23 +104,3 @@ else (NOT GMP_FOUND OR GMP_FORCE_BUILD)
   message (STATUS " GMP libraries = ${GMP_LIBRARIES}")
   
 endif (NOT GMP_FOUND OR GMP_FORCE_BUILD)
-
-## ==============================================================================
-##
-##  Configuration summary
-##
-## ==============================================================================
-
-message (STATUS "+------------------------------------------------------------+")
-
-message (STATUS "[GMP] Configuration summary")
-message (STATUS " GMP version            = ${GMP_VERSION}"            )
-message (STATUS " CMAKE_INSTALL_PREFIX   = ${CMAKE_INSTALL_PREFIX}"   )
-message (STATUS " CMAKE_SYSTEM_PROCESSOR = ${CMAKE_SYSTEM_PROCESSOR}" )
-message (STATUS " CMAKE_SYSTEM_NAME      = ${CMAKE_SYSTEM_NAME}"      )
-message (STATUS " CMAKE_SYSTEM_VERSION   = ${CMAKE_SYSTEM_VERSION}"   )
-message (STATUS " CMAKE_C_COMPILER       = ${CMAKE_C_COMPILER}"       )
-message (STATUS " CMAKE_CXX_COMPILER     = ${CMAKE_CXX_COMPILER}"     )
-
-message (STATUS "+------------------------------------------------------------+")
-
