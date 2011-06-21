@@ -33,7 +33,7 @@ if (NOT LOCAL_REPOSITORIES_FOUND)
   ##_____________________________________________________________________________
   ## Check for the header files
   
-  find_path (LOCAL_REPOSITORIES DAL Fluke git xGPU 
+  find_path (LOCAL_REPOSITORIES DAL/.git Fluke/.git git/.git xGPU/.git 
     HINTS ${LOCAL_REPOSITORIES_ROOT_DIR}
     PATHS 
     ${PROJECT_SOURCE_DIR}
