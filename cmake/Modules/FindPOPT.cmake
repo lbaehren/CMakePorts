@@ -1,6 +1,4 @@
 # +-----------------------------------------------------------------------------+
-# | $Id::                                                                     $ |
-# +-----------------------------------------------------------------------------+
 # |   Copyright (C) 2007                                                        |
 # |   Lars B"ahren (bahren@astron.nl)                                           |
 # |                                                                             |
@@ -23,15 +21,12 @@
 # - Check for the presence of POPT
 #
 # The following variables are set when POPT is found:
-#  POPT_FOUND       = Set to true, if all components of POPT
-#                          have been found.
+#  POPT_FOUND       = Set to true, if all components of POPT have been found.
 #  POPT_INCLUDES   = Include path for the header files of POPT
 #  POPT_LIBRARIES  = Link these to use POPT
 #  POPT_LFLAGS     = Linker flags (optional)
 
-if (NOT FIND_POPT_CMAKE)
-  
-  set (FIND_POPT_CMAKE TRUE)
+if (NOT POPT_FOUND)
   
   ##_____________________________________________________________________________
   ## Check for the header files
@@ -86,4 +81,4 @@ if (NOT FIND_POPT_CMAKE)
     POPT_LIBRARIES
     )
   
-endif (NOT FIND_POPT_CMAKE)
+endif (NOT POPT_FOUND)

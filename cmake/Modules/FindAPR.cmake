@@ -27,9 +27,7 @@
 #  APR_LIBRARIES  = Link these to use APR
 #  APR_LFLAGS     = Linker flags (optional)
 
-if (NOT FIND_APR_CMAKE)
-  
-  set (FIND_APR_CMAKE TRUE)
+if (NOT APR_FOUND)
   
   ##_____________________________________________________________________________
   ## Check for the header files
@@ -89,4 +87,4 @@ if (NOT FIND_APR_CMAKE)
     APR_LIBRARY_DIR
     )
   
-endif (NOT FIND_APR_CMAKE)
+endif (NOT APR_FOUND)
