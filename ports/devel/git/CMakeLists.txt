@@ -126,6 +126,14 @@ if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
       )
     
   endif (GIT_FROM_REPOS)
+
+  ## Post installation instructions
+  
+  # git config --global user.name "Lars Baehren"
+  # git config --global user.email lbaehren@gmail.com
+  # git config --global color.diff auto
+  # git config --global color.status auto
+  # git config --global color.branch auto
   
 else (NOT GIT_FOUND OR GIT_FORCE_BUILD)
   
