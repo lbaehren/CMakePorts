@@ -44,7 +44,7 @@ endif (TMF_ENABLE_TESTING)
 ## ==============================================================================
 
 #include (FindTMF)
-include (FindPythonLibs)
+include (FindPython)
 
 find_program (SWIG_EXECUTABLE swig
   HINTS ${SWIG_ROOT_DIR}
@@ -83,7 +83,7 @@ if (NOT TMF_FOUND OR TMF_FORCE_BUILD)
       DOWNLOAD_DIR download
       SOURCE_DIR source
       GIT_REPOSITORY ${TMF_GIT}
-      CMAKE_ARGS -DSWIG_EXECUTABLE=${SWIG_EXECUTABLE} -DPYTHON_LIBRARIES=${PYTHON_LIBRARIES}
+      CMAKE_ARGS -DSWIG_EXECUTABLE=${SWIG_EXECUTABLE} -DPYTHON_INCLUDE_PATH=${PYTHON_INCLUDES} -DPYTHON_LIBRARIES=${PYTHON_LIBRARIES}
       INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
       )
