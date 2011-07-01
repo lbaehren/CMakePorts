@@ -99,7 +99,7 @@ else (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
   
   add_custom_target (<package>
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[<PACKAGE>] Found system-wide installation; skipping rebuild!"
+    COMMENT "[<package>] Found system-wide installation; skipping rebuild!"
     )
   
 endif (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
