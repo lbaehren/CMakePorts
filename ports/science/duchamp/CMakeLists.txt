@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (DUCHAMP_VERSION        "1.1.10" )
+set (DUCHAMP_VERSION        "1.1.13" )
 set (DUCHAMP_SOURCE_ARCHIVE "Duchamp-${DUCHAMP_VERSION}.tar.gz" )
 set (DUCHAMP_URL            "http://www.atnf.csiro.au/people/Matthew.Whiting/Duchamp/downloads/${DUCHAMP_SOURCE_ARCHIVE}" )
 set (DUCHAMP_MD5            "" )
@@ -78,7 +78,7 @@ if (NOT DUCHAMP_FOUND OR DUCHAMP_FORCE_BUILD)
     SOURCE_DIR source
     URL ${DUCHAMP_SOURCE}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-cfitsio=${CMAKE_INSTALL_PREFIX} --with-wcslib=${CMAKE_INSTALL_PREFIX}
+    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-cfitsio=${CMAKE_INSTALL_PREFIX} --with-wcslib=${CMAKE_INSTALL_PREFIX} --without-pgplot
     INSTALL_COMMAND sudo make install
     )
   
