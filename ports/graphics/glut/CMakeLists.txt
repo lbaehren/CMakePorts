@@ -6,7 +6,7 @@
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (<PACKAGE>)
+project (GLUT)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -15,10 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (<PACKAGE>_VERSION        "" )
-set (<PACKAGE>_SOURCE_ARCHIVE "" )
-set (<PACKAGE>_URL            "" )
-set (<PACKAGE>_SVN            "" )
+set (GLUT_VERSION        "3.7" )
+set (GLUT_SOURCE_ARCHIVE "glut-${GLUT_VERSION}.tar.gz" )
+set (GLUT_URL            "http://www.opengl.org/resources/libraries/glut/${GLUT_SOURCE_ARCHIVE}" )
+set (GLUT_SVN            "" )
 
 ## ==============================================================================
 ##
@@ -26,16 +26,16 @@ set (<PACKAGE>_SVN            "" )
 ##
 ## ==============================================================================
 
-option (<PACKAGE>_FORCE_BUILD    "Force build and installation of package?" NO )
-option (<PACKAGE>_FROM_REPOS     "Install package from repository?"         NO )
-option (<PACKAGE>_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (GLUT_FORCE_BUILD    "Force build and installation of package?" NO )
+option (GLUT_FROM_REPOS     "Install package from repository?"         NO )
+option (GLUT_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (<PACKAGE>_ENABLE_TESTING)
+if (GLUT_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-endif (<PACKAGE>_ENABLE_TESTING)
+endif (GLUT_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -43,7 +43,7 @@ endif (<PACKAGE>_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-include (Find<PACKAGE>)
+include (FindGLUT)
 
 ## ==============================================================================
 ##
@@ -51,55 +51,55 @@ include (Find<PACKAGE>)
 ##
 ## ==============================================================================
 
-if (<PACKAGE>_FROM_REPOS)
-  set (<PACKAGE>_FORCE_BUILD TRUE)
-endif (<PACKAGE>_FROM_REPOS)
+if (GLUT_FROM_REPOS)
+  set (GLUT_FORCE_BUILD TRUE)
+endif (GLUT_FROM_REPOS)
 
-if (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+if (NOT GLUT_FOUND OR GLUT_FORCE_BUILD)
   
   ## Locate source file to build from
   
-  find_file (<PACKAGE>_SOURCE ${<PACKAGE>_SOURCE_ARCHIVE}
+  find_file (GLUT_SOURCE ${GLUT_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
   
-  if (NOT <PACKAGE>_SOURCE)
-    set (<PACKAGE>_SOURCE ${<PACKAGE>_URL})
-  endif (NOT <PACKAGE>_SOURCE)
+  if (NOT GLUT_SOURCE)
+    set (GLUT_SOURCE ${GLUT_URL})
+  endif (NOT GLUT_SOURCE)
   
   ## Build package from source
   
-  if (<PACKAGE>_FROM_REPOS)
+  if (GLUT_FROM_REPOS)
     
-    ExternalProject_Add (<package>
+    ExternalProject_Add (glut
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      SVN_REPOSITORY ${<PACKAGE>_SVN}
+      SVN_REPOSITORY ${GLUT_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
       )
   
-  else (<PACKAGE>_FROM_REPOS)
+  else (GLUT_FROM_REPOS)
     
-    ExternalProject_Add (<package>
+    ExternalProject_Add (glut
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      URL ${<PACKAGE>_SOURCE}
+      URL ${GLUT_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
       )
     
-  endif (<PACKAGE>_FROM_REPOS)
+  endif (GLUT_FROM_REPOS)
   
-else (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+else (NOT GLUT_FOUND OR GLUT_FORCE_BUILD)
   
-  add_custom_target (<package>
+  add_custom_target (glut
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[<package>] Found system-wide installation; skipping rebuild!"
+    COMMENT "[glut] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+endif (NOT GLUT_FOUND OR GLUT_FORCE_BUILD)

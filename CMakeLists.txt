@@ -20,13 +20,15 @@ cmake_policy (VERSION 2.8)
 ##
 ## ==============================================================================
 
-option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" NO )
+option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" YES )
+option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  )
 
 ## ==============================================================================
 ##
 ##  System inspection
 ##
-## ==============================================================================
+##
+##==============================================================================
 
 ## ==============================================================================
 ##
@@ -34,12 +36,31 @@ option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" NO )
 ##
 ## ==============================================================================
 
-##____________________________________________________________________
-##                                              Required CMake modules
-
-include (ExternalProject)
-include (CTest)
-enable_testing()
+if (NOT VERBOSE_CONFIGURE)
+  ## Private components
+  set ( LOCAL_REPOSITORIES_FIND_QUIETLY TRUE )
+  ## Search for ported packages
+  set ( APR_FIND_QUIETLY      TRUE )
+  set ( BLITZ_FIND_QUIETLY    TRUE )
+  set ( CFITSIO_FIND_QUIETLY  TRUE )
+  set ( CPPUNIT_FIND_QUIETLY  TRUE )
+  set ( GIT_FIND_QUIETLY      TRUE )
+  set ( GSL_FIND_QUIETLY      TRUE )
+  set ( GMP_FIND_QUIETLY      TRUE )
+  set ( HDF5_FIND_QUIETLY     TRUE )
+  set ( ICONV_FIND_QUIETLY    TRUE )
+  set ( LAPACK_FIND_QUIETLY   TRUE )
+  set ( MPC_FIND_QUIETLY      TRUE )
+  set ( MPFR_FIND_QUIETLY     TRUE )
+  set ( PPL_FIND_QUIETLY      TRUE )
+  set ( POPT_FIND_QUIETLY     TRUE )
+  set ( PTH_FIND_QUIETLY      TRUE )
+  set ( QT_FIND_QUIETLY       TRUE )
+  set ( READLINE_FIND_QUIETLY TRUE )
+  set ( SLANG_FIND_QUIETLY    TRUE )
+  set ( WCSLIB_FIND_QUIETLY   TRUE )
+  set ( YASM_FIND_QUIETLY     TRUE )
+endif (NOT VERBOSE_CONFIGURE)
 
 ##____________________________________________________________________
 ##                                                       CMake modules
@@ -57,6 +78,13 @@ if (PROJECT_CMAKE_MODULES)
     "CMake module path"
     FORCE)
 endif (PROJECT_CMAKE_MODULES)
+
+##____________________________________________________________________
+##                                              Required CMake modules
+
+include (ExternalProject)
+include (CTest)
+enable_testing()
 
 ##____________________________________________________________________
 ##                                                    Search locations
@@ -82,15 +110,15 @@ if (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
   message (STATUS "Installation location ${CMAKE_INSTALL_PREFIX} does not exist yet.")
 endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 
-## Ports of software packages
-
-add_subdirectory (ports)
-
 ## Local clone of code repositories
 
 if (ENABLE_LOCAL_REPOSITORIES)
   add_subdirectory (repositories)
 endif (ENABLE_LOCAL_REPOSITORIES)
+
+## Ports of software packages
+
+add_subdirectory (ports)
 
 ## ==============================================================================
 ##
@@ -100,12 +128,13 @@ endif (ENABLE_LOCAL_REPOSITORIES)
 
 message (STATUS "+------------------------------------------------------------+")
 
-message (STATUS "CMAKE_SYSTEM             = ${CMAKE_SYSTEM}"             )
-message (STATUS "CMAKE_SYSTEM_NAME        = ${CMAKE_SYSTEM_NAME}"        )
-message (STATUS "CMAKE_SYSTEM_PROCESSOR   = ${CMAKE_SYSTEM_PROCESSOR}"   )
-message (STATUS "CMAKE_SYSTEM_VERSION     = ${CMAKE_SYSTEM_VERSION}"     )
-message (STATUS "CMAKE_MODULE_PATH        = ${CMAKE_MODULE_PATH}"        )
-message (STATUS "PROJECT_CMAKE_MODULES    = ${PROJECT_CMAKE_MODULES}"    )
-message (STATUS "LOCAL_REPOSITORIES_FOUND = ${LOCAL_REPOSITORIES_FOUND}" )
+message (STATUS "[CMakePorts] Configuration summary:")
+message (STATUS " CMAKE_SYSTEM            = ${CMAKE_SYSTEM}"             )
+message (STATUS " CMAKE_SYSTEM_NAME       = ${CMAKE_SYSTEM_NAME}"        )
+message (STATUS " CMAKE_SYSTEM_PROCESSOR  = ${CMAKE_SYSTEM_PROCESSOR}"   )
+message (STATUS " CMAKE_SYSTEM_VERSION    = ${CMAKE_SYSTEM_VERSION}"     )
+message (STATUS " CMAKE_MODULE_PATH       = ${CMAKE_MODULE_PATH}"        )
+message (STATUS " PROJECT_CMAKE_MODULES   = ${PROJECT_CMAKE_MODULES}"    )
+message (STATUS " LOCAL_REPOSITORIES      = ${LOCAL_REPOSITORIES}"       )
 
 message (STATUS "+------------------------------------------------------------+")

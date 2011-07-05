@@ -1,12 +1,16 @@
 
 ## ==============================================================================
 ##
-##  CMake project settings
+##  CMake project settings & description
+##
+##  log4cplus is a simple to use C++ logging API providing thread-safe, flexible,
+##  and arbitrarily granular control over log management and configuration. It is
+##  modelled after the Java log4j API.
 ##
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (<PACKAGE>)
+project (LOG4CPLUS)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -15,10 +19,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (<PACKAGE>_VERSION        "" )
-set (<PACKAGE>_SOURCE_ARCHIVE "" )
-set (<PACKAGE>_URL            "" )
-set (<PACKAGE>_SVN            "" )
+set (LOG4CPLUS_VERSION        "1.0.4" )
+set (LOG4CPLUS_SOURCE_ARCHIVE "log4cplus-${LOG4CPLUS_VERSION}.tar.bz2" )
+set (LOG4CPLUS_URL            "http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/${LOG4CPLUS_VERSION}/${LOG4CPLUS_SOURCE_ARCHIVE}" )
+set (LOG4CPLUS_SVN            "https://log4cplus.svn.sourceforge.net/svnroot/log4cplus" )
 
 ## ==============================================================================
 ##
@@ -26,16 +30,16 @@ set (<PACKAGE>_SVN            "" )
 ##
 ## ==============================================================================
 
-option (<PACKAGE>_FORCE_BUILD    "Force build and installation of package?" NO )
-option (<PACKAGE>_FROM_REPOS     "Install package from repository?"         NO )
-option (<PACKAGE>_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (LOG4CPLUS_FORCE_BUILD    "Force build and installation of package?" NO )
+option (LOG4CPLUS_FROM_REPOS     "Install package from repository?"         NO )
+option (LOG4CPLUS_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (<PACKAGE>_ENABLE_TESTING)
+if (LOG4CPLUS_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-endif (<PACKAGE>_ENABLE_TESTING)
+endif (LOG4CPLUS_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -43,7 +47,7 @@ endif (<PACKAGE>_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-include (Find<PACKAGE>)
+#include (FindLOG4CPLUS)
 
 ## ==============================================================================
 ##
@@ -51,55 +55,55 @@ include (Find<PACKAGE>)
 ##
 ## ==============================================================================
 
-if (<PACKAGE>_FROM_REPOS)
-  set (<PACKAGE>_FORCE_BUILD TRUE)
-endif (<PACKAGE>_FROM_REPOS)
+if (LOG4CPLUS_FROM_REPOS)
+  set (LOG4CPLUS_FORCE_BUILD TRUE)
+endif (LOG4CPLUS_FROM_REPOS)
 
-if (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+if (NOT LOG4CPLUS_FOUND OR LOG4CPLUS_FORCE_BUILD)
   
   ## Locate source file to build from
   
-  find_file (<PACKAGE>_SOURCE ${<PACKAGE>_SOURCE_ARCHIVE}
+  find_file (LOG4CPLUS_SOURCE ${LOG4CPLUS_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
   
-  if (NOT <PACKAGE>_SOURCE)
-    set (<PACKAGE>_SOURCE ${<PACKAGE>_URL})
-  endif (NOT <PACKAGE>_SOURCE)
+  if (NOT LOG4CPLUS_SOURCE)
+    set (LOG4CPLUS_SOURCE ${LOG4CPLUS_URL})
+  endif (NOT LOG4CPLUS_SOURCE)
   
   ## Build package from source
   
-  if (<PACKAGE>_FROM_REPOS)
+  if (LOG4CPLUS_FROM_REPOS)
     
-    ExternalProject_Add (<package>
+    ExternalProject_Add (log4cplus
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      SVN_REPOSITORY ${<PACKAGE>_SVN}
+      SVN_REPOSITORY ${LOG4CPLUS_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
       )
   
-  else (<PACKAGE>_FROM_REPOS)
+  else (LOG4CPLUS_FROM_REPOS)
     
-    ExternalProject_Add (<package>
+    ExternalProject_Add (log4cplus
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      URL ${<PACKAGE>_SOURCE}
+      URL ${LOG4CPLUS_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
       )
     
-  endif (<PACKAGE>_FROM_REPOS)
+  endif (LOG4CPLUS_FROM_REPOS)
   
-else (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+else (NOT LOG4CPLUS_FOUND OR LOG4CPLUS_FORCE_BUILD)
   
-  add_custom_target (<package>
+  add_custom_target (log4cplus
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[<package>] Found system-wide installation; skipping rebuild!"
+    COMMENT "[log4cplus] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+endif (NOT LOG4CPLUS_FOUND OR LOG4CPLUS_FORCE_BUILD)

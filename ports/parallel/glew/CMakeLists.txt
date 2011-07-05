@@ -6,7 +6,7 @@
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (<PACKAGE>)
+project (GLEW)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -15,10 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (<PACKAGE>_VERSION        "" )
-set (<PACKAGE>_SOURCE_ARCHIVE "" )
-set (<PACKAGE>_URL            "" )
-set (<PACKAGE>_SVN            "" )
+set (GLEW_VERSION        "1.6.0" )
+set (GLEW_SOURCE_ARCHIVE "glew-${GLEW_VERSION}.tgz" )
+set (GLEW_URL            "http://downloads.sourceforge.net/project/glew/glew/${GLEW_VERSION}/${GLEW_SOURCE_ARCHIVE}" )
+set (GLEW_GIT            "git://glew.git.sourceforge.net/gitroot/glew/glew" )
 
 ## ==============================================================================
 ##
@@ -26,16 +26,16 @@ set (<PACKAGE>_SVN            "" )
 ##
 ## ==============================================================================
 
-option (<PACKAGE>_FORCE_BUILD    "Force build and installation of package?" NO )
-option (<PACKAGE>_FROM_REPOS     "Install package from repository?"         NO )
-option (<PACKAGE>_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (GLEW_FORCE_BUILD    "Force build and installation of package?" NO )
+option (GLEW_FROM_REPOS     "Install package from repository?"         NO )
+option (GLEW_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (<PACKAGE>_ENABLE_TESTING)
+if (GLEW_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-endif (<PACKAGE>_ENABLE_TESTING)
+endif (GLEW_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -43,7 +43,7 @@ endif (<PACKAGE>_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-include (Find<PACKAGE>)
+include (FindGLEW)
 
 ## ==============================================================================
 ##
@@ -51,55 +51,55 @@ include (Find<PACKAGE>)
 ##
 ## ==============================================================================
 
-if (<PACKAGE>_FROM_REPOS)
-  set (<PACKAGE>_FORCE_BUILD TRUE)
-endif (<PACKAGE>_FROM_REPOS)
+if (GLEW_FROM_REPOS)
+  set (GLEW_FORCE_BUILD TRUE)
+endif (GLEW_FROM_REPOS)
 
-if (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+if (NOT GLEW_FOUND OR GLEW_FORCE_BUILD)
   
   ## Locate source file to build from
   
-  find_file (<PACKAGE>_SOURCE ${<PACKAGE>_SOURCE_ARCHIVE}
+  find_file (GLEW_SOURCE ${GLEW_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
   
-  if (NOT <PACKAGE>_SOURCE)
-    set (<PACKAGE>_SOURCE ${<PACKAGE>_URL})
-  endif (NOT <PACKAGE>_SOURCE)
+  if (NOT GLEW_SOURCE)
+    set (GLEW_SOURCE ${GLEW_URL})
+  endif (NOT GLEW_SOURCE)
   
   ## Build package from source
   
-  if (<PACKAGE>_FROM_REPOS)
+  if (GLEW_FROM_REPOS)
     
-    ExternalProject_Add (<package>
+    ExternalProject_Add (glew
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      SVN_REPOSITORY ${<PACKAGE>_SVN}
+      GIT_REPOSITORY ${GLEW_GIT}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
       )
   
-  else (<PACKAGE>_FROM_REPOS)
+  else (GLEW_FROM_REPOS)
     
-    ExternalProject_Add (<package>
+    ExternalProject_Add (glew
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      URL ${<PACKAGE>_SOURCE}
+      URL ${GLEW_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
       )
     
-  endif (<PACKAGE>_FROM_REPOS)
+  endif (GLEW_FROM_REPOS)
   
-else (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+else (NOT GLEW_FOUND OR GLEW_FORCE_BUILD)
   
-  add_custom_target (<package>
+  add_custom_target (glew
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[<package>] Found system-wide installation; skipping rebuild!"
+    COMMENT "[glew] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+endif (NOT GLEW_FOUND OR GLEW_FORCE_BUILD)

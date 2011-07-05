@@ -108,6 +108,7 @@ if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
       SOURCE_DIR source
       GIT_REPOSITORY ${GIT_GIT}
       BUILD_IN_SOURCE 1
+      PATCH_COMMAND ${PROJECT_BINARY_DIR}/source/make configure
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX} #--with-iconv=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND sudo make install
       )
@@ -125,6 +126,14 @@ if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
       )
     
   endif (GIT_FROM_REPOS)
+
+  ## Post installation instructions
+  
+  # git config --global user.name "Lars Baehren"
+  # git config --global user.email lbaehren@gmail.com
+  # git config --global color.diff auto
+  # git config --global color.status auto
+  # git config --global color.branch auto
   
 else (NOT GIT_FOUND OR GIT_FORCE_BUILD)
   

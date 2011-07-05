@@ -198,19 +198,23 @@ endif (NOT H5CHECK_EXECUTABLE)
 ##
 ## ==============================================================================
 
-message ("")
-message (STATUS "+------------------------------------------------------------+")
+if (VERBOSE_CONFIGURE)
 
-message (STATUS "[HDF5] Configuration summary.")
-message (STATUS "CMake installation area                 = ${CMAKE_INSTALL_PREFIX}" )
-message (STATUS "Force build and installation of package = ${HDF5_FORCE_BUILD}"     )
-message (STATUS "Build HDF5 using CMake (else Autotools) = ${HDF5_ENABLE_CMAKE}"    )
-message (STATUS "Enable parallel build (requires MPI)    = ${HDF5_ENABLE_PARALLEL}" )
-message (STATUS "Build HDF5 Unit Testing                 = ${HDF5_BUILD_TESTING}"   )
-message (STATUS "Build HDF5 Library Examples             = ${HDF5_BUILD_EXAMPLES}"  )
-message (STATUS "Build HDF5 C++ Library                  = ${HDF5_BUILD_CPP_LIB}"   )
-message (STATUS "Build HDF5 Tools                        = ${HDF5_BUILD_TOOLS}"     )
-message (STATUS "Build HIGH Level HDF5 Library           = ${HDF5_BUILD_HL_LIB}"    )
-
-message (STATUS "+------------------------------------------------------------+")
-message ("")
+  message ("")
+  message (STATUS "+------------------------------------------------------------+")
+  
+  message (STATUS "[HDF5] Configuration summary.")
+  message (STATUS "CMake installation area                 = ${CMAKE_INSTALL_PREFIX}" )
+  message (STATUS "Force build and installation of package = ${HDF5_FORCE_BUILD}"     )
+  message (STATUS "Build HDF5 using CMake (else Autotools) = ${HDF5_ENABLE_CMAKE}"    )
+  message (STATUS "Enable parallel build (requires MPI)    = ${HDF5_ENABLE_PARALLEL}" )
+  message (STATUS "Build HDF5 Unit Testing                 = ${HDF5_BUILD_TESTING}"   )
+  message (STATUS "Build HDF5 Library Examples             = ${HDF5_BUILD_EXAMPLES}"  )
+  message (STATUS "Build HDF5 C++ Library                  = ${HDF5_BUILD_CPP_LIB}"   )
+  message (STATUS "Build HDF5 Tools                        = ${HDF5_BUILD_TOOLS}"     )
+  message (STATUS "Build HIGH Level HDF5 Library           = ${HDF5_BUILD_HL_LIB}"    )
+  
+  message (STATUS "+------------------------------------------------------------+")
+  message ("")
+  
+endif (VERBOSE_CONFIGURE)

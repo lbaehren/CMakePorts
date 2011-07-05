@@ -1,6 +1,4 @@
 # +-----------------------------------------------------------------------------+
-# | $Id::                                                                     $ |
-# +-----------------------------------------------------------------------------+
 # |   Copyright (C) 2007                                                        |
 # |   Lars B"ahren (bahren@astron.nl)                                           |
 # |                                                                             |
@@ -27,10 +25,8 @@
 #  GIT_EXECUTABLE  = Path to the Git executable
 #  GIT_VERSION     = Full version string
 
-if (NOT FIND_GIT_CMAKE)
+if (NOT GIT_FOUND)
   
-  set (FIND_GIT_CMAKE TRUE)
-
   ## Find executable
   
   find_program (GIT_EXECUTABLE git
@@ -118,4 +114,4 @@ if (NOT FIND_GIT_CMAKE)
     GIT_VERSION_PATCH
     )
   
-endif (NOT FIND_GIT_CMAKE)
+endif (NOT GIT_FOUND)

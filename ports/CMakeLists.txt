@@ -87,6 +87,8 @@ add_dependencies (serf apr apr-util openssl)
 ##____________________________________________________________________
 ##                                            Collective build targets
 
+## ___ Daily updates/builds ______________________
+
 add_custom_target (Daily ALL
   WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
 )
@@ -95,7 +97,19 @@ add_dependencies (Daily
   cmake
   doxygen
   mplayer
-  llvm
   root
   casacore
+  )
+
+## ___ Weekly updates/builds _____________________
+
+add_custom_target (Weekly ALL
+  WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+)
+
+add_dependencies (Weekly
+  llvm
+  paraview
+  cloudy
+  mplayer
   )

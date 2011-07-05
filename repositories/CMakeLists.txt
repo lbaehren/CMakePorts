@@ -1,22 +1,19 @@
 
 ## ==============================================================================
 ##
-##  CMake project settings
+##  Search for directory with local repository clones.
 ##
 ## ==============================================================================
 
-## Name of the project handled by CMake
-project (Repositories)
+include (FindLocalRepositories)
 
-## Minimum required version of CMake to configure the project
-cmake_minimum_required (VERSION 2.8)
-
-## Enforced CMake policy 
-cmake_policy (VERSION 2.8)
+if (NOT LOCAL_REPOSITORIES)
+  set (LOCAL_REPOSITORIES ${CMAKE_CURRENT_SOURCE_DIR})
+endif (NOT LOCAL_REPOSITORIES)
 
 ## ==============================================================================
 ##
-##  Macro definitions
+##  Macro definitions.
 ##
 ## ==============================================================================
 
@@ -31,23 +28,23 @@ macro (add_git_repository _projectRepos)
   ## Check if we already have a clone of the repository;
   ## if yes then update the local version.
   
-  if (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+  if (EXISTS ${LOCAL_REPOSITORIES}/${_projectName})
     
     add_custom_target(update_${_projectName} ALL
       COMMAND git fetch
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/${_projectName}
+      WORKING_DIRECTORY ${LOCAL_REPOSITORIES}/${_projectName}
       COMMENT "Updating clone of repository ${_projectName} ..."
       )
     
-  else (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+  else (EXISTS ${LOCAL_REPOSITORIES}/${_projectName})
     
     add_custom_target(clone_${_projectName} ALL
       COMMAND git clone --bare ${_projectRepos} ${_projectName}
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+      WORKING_DIRECTORY ${LOCAL_REPOSITORIES}
       COMMENT "Cloning repository ${_projectName} ..."
       )
     
-  endif (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+  endif (EXISTS ${LOCAL_REPOSITORIES}/${_projectName})
   
 
 endmacro (add_git_repository)
@@ -57,23 +54,23 @@ endmacro (add_git_repository)
 
 macro (add_svn_repository _projectName _projectRepos)
 
-  if (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+  if (EXISTS ${LOCAL_REPOSITORIES}/${_projectName})
 
     add_custom_target(update_${_projectName} ALL
       COMMAND git svn rebase
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/${_projectName}
+      WORKING_DIRECTORY ${LOCAL_REPOSITORIES}/${_projectName}
       COMMENT "Updating clone of repository ${_projectName} ..."
       )
 
-  else (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+  else (EXISTS ${LOCAL_REPOSITORIES}/${_projectName})
 
     add_custom_target(clone_${_projectName} ALL
       COMMAND git svn clone ${_projectRepos} ${_projectName}
-      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+      WORKING_DIRECTORY ${LOCAL_REPOSITORIES}
       COMMENT "Cloning repository ${_projectName} ..."
       )
 
-  endif (EXISTS ${PROJECT_SOURCE_DIR}/${_projectName})
+  endif (EXISTS ${LOCAL_REPOSITORIES}/${_projectName})
 
 endmacro (add_svn_repository)
 

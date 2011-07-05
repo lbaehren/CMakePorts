@@ -1,8 +1,6 @@
 # +-----------------------------------------------------------------------------+
-# | $Id::                                                                     $ |
-# +-----------------------------------------------------------------------------+
 # |   Copyright (C) 2011                                                        |
-# |   Lars B"ahren (bahren@astron.nl)                                           |
+# |   Lars B"ahren (lbaehren@gmail.com)                                         |
 # |                                                                             |
 # |   This program is free software; you can redistribute it and/or modify      |
 # |   it under the terms of the GNU General Public License as published by      |
@@ -129,7 +127,7 @@ if (NOT HDF5_FOUND)
     ## Locate test program
     find_file (HAVE_TestHDF5LibraryVersion TestHDF5LibraryVersion.cc
       PATHS ${PROJECT_SOURCE_DIR}
-      PATH_SUFFIXES cmake Modules
+      PATH_SUFFIXES cmake Modules cmake/Modules
       )
     ## Test for library version
     if (HAVE_TestHDF5LibraryVersion)
