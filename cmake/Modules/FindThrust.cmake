@@ -40,6 +40,49 @@ if (NOT THRUST_FOUND)
     )
 
   ##_____________________________________________________________________________
+  ## Extract version number
+
+  if (THRUST_INCLUDES)
+
+    ## Locate test program
+    find_file (HAVE_TestThrustVersion TestThrustVersion.cc
+      PATHS ${PROJECT_SOURCE_DIR}
+      PATH_SUFFIXES cmake Modules cmake/Modules
+      )
+
+    if (HAVE_TestThrustVersion)
+
+      ## Build and run the test program
+      try_run (THRUST_VERSION_RUN_RESULT THRUST_VERSION_COMPILE_RESULT
+	${PROJECT_BINARY_DIR}
+	${HAVE_TestThrustVersion}
+	COMPILE_DEFINITIONS -I${THRUST_INCLUDES}
+	RUN_OUTPUT_VARIABLE THRUST_VERSION_OUTPUT
+	)
+      
+      ## Evaluate test results
+      if (THRUST_VERSION_COMPILE_RESULT)
+	if (THRUST_VERSION_RUN_RESULT)
+	  ## Extract major version
+	  string(REGEX REPLACE "THRUST_MAJOR_VERSION ([0-9]+).*" "\\1" THRUST_MAJOR_VERSION ${THRUST_VERSION_OUTPUT})
+	  ## Extract minor version
+	  string(REGEX REPLACE ".*THRUST_MINOR_VERSION ([0-9]+).*" "\\1" THRUST_MINOR_VERSION ${THRUST_VERSION_OUTPUT})
+	  ## Extract release version
+	  string(REGEX REPLACE ".*THRUST_SUBMINOR_VERSION ([0-9]+).*" "\\1" THRUST_SUBMINOR_VERSION ${THRUST_VERSION_OUTPUT})
+	  ## Assemble full version string
+	  set (THRUST_VERSION "${THRUST_MAJOR_VERSION}.${THRUST_MINOR_VERSION}.${THRUST_SUBMINOR_VERSION}")
+	else (THRUST_VERSION_RUN_RESULT)
+	  message (STATUS "[Thrust] Failed to run TestThrustVersion!")
+	endif (THRUST_VERSION_RUN_RESULT)
+      else (THRUST_VERSION_COMPILE_RESULT)
+	  message (STATUS "[Thrust] Failed to compile TestThrustVersion!")
+      endif (THRUST_VERSION_COMPILE_RESULT)
+      
+    endif (HAVE_TestThrustVersion)
+
+  endif (THRUST_INCLUDES)
+  
+  ##_____________________________________________________________________________
   ## Actions taken when all components have been found
   
   if (THRUST_INCLUDES)
@@ -56,8 +99,9 @@ if (NOT THRUST_FOUND)
   if (THRUST_FOUND)
     if (NOT THRUST_FIND_QUIETLY)
       message (STATUS "Found components for THRUST")
-      message (STATUS "THRUST_ROOT_DIR  = ${THRUST_ROOT_DIR}")
-      message (STATUS "THRUST_INCLUDES  = ${THRUST_INCLUDES}")
+      message (STATUS "THRUST_ROOT_DIR   = ${THRUST_ROOT_DIR}")
+      message (STATUS "THRUST_INCLUDES   = ${THRUST_INCLUDES}")
+      message (STATUS "THRUST_VERSION    = ${THRUST_VERSION}")
     endif (NOT THRUST_FIND_QUIETLY)
   else (THRUST_FOUND)
     if (THRUST_FIND_REQUIRED)
@@ -70,6 +114,9 @@ if (NOT THRUST_FOUND)
   
   mark_as_advanced (
     THRUST_INCLUDES
+    THRUST_MAJOR_VERSION
+    THRUST_MINOR_VERSION
+    THRUST_SUBMINOR_VERSION
     )
   
 endif (NOT THRUST_FOUND)
