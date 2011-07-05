@@ -80,6 +80,7 @@ endmacro (add_svn_repository)
 ##
 ## ==============================================================================
 
+add_git_repository (git@github.com:lbaehren/CMakePorts.git)
 add_git_repository (git://github.com/nextgen-astrodata/DAL.git)
 add_git_repository (git://cmake.org/cmake.git)
 add_git_repository (git://git.kernel.org/pub/scm/git/git.git)
@@ -91,6 +92,11 @@ add_git_repository (https://github.com/pelican/pelican-astro.git)
 add_git_repository (https://github.com/pschella/tmf.git)
 add_git_repository (https://github.com/numpy/numpy.git)
 add_git_repository (https://github.com/scipy/scipy.git)
+add_git_repository (git://github.com/mikeaclark/xGPU.git)
+add_git_repository (git://orgmode.org/org-mode.git)
+add_git_repository (git://github.com/lessju/MDSM.git)
+add_git_repository (git://glew.git.sourceforge.net/gitroot/glew/glew)
+add_git_repository (https://github.com/ispc/ispc.git)
 
 ## ==============================================================================
 ##
@@ -103,6 +109,9 @@ add_svn_repository (usg_code      http://usg.lofar.org/svn/code/trunk         )
 add_svn_repository (tkp_code      http://svn.transientskp.org/code            )
 add_svn_repository (tkp_docs      http://svn.transientskp.org/docs            )
 add_svn_repository (casacore      http://casacore.googlecode.com/svn/trunk    )
+add_svn_repository (casa          https://svn.cv.nrao.edu/svn/casa/release/current/code)
 add_svn_repository (Fluke         http://flukeformac.googlecode.com/svn/trunk )
 add_svn_repository (root          http://root.cern.ch/svn/root/trunk          )
 add_svn_repository (serf          http://serf.googlecode.com/svn/trunk        )
+add_svn_repository (field3d       http://field3d.googlecode.com/svn/trunk     )
+add_svn_repository (cudpp         http://cudpp.googlecode.com/svn/trunk       )
