@@ -80,7 +80,7 @@ endmacro (add_svn_repository)
 ##
 ## ==============================================================================
 
-add_git_repository (git@github.com:lbaehren/CMakePorts.git)
+add_git_repository (git://github.com/lbaehren/CMakePorts.git)
 add_git_repository (git://github.com/nextgen-astrodata/DAL.git)
 add_git_repository (git://cmake.org/cmake.git)
 add_git_repository (git://git.kernel.org/pub/scm/git/git.git)
@@ -115,3 +115,4 @@ add_svn_repository (root          http://root.cern.ch/svn/root/trunk          )
 add_svn_repository (serf          http://serf.googlecode.com/svn/trunk        )
 add_svn_repository (field3d       http://field3d.googlecode.com/svn/trunk     )
 add_svn_repository (cudpp         http://cudpp.googlecode.com/svn/trunk       )
+add_svn_repository (hwloc         http://svn.open-mpi.org/svn/hwloc/trunk     )
