@@ -20,8 +20,18 @@ cmake_policy (VERSION 2.8)
 ##
 ## ==============================================================================
 
+option (ENABLE_SUDO_INSTALL       "Use sudo when installing package?"       NO  )
 option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" YES )
 option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  )
+
+##__________________________________________________________
+## Handle option: Use sudo when installing package?
+
+if (ENABLE_SUDO_INSTALL)
+  set (PORT_INSTALL_COMMAND "sudo make install")
+else (ENABLE_SUDO_INSTALL)
+  set (PORT_INSTALL_COMMAND "make install")
+endif (ENABLE_SUDO_INSTALL)
 
 ## ==============================================================================
 ##
@@ -29,6 +39,12 @@ option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  
 ##
 ##
 ##==============================================================================
+
+find_program (HOSTNAME_CMD NAMES hostname)
+
+if (HOSTNAME_CMD)
+  exec_program (${HOSTNAME_CMD} ARGS OUTPUT_VARIABLE CMAKE_SYSTEM_HOSTNAME)
+endif (HOSTNAME_CMD)
 
 ## ==============================================================================
 ##
@@ -102,13 +118,15 @@ list (INSERT CMAKE_LIBRARY_PATH 0 ${CMAKE_INSTALL_PREFIX}/lib)
 ##____________________________________________________________________
 ##                                                        Installation
 
-if (UNIX)
-  if (APPLE)
-    set (CMAKE_INSTALL_PREFIX "/sw" CACHE PATH "Installation prefix" FORCE)
-  else (APPLE)
-    set (CMAKE_INSTALL_PREFIX "/opt" CACHE PATH "Installation prefix" FORCE)
-  endif (APPLE)
-endif (UNIX)
+if (NOT CMAKE_INSTALL_PREFIX)
+  if (UNIX)
+    if (APPLE)
+      set (CMAKE_INSTALL_PREFIX "/sw" CACHE PATH "Installation prefix" FORCE)
+    else (APPLE)
+      set (CMAKE_INSTALL_PREFIX "/opt" CACHE PATH "Installation prefix" FORCE)
+    endif (APPLE)
+  endif (UNIX)
+endif (NOT CMAKE_INSTALL_PREFIX)
 
 if (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
   message (STATUS "Installation location ${CMAKE_INSTALL_PREFIX} does not exist yet.")
@@ -130,15 +148,23 @@ add_subdirectory (ports)
 ##
 ## ==============================================================================
 
-message (STATUS "+------------------------------------------------------------+")
+message (STATUS "==============================================================" )
+message (STATUS "[CMakePorts] Configuration summary:"                            )
+message (STATUS "+------------------------------------------------------------+" )
 
-message (STATUS "[CMakePorts] Configuration summary:")
-message (STATUS " CMAKE_SYSTEM            = ${CMAKE_SYSTEM}"             )
-message (STATUS " CMAKE_SYSTEM_NAME       = ${CMAKE_SYSTEM_NAME}"        )
-message (STATUS " CMAKE_SYSTEM_PROCESSOR  = ${CMAKE_SYSTEM_PROCESSOR}"   )
-message (STATUS " CMAKE_SYSTEM_VERSION    = ${CMAKE_SYSTEM_VERSION}"     )
-message (STATUS " CMAKE_MODULE_PATH       = ${CMAKE_MODULE_PATH}"        )
-message (STATUS " PROJECT_CMAKE_MODULES   = ${PROJECT_CMAKE_MODULES}"    )
-message (STATUS " LOCAL_REPOSITORIES      = ${LOCAL_REPOSITORIES}"       )
+message (STATUS " System configuration:"                                         )
+message (STATUS " .. Hostname                     = ${CMAKE_SYSTEM_HOSTNAME}"    )
+message (STATUS " .. Processor type               = ${CMAKE_SYSTEM_PROCESSOR}"   )
+message (STATUS " .. System name                  = ${CMAKE_SYSTEM}"             )
+message (STATUS " .. C++ compiler                 = ${CMAKE_CXX_COMPILER}"       )
+message (STATUS " .. C compiler                   = ${CMAKE_C_COMPILER}"         )
+message (STATUS " CMake configuration:"                                          )
+message (STATUS " .. CMake executable             = ${CMAKE_COMMAND}"            )
+message (STATUS " .. CMake version                = ${CMAKE_VERSION}"            )
+message (STATUS " .. Module path                  = ${CMAKE_MODULE_PATH}"        )
+message (STATUS " .. Installation prefix          = ${CMAKE_INSTALL_PREFIX}"     )
+message (STATUS " .. Installation command         = ${PORT_INSTALL_COMMAND}"     )
+message (STATUS " Project configuration:"                                        )
+message (STATUS " .. Local repository clones      = ${LOCAL_REPOSITORIES}"       )
 
 message (STATUS "+------------------------------------------------------------+")
