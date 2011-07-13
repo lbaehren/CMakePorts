@@ -17,7 +17,7 @@ cmake_policy (VERSION 2.8)
 ##  Package information
 set (CPPUNIT_VERSION        "1.12.1" )
 set (CPPUNIT_SOURCE_ARCHIVE "cppunit-${CPPUNIT_VERSION}.tar.gz" )
-set (CPPUNIT_URL            "http://sourceforge.net/projects/cppunit/files/cppunit/${CPPUNIT_VERSION}/${CPPUNIT_SOURCE_ARCHIVE}/download" )
+set (CPPUNIT_URL            "http://sourceforge.net/projects/cppunit/files/cppunit/${CPPUNIT_VERSION}/${CPPUNIT_SOURCE_ARCHIVE}" )
 set (CPPUNIT_SVN            "https://cppunit.svn.sourceforge.net/svnroot/cppunit/trunk/cppunit" )
 
 ## ==============================================================================
@@ -26,8 +26,8 @@ set (CPPUNIT_SVN            "https://cppunit.svn.sourceforge.net/svnroot/cppunit
 ##
 ## ==============================================================================
 
-option (CPPUNIT_FORCE_BUILD    "Force build and installation of package?" NO )
-option (CPPUNIT_FROM_REPOS     "Install package from repository?"         NO )
+option (CPPUNIT_FORCE_BUILD    "Force build and installation of package?" NO  )
+option (CPPUNIT_FROM_REPOS     "Install package from repository?"         YES )
 option (CPPUNIT_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
