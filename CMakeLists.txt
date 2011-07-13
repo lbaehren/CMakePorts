@@ -31,7 +31,6 @@ option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  
 ##==============================================================================
 
 find_program (HOSTNAME_COMMAND NAMES hostname )
-find_program (SUDO_COMMAND     NAMES sudo     )
 
 if (HOSTNAME_COMMAND)
   exec_program (${HOSTNAME_COMMAND} ARGS OUTPUT_VARIABLE CMAKE_SYSTEM_HOSTNAME)
@@ -40,13 +39,11 @@ endif (HOSTNAME_COMMAND)
 ##__________________________________________________________
 ## Handle option: Use sudo when installing package?
 
-if (ENABLE_SUDO_INSTALL AND SUDO_COMMAND)
-  
-else (ENABLE_SUDO_INSTALL AND SUDO_COMMAND)
+if (ENABLE_SUDO_INSTALL)
   set ( PORT_INSTALL_COMMAND sudo )
-else (ENABLE_SUDO_INSTALL AND SUDO_COMMAND)
+else (ENABLE_SUDO_INSTALL)
   set ( PORT_INSTALL_COMMAND "" )
-endif (ENABLE_SUDO_INSTALL AND SUDO_COMMAND)
+endif (ENABLE_SUDO_INSTALL)
 
 ## ==============================================================================
 ##
