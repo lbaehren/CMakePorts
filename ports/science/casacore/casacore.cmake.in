@@ -5,6 +5,10 @@ set (CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}   CACHE PATH "Installation loc
 set (BUILD_TESTING        ${CASACORE_BUILD_TESTING} CACHE BOOL "Build test programs?"  )
 set (ENABLE_SHARED        ${CASACORE_ENABLE_SHARED} CACHE BOOL "Build shared libraries")
 
+## Measures data
+
+set (DATA_DIR             ${CASACORE_DATADIR}       CACHE PATH "Measures data tables"  )
+
 ## FFTW3 library
 
 set (USE_FFTW3          ${FFTW3_FOUND}          CACHE BOOL   "FFTW3 library support?" )

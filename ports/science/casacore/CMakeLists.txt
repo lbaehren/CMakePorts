@@ -49,6 +49,14 @@ if (GFORTRAN_LIBRARY)
 endif (GFORTRAN_LIBRARY)
 
 ##__________________________________________________________
+## Check for measures data
+
+find_path (CASACORE_DATADIR ephemerides geodetic
+  PATHS /sw /usr /usr/local /opt /opt/local ${CMAKE_INSTALL_PREFIX}
+  PATH_SUFFIXES share/casacore share/casacore/data
+  )
+
+##__________________________________________________________
 ## Handle option: HDF5 library support
 
 if (CASACORE_WITH_HDF5)
