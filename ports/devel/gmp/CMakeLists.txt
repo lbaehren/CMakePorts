@@ -90,7 +90,7 @@ if (NOT GMP_FOUND OR GMP_FORCE_BUILD)
     URL ${GMP_SOURCE}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-cxx ${enable_mpbsd} ${enable_fft}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   
 else (NOT GMP_FOUND OR GMP_FORCE_BUILD)

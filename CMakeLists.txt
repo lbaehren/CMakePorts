@@ -24,27 +24,29 @@ option (ENABLE_SUDO_INSTALL       "Use sudo when installing package?"       NO  
 option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" YES )
 option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  )
 
-##__________________________________________________________
-## Handle option: Use sudo when installing package?
-
-if (ENABLE_SUDO_INSTALL)
-  set (PORT_INSTALL_COMMAND "sudo make install")
-else (ENABLE_SUDO_INSTALL)
-  set (PORT_INSTALL_COMMAND "make install")
-endif (ENABLE_SUDO_INSTALL)
-
 ## ==============================================================================
 ##
 ##  System inspection
 ##
-##
 ##==============================================================================
 
-find_program (HOSTNAME_CMD NAMES hostname)
+find_program (HOSTNAME_COMMAND NAMES hostname )
+find_program (SUDO_COMMAND     NAMES sudo     )
 
-if (HOSTNAME_CMD)
-  exec_program (${HOSTNAME_CMD} ARGS OUTPUT_VARIABLE CMAKE_SYSTEM_HOSTNAME)
-endif (HOSTNAME_CMD)
+if (HOSTNAME_COMMAND)
+  exec_program (${HOSTNAME_COMMAND} ARGS OUTPUT_VARIABLE CMAKE_SYSTEM_HOSTNAME)
+endif (HOSTNAME_COMMAND)
+
+##__________________________________________________________
+## Handle option: Use sudo when installing package?
+
+if (ENABLE_SUDO_INSTALL AND SUDO_COMMAND)
+  
+else (ENABLE_SUDO_INSTALL AND SUDO_COMMAND)
+  set ( PORT_INSTALL_COMMAND sudo )
+else (ENABLE_SUDO_INSTALL AND SUDO_COMMAND)
+  set ( PORT_INSTALL_COMMAND "" )
+endif (ENABLE_SUDO_INSTALL AND SUDO_COMMAND)
 
 ## ==============================================================================
 ##
@@ -118,7 +120,12 @@ list (INSERT CMAKE_LIBRARY_PATH 0 ${CMAKE_INSTALL_PREFIX}/lib)
 ##____________________________________________________________________
 ##                                                        Installation
 
-if (NOT CMAKE_INSTALL_PREFIX)
+if (PORTS_INSTALL_PREFIX)
+  set (CMAKE_INSTALL_PREFIX ${PORTS_INSTALL_PREFIX} CACHE PATH
+    "Installation prefix"
+    FORCE
+    )
+else (PORTS_INSTALL_PREFIX)
   if (UNIX)
     if (APPLE)
       set (CMAKE_INSTALL_PREFIX "/sw" CACHE PATH "Installation prefix" FORCE)
@@ -126,7 +133,7 @@ if (NOT CMAKE_INSTALL_PREFIX)
       set (CMAKE_INSTALL_PREFIX "/opt" CACHE PATH "Installation prefix" FORCE)
     endif (APPLE)
   endif (UNIX)
-endif (NOT CMAKE_INSTALL_PREFIX)
+endif (PORTS_INSTALL_PREFIX)
 
 if (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
   message (STATUS "Installation location ${CMAKE_INSTALL_PREFIX} does not exist yet.")
@@ -163,7 +170,7 @@ message (STATUS " .. CMake executable             = ${CMAKE_COMMAND}"           
 message (STATUS " .. CMake version                = ${CMAKE_VERSION}"            )
 message (STATUS " .. Module path                  = ${CMAKE_MODULE_PATH}"        )
 message (STATUS " .. Installation prefix          = ${CMAKE_INSTALL_PREFIX}"     )
-message (STATUS " .. Installation command         = ${PORT_INSTALL_COMMAND}"     )
+message (STATUS " .. Installation command         = ${PORT_INSTALL_COMMAND} make install"     )
 message (STATUS " Project configuration:"                                        )
 message (STATUS " .. Local repository clones      = ${LOCAL_REPOSITORIES}"       )
 

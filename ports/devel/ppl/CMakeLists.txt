@@ -86,7 +86,7 @@ if (NOT PPL_FOUND OR PPL_FORCE_BUILD)
       BUILD_IN_SOURCE 1
       PATCH_COMMAND cd ${PROJECT_BINARY_DIR}/source && autoconf
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-gmp-prefix=${GMP_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   else (PPL_FROM_REPOS)
@@ -98,7 +98,7 @@ if (NOT PPL_FOUND OR PPL_FORCE_BUILD)
       URL ${PPL_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-gmp-prefix=${GMP_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   endif (PPL_FROM_REPOS)
   

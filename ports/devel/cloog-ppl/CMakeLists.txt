@@ -83,7 +83,7 @@ if (NOT HAVE_CLooG OR CLooG_FORCE_BUILD)
       SOURCE_DIR source
       GIT_REPOSITORY ${CLooG_GIT}
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --without-polylib --with-gmp=${CMAKE_INSTALL_PREFIX} --with-polylib-prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   else (CLooG_FROM_REPOS)

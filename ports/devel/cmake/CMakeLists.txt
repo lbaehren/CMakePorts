@@ -71,7 +71,7 @@ if (GIT_FOUND)
     SOURCE_DIR source
     GIT_REPOSITORY ${CMAKE_GIT}
     CONFIGURE_COMMAND ${CMake_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
 else (GIT_FOUND)
   add_custom_target (cmake

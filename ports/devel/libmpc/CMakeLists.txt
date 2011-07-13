@@ -78,7 +78,7 @@ if (NOT MPC_FOUND OR MPC_FORCE_BUILD)
     URL ${MPC_SOURCE}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --disable-shared --with-gmp-include=${CMAKE_INSTALL_PREFIX}/include --with-gmp-lib=${CMAKE_INSTALL_PREFIX}/lib --with-mpfr-include=${CMAKE_INSTALL_PREFIX}/include --with-mpfr-lib=${CMAKE_INSTALL_PREFIX}/lib
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   
 else (NOT MPC_FOUND OR MPC_FORCE_BUILD)

@@ -78,7 +78,7 @@ if (NOT PTH_FOUND OR PTH_FORCE_BUILD)
       SVN_REPOSITORY ${PTH_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (PTH_FROM_REPOS)
@@ -90,7 +90,7 @@ if (NOT PTH_FOUND OR PTH_FORCE_BUILD)
       URL ${PTH_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (PTH_FROM_REPOS)

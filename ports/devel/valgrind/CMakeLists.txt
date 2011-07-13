@@ -81,7 +81,7 @@ if (NOT VALGRIND_FOUND OR VALGRIND_FORCE_BUILD)
       PATCH_COMMAND ${PROJECT_BINARY_DIR}/source/autogen.sh
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-dependency-tracking
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (VALGRIND_FROM_REPOS)
@@ -94,7 +94,7 @@ if (NOT VALGRIND_FOUND OR VALGRIND_FORCE_BUILD)
       PATCH_COMMAND ${PROJECT_BINARY_DIR}/source/autogen.sh
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-dependency-tracking
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (VALGRIND_FROM_REPOS)
