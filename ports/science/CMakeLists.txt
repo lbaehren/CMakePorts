@@ -1,5 +1,6 @@
 
 add_subdirectory (casacore)
+add_subdirectory (casacore_measures)
 add_subdirectory (cfitsio)
 add_subdirectory (cloudy)
 add_subdirectory (cgal)

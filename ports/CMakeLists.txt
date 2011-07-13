@@ -70,7 +70,7 @@ add_dependencies (curl openssl)
 
 ## ___ science ___________________________________
 
-add_dependencies (casacore hdf5 wcslib cfitsio bison)
+add_dependencies (casacore casacore_measures hdf5 wcslib cfitsio bison)
 add_dependencies (dal casacore doxygen)
 add_dependencies (duchamp wcslib cfitsio)
 add_dependencies (hdf5 openmpi szip)

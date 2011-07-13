@@ -128,7 +128,6 @@ if (NOT CASACORE_FOUND OR CASACORE_FORCE_BUILD)
       SOURCE_DIR source
       SVN_REPOSITORY ${CASACORE_SVN}
       CMAKE_ARGS -C${CASACORE_CMAKE}
-      PATCH_COMMAND cat ${PROJECT_SOURCE_DIR}/casacore.patch.cmake >> ${PROJECT_BINARY_DIR}/source/CMakeLists.txt
       INSTALL_COMMAND sudo make install
       )
   
@@ -140,7 +139,6 @@ if (NOT CASACORE_FOUND OR CASACORE_FORCE_BUILD)
       SOURCE_DIR source
       URL ${CASACORE_SOURCE}
       CMAKE_ARGS -C${CASACORE_CMAKE}
-      PATCH_COMMAND cat ${PROJECT_SOURCE_DIR}/casacore.patch.cmake >> ${PROJECT_BINARY_DIR}/source/CMakeLists.txt
       INSTALL_COMMAND sudo make install
       )
     
