@@ -62,7 +62,7 @@ ExternalProject_Add (llvm
   URL ${LLVM_SOURCE}
   BUILD_IN_SOURCE 1
   CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-optimized
-  INSTALL_COMMAND sudo make install
+  INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
   )
 
 ## Enable LLVM native C/C++/Objective-C compiler

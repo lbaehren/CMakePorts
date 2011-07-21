@@ -84,7 +84,7 @@ if (NOT OPENMPI_FOUND OR OPENMPI_FORCE_BUILD)
       SVN_REPOSITORY ${OPENMPI_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-mpi-f77=no --enable-mpi-f90=no
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (OPENMPI_FROM_REPOS)
@@ -96,7 +96,7 @@ if (NOT OPENMPI_FOUND OR OPENMPI_FORCE_BUILD)
       URL ${OPENMPI_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-mpi-f77=no --enable-mpi-f90=no
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (OPENMPI_FROM_REPOS)

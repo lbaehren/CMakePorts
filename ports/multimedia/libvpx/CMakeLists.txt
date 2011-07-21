@@ -87,7 +87,7 @@ if (NOT LIBVPX_FOUND OR LIBVPX_FORCE_BUILD)
       SOURCE_DIR source
       GIT_REPOSITORY ${LIBVPX_GIT}
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-multithread --enable-runtime-cpu-detect
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   else (LIBVPX_FROM_REPOS)

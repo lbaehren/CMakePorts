@@ -76,7 +76,7 @@ if (NOT HAVE_Perl OR Perl_FORCE_BUILD)
     URL ${Perl_SOURCE}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/Configure -des -Dprefix=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   
 else (NOT HAVE_Perl OR Perl_FORCE_BUILD)

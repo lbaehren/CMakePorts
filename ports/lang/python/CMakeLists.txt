@@ -81,7 +81,7 @@ if (APPLE)
     URL ${HAVE_Python_SOURCE}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${Python_BINARY_DIR}/source/configure --enable-framework=${CMAKE_INSTALL_PREFIX}/Library/Frameworks
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
 else (APPLE)
   ExternalProject_Add (python
@@ -91,6 +91,6 @@ else (APPLE)
     URL ${HAVE_Python_SOURCE}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${Python_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
 endif (APPLE)

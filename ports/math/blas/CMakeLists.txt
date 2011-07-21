@@ -65,7 +65,7 @@ ExternalProject_Add (blas
   SOURCE_DIR ${BLAS_BINARY_DIR}/blas
   URL ${HAVE_BLAS_SOURCE}
   CMAKE_ARGS -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-  INSTALL_COMMAND sudo make install
+  INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
   )
 
 ExternalProject_Add_Step (blas blas_cmake
@@ -97,7 +97,7 @@ ExternalProject_Add (cblas
   SOURCE_DIR ${BLAS_BINARY_DIR}/cblas
   URL ${HAVE_CBLAS_SOURCE}
   CMAKE_ARGS -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-  INSTALL_COMMAND sudo make install
+  INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
   )
 
 ExternalProject_Add_Step (cblas cblas_cmake

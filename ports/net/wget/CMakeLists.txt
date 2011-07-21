@@ -66,7 +66,7 @@ ExternalProject_Add (wget
   URL ${HAVE_Wget_SOURCE}
   BUILD_IN_SOURCE 1
   CONFIGURE_COMMAND ${Wget_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-  INSTALL_COMMAND sudo make install
+  INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
   )
 
 else (NOT HAVE_Wget OR Wget_FORCE_BUILD)

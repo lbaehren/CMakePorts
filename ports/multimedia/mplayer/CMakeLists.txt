@@ -63,7 +63,7 @@ if (HAVE_MPlayer_SOURCE)
     URL ${HAVE_MPlayer_SOURCE}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${MPlayer_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
 else (HAVE_MPlayer_SOURCE)
   ## Build from repository checkout
@@ -74,6 +74,6 @@ else (HAVE_MPlayer_SOURCE)
     SVN_REPOSITORY ${MPlayer_SVN}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${MPlayer_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
 endif (HAVE_MPlayer_SOURCE)

@@ -78,7 +78,7 @@ if (NOT GLEW_FOUND OR GLEW_FORCE_BUILD)
       GIT_REPOSITORY ${GLEW_GIT}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (GLEW_FROM_REPOS)
@@ -90,7 +90,7 @@ if (NOT GLEW_FOUND OR GLEW_FORCE_BUILD)
       URL ${GLEW_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (GLEW_FROM_REPOS)

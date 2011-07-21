@@ -75,7 +75,7 @@ if (NOT CURL_FOUND)
     URL ${HAVE_Curl_SOURCE}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${Curl_BINARY_DIR}/source/configure prefix=${CMAKE_INSTALL_PREFIX} --with-ssl=${SSL_LIBRARY_PATH}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   
 else (NOT CURL_FOUND)
