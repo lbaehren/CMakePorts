@@ -78,7 +78,7 @@ if (NOT ZLIB_FOUND OR ZLIB_FORCE_BUILD)
       SVN_REPOSITORY ${ZLIB_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (ZLIB_FROM_REPOS)
@@ -90,7 +90,7 @@ if (NOT ZLIB_FOUND OR ZLIB_FORCE_BUILD)
       URL ${ZLIB_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (ZLIB_FROM_REPOS)

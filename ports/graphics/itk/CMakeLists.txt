@@ -78,7 +78,7 @@ if (NOT ITK_FOUND OR ITK_FORCE_BUILD)
       GIT_REPOSITORY ${ITK_GIT}
       PATCH_COMMAND git submodule update --init
       CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (ITK_FROM_REPOS)
@@ -89,7 +89,7 @@ if (NOT ITK_FOUND OR ITK_FORCE_BUILD)
       SOURCE_DIR source
       URL ${ITK_SOURCE}
       CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (ITK_FROM_REPOS)

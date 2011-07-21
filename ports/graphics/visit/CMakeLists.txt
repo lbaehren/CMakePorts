@@ -6,7 +6,7 @@
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (LIBXML2)
+project (VISIT)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -15,10 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (LIBXML2_VERSION        "2.7.8" )
-set (LIBXML2_SOURCE_ARCHIVE "libxml2-${LIBXML2_VERSION}.tar.gz" )
-set (LIBXML2_URL            "ftp://xmlsoft.org/libxml2/${LIBXML2_SOURCE_ARCHIVE}" )
-set (LIBXML2_SVN            "" )
+set (VISIT_VERSION        "2.2.2" )
+set (VISIT_SOURCE_ARCHIVE "visit${VISIT_VERSION}.tar.gz" )
+set (VISIT_URL            "http://portal.nersc.gov/svn/visit/trunk/releases/${VISIT_VERSION}/${VISIT_SOURCE_ARCHIVE}" )
+set (VISIT_SVN            "" )
 
 ## ==============================================================================
 ##
@@ -26,16 +26,16 @@ set (LIBXML2_SVN            "" )
 ##
 ## ==============================================================================
 
-option (LIBXML2_FORCE_BUILD    "Force build and installation of package?" NO )
-option (LIBXML2_FROM_REPOS     "Install package from repository?"         NO )
-option (LIBXML2_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (VISIT_FORCE_BUILD    "Force build and installation of package?" NO )
+option (VISIT_FROM_REPOS     "Install package from repository?"         NO )
+option (VISIT_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (LIBXML2_ENABLE_TESTING)
+if (VISIT_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-endif (LIBXML2_ENABLE_TESTING)
+endif (VISIT_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -43,7 +43,7 @@ endif (LIBXML2_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-#include (FindLIBXML2)
+#include (FindVISIT)
 
 ## ==============================================================================
 ##
@@ -51,55 +51,55 @@ endif (LIBXML2_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-if (LIBXML2_FROM_REPOS)
-  set (LIBXML2_FORCE_BUILD TRUE)
-endif (LIBXML2_FROM_REPOS)
+if (VISIT_FROM_REPOS)
+  set (VISIT_FORCE_BUILD TRUE)
+endif (VISIT_FROM_REPOS)
 
-if (NOT LIBXML2_FOUND OR LIBXML2_FORCE_BUILD)
+if (NOT VISIT_FOUND OR VISIT_FORCE_BUILD)
   
   ## Locate source file to build from
   
-  find_file (LIBXML2_SOURCE ${LIBXML2_SOURCE_ARCHIVE}
+  find_file (VISIT_SOURCE ${VISIT_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
   
-  if (NOT LIBXML2_SOURCE)
-    set (LIBXML2_SOURCE ${LIBXML2_URL})
-  endif (NOT LIBXML2_SOURCE)
+  if (NOT VISIT_SOURCE)
+    set (VISIT_SOURCE ${VISIT_URL})
+  endif (NOT VISIT_SOURCE)
   
   ## Build package from source
   
-  if (LIBXML2_FROM_REPOS)
+  if (VISIT_FROM_REPOS)
     
-    ExternalProject_Add (libxml2
+    ExternalProject_Add (visit
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      SVN_REPOSITORY ${LIBXML2_SVN}
+      SVN_REPOSITORY ${VISIT_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
-  else (LIBXML2_FROM_REPOS)
+  else (VISIT_FROM_REPOS)
     
-    ExternalProject_Add (libxml2
+    ExternalProject_Add (visit
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      URL ${LIBXML2_SOURCE}
+      URL ${VISIT_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
-  endif (LIBXML2_FROM_REPOS)
+  endif (VISIT_FROM_REPOS)
   
-else (NOT LIBXML2_FOUND OR LIBXML2_FORCE_BUILD)
+else (NOT VISIT_FOUND OR VISIT_FORCE_BUILD)
   
-  add_custom_target (libxml2
+  add_custom_target (visit
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[libxml2] Found system-wide installation; skipping rebuild!"
+    COMMENT "[VisIt] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT LIBXML2_FOUND OR LIBXML2_FORCE_BUILD)
+endif (NOT VISIT_FOUND OR VISIT_FORCE_BUILD)

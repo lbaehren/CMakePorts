@@ -78,7 +78,7 @@ if (NOT VIM_FOUND OR VIM_FORCE_BUILD)
       SVN_REPOSITORY ${VIM_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (VIM_FROM_REPOS)
@@ -90,7 +90,7 @@ if (NOT VIM_FOUND OR VIM_FORCE_BUILD)
       URL ${VIM_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (VIM_FROM_REPOS)

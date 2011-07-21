@@ -76,7 +76,7 @@ if (NOT ParaView_FOUND OR ParaView_FORCE_BUILD)
     SOURCE_DIR source
     GIT_REPOSITORY ${ParaView_GIT}
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   
 else (NOT ParaView_FOUND OR ParaView_FORCE_BUILD)

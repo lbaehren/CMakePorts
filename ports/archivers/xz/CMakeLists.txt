@@ -78,7 +78,7 @@ if (NOT XZ_FOUND OR XZ_FORCE_BUILD)
       SVN_REPOSITORY ${XZ_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (XZ_FROM_REPOS)
@@ -90,7 +90,7 @@ if (NOT XZ_FOUND OR XZ_FORCE_BUILD)
       URL ${XZ_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (XZ_FROM_REPOS)

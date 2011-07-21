@@ -78,7 +78,7 @@ if (NOT LIBICONV_FOUND OR LIBICONV_FORCE_BUILD)
       SVN_REPOSITORY ${LIBICONV_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-extra-encodings --enable-static --disable-nls --enable-relocatable
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (LIBICONV_FROM_REPOS)
@@ -90,7 +90,7 @@ if (NOT LIBICONV_FOUND OR LIBICONV_FORCE_BUILD)
       URL ${LIBICONV_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-extra-encodings --enable-static --disable-nls --enable-relocatable
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (LIBICONV_FROM_REPOS)

@@ -80,7 +80,7 @@ if (Gnuplot_FORCE_BUILD OR NOT GNUPLOT_FOUND)
       BUILD_IN_SOURCE 1
       PATCH_COMMAND ${Gnuplot_BINARY_DIR}/source/prepare
       CONFIGURE_COMMAND ${Gnuplot_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}  --without-lisp-files
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   else (Gnuplot_FROM_REPOS)
@@ -92,7 +92,7 @@ if (Gnuplot_FORCE_BUILD OR NOT GNUPLOT_FOUND)
       URL ${HAVE_Gnuplot_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${Gnuplot_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}  --without-lisp-files
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (Gnuplot_FROM_REPOS)
