@@ -152,7 +152,7 @@ if (NOT HDF5_FOUND OR HDF5_FORCE_BUILD)
       SOURCE_DIR ${HDF5_BINARY_DIR}/source
       URL ${HAVE_HDF5_SOURCE}
       CMAKE_ARGS -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -C ${HDF5_BINARY_DIR}/hdf5.cmake
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   else (HDF5_ENABLE_CMAKE)
@@ -163,7 +163,7 @@ if (NOT HDF5_FOUND OR HDF5_FORCE_BUILD)
       SOURCE_DIR ${HDF5_BINARY_DIR}/source
       URL ${HAVE_HDF5_SOURCE}
       CONFIGURE_COMMAND ${HDF5_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --bindir=${CMAKE_INSTALL_PREFIX}/bin --includedir=${CMAKE_INSTALL_PREFIX}/include/hdf5 ${HDF5_enable_cxx} ${HDF5_enable_fortran} ${HDF5_enable_hl} ${HDF5_enable_shared} ${HDF5_enable_static}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
 
   endif (HDF5_ENABLE_CMAKE)
