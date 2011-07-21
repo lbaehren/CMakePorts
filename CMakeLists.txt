@@ -28,7 +28,7 @@ option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  
 ##
 ##  System inspection
 ##
-##==============================================================================
+##===============================================================================
 
 find_program (HOSTNAME_COMMAND NAMES hostname )
 

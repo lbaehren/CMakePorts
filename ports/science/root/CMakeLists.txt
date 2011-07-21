@@ -58,7 +58,7 @@ if (HAVE_ROOT_SOURCE)
     URL ${HAVE_ROOT_SOURCE}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${ROOT_BINARY_DIR}/source/configure ${root_arch} --prefix=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
 else (HAVE_ROOT_SOURCE)
   ExternalProject_Add (root
@@ -68,6 +68,6 @@ else (HAVE_ROOT_SOURCE)
     SVN_REPOSITORY ${ROOT_REPOSITORY}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${ROOT_BINARY_DIR}/source/configure ${root_arch} --prefix=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND sudo make install
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
 endif (HAVE_ROOT_SOURCE)

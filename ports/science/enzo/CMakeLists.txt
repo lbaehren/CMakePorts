@@ -6,7 +6,7 @@
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (NETCDF)
+project (ENZO)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -15,11 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (NETCDF_VERSION        "4.1.1" )
-set (NETCDF_SOURCE_ARCHIVE "netcdf-${NETCDF_VERSION}.tar.gz" )
-set (NETCDF_URL            "http://www.unidata.ucar.edu/downloads/netcdf/ftp/${NETCDF_SOURCE_ARCHIVE}" )
-set (NETCDF_MD5            "" )
-set (NETCDF_SVN            "" )
+set (ENZO_VERSION        "1.0.1" )
+set (ENZO_SOURCE_ARCHIVE "enzo-${ENZO_VERSION}.tar.gz" )
+set (ENZO_URL            "http://lca.ucsd.edu/software/enzo/v${ENZO_VERSION}/download/${ENZO_SOURCE_ARCHIVE}" )
+set (ENZO_SVN            "" )
 
 ## ==============================================================================
 ##
@@ -27,16 +26,16 @@ set (NETCDF_SVN            "" )
 ##
 ## ==============================================================================
 
-option (NETCDF_FORCE_BUILD    "Force build and installation of package?" NO )
-option (NETCDF_FROM_REPOS     "Install package from repository?"         NO )
-option (NETCDF_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (ENZO_FORCE_BUILD    "Force build and installation of package?" NO )
+option (ENZO_FROM_REPOS     "Install package from repository?"         NO )
+option (ENZO_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (NETCDF_ENABLE_TESTING)
+if (ENZO_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-endif (NETCDF_ENABLE_TESTING)
+endif (ENZO_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -44,7 +43,7 @@ endif (NETCDF_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-#include (FindNetCDF)
+include (FindENZO)
 
 ## ==============================================================================
 ##
@@ -52,56 +51,55 @@ endif (NETCDF_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-if (NETCDF_FROM_REPOS)
-  set (NETCDF_FORCE_BUILD TRUE)
-endif (NETCDF_FROM_REPOS)
+if (ENZO_FROM_REPOS)
+  set (ENZO_FORCE_BUILD TRUE)
+endif (ENZO_FROM_REPOS)
 
-if (NOT NETCDF_FOUND OR NETCDF_FORCE_BUILD)
+if (NOT ENZO_FOUND OR ENZO_FORCE_BUILD)
   
   ## Locate source file to build from
   
-  find_file (NETCDF_SOURCE ${NETCDF_SOURCE_ARCHIVE}
+  find_file (ENZO_SOURCE ${ENZO_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
   
-  if (NOT NETCDF_SOURCE)
-    set (NETCDF_SOURCE ${NETCDF_URL})
-  endif (NOT NETCDF_SOURCE)
+  if (NOT ENZO_SOURCE)
+    set (ENZO_SOURCE ${ENZO_URL})
+  endif (NOT ENZO_SOURCE)
   
   ## Build package from source
   
-  if (NETCDF_FROM_REPOS)
+  if (ENZO_FROM_REPOS)
     
-    ExternalProject_Add (netcdf
+    ExternalProject_Add (enzo
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      SVN_REPOSITORY ${NETCDF_SVN}
+      SVN_REPOSITORY ${ENZO_SVN}
       BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --disable-f77
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
-  else (NETCDF_FROM_REPOS)
+  else (ENZO_FROM_REPOS)
     
-    ExternalProject_Add (netcdf
+    ExternalProject_Add (enzo
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      URL ${NETCDF_SOURCE}
-      URL_MD5 ${NETCDF_MD5}
+      URL ${ENZO_SOURCE}
       BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --disable-f77
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
-  endif (NETCDF_FROM_REPOS)
+  endif (ENZO_FROM_REPOS)
   
-else (NOT NETCDF_FOUND OR NETCDF_FORCE_BUILD)
+else (NOT ENZO_FOUND OR ENZO_FORCE_BUILD)
   
-  add_custom_target (netcdf
+  add_custom_target (enzo
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[NetCDF] Found system-wide installation; skipping rebuild!"
+    COMMENT "[ENZO] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT NETCDF_FOUND OR NETCDF_FORCE_BUILD)
+endif (NOT ENZO_FOUND OR ENZO_FORCE_BUILD)

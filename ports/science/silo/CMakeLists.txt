@@ -83,7 +83,7 @@ if (NOT SILO_FOUND OR SILO_FORCE_BUILD)
       SVN_REPOSITORY ${SILO_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --with-hdf5=${CMAKE_INSTALL_PREFIX}/include/hdf5,${HDF5_LIBRARY_DIR} --disable-fortran --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
   else (SILO_FROM_REPOS)
@@ -95,7 +95,7 @@ if (NOT SILO_FOUND OR SILO_FORCE_BUILD)
       URL ${SILO_SOURCE}
       BUILD_IN_SOURCE 1 
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --with-hdf5=${CMAKE_INSTALL_PREFIX}/include/hdf5,${HDF5_LIBRARY_DIR} --disable-fortran --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (SILO_FROM_REPOS)

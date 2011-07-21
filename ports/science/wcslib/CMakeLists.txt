@@ -66,7 +66,7 @@ if (NOT WCSLIB_FOUND OR WCSLIB_FORCE_BUILD)
       URL ${WCSLIB_SOURCE}
       PATCH_COMMAND cp ${PROJECT_SOURCE_DIR}/wcslib.cmake ${PROJECT_BINARY_DIR}/source/CMakeLists.txt
       CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
     ## copy input for configured header file

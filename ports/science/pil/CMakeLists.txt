@@ -74,7 +74,7 @@ ExternalProject_Add (pil
   SOURCE_DIR ${PIL_BINARY_DIR}/source
   URL ${HAVE_PIL_SOURCE}
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-  INSTALL_COMMAND sudo make install
+  INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
   )
 
 ## Pre-configure of configuration scripts
