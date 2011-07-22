@@ -6,7 +6,7 @@
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (<PACKAGE>)
+project (TASK)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -15,10 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (<PACKAGE>_VERSION        "" )
-set (<PACKAGE>_SOURCE_ARCHIVE "" )
-set (<PACKAGE>_URL            "" )
-set (<PACKAGE>_SVN            "" )
+set (TASK_VERSION        "1.9.4" )
+set (TASK_SOURCE_ARCHIVE "task-${TASK_VERSION}.tar.gz" )
+set (TASK_URL            "http://www.taskwarrior.org/download/${TASK_SOURCE_ARCHIVE}" )
+set (TASK_GIT            "git://tasktools.org/task.git" )
 
 ## ==============================================================================
 ##
@@ -26,16 +26,16 @@ set (<PACKAGE>_SVN            "" )
 ##
 ## ==============================================================================
 
-option (<PACKAGE>_FORCE_BUILD    "Force build and installation of package?" NO )
-option (<PACKAGE>_FROM_REPOS     "Install package from repository?"         NO )
-option (<PACKAGE>_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (TASK_FORCE_BUILD    "Force build and installation of package?" NO )
+option (TASK_FROM_REPOS     "Install package from repository?"         NO )
+option (TASK_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (<PACKAGE>_ENABLE_TESTING)
+if (TASK_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-endif (<PACKAGE>_ENABLE_TESTING)
+endif (TASK_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -43,7 +43,7 @@ endif (<PACKAGE>_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-include (Find<PACKAGE>)
+#include (FindTASK)
 
 ## ==============================================================================
 ##
@@ -51,55 +51,53 @@ include (Find<PACKAGE>)
 ##
 ## ==============================================================================
 
-if (<PACKAGE>_FROM_REPOS)
-  set (<PACKAGE>_FORCE_BUILD TRUE)
-endif (<PACKAGE>_FROM_REPOS)
+if (TASK_FROM_REPOS)
+  set (TASK_FORCE_BUILD TRUE)
+endif (TASK_FROM_REPOS)
 
-if (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+if (NOT TASK_FOUND OR TASK_FORCE_BUILD)
   
   ## Locate source file to build from
   
-  find_file (<PACKAGE>_SOURCE ${<PACKAGE>_SOURCE_ARCHIVE}
+  find_file (TASK_SOURCE ${TASK_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
   
-  if (NOT <PACKAGE>_SOURCE)
-    set (<PACKAGE>_SOURCE ${<PACKAGE>_URL})
-  endif (NOT <PACKAGE>_SOURCE)
+  if (NOT TASK_SOURCE)
+    set (TASK_SOURCE ${TASK_URL})
+  endif (NOT TASK_SOURCE)
   
   ## Build package from source
   
-  if (<PACKAGE>_FROM_REPOS)
+  if (TASK_FROM_REPOS)
     
-    ExternalProject_Add (<package>
+    ExternalProject_Add (task
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      SVN_REPOSITORY ${<PACKAGE>_SVN}
-      BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+      GIT_REPOSITORY ${TASK_GIT}
+      CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
-  else (<PACKAGE>_FROM_REPOS)
+  else (TASK_FROM_REPOS)
     
-    ExternalProject_Add (<package>
+    ExternalProject_Add (task
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      URL ${<PACKAGE>_SOURCE}
-      BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+      URL ${TASK_SOURCE}
+      CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
-  endif (<PACKAGE>_FROM_REPOS)
+  endif (TASK_FROM_REPOS)
   
-else (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+else (NOT TASK_FOUND OR TASK_FORCE_BUILD)
   
-  add_custom_target (<package>
+  add_custom_target (task
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[<package>] Found system-wide installation; skipping rebuild!"
+    COMMENT "[task] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
+endif (NOT TASK_FOUND OR TASK_FORCE_BUILD)
