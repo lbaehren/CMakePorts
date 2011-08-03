@@ -43,7 +43,7 @@ endif (LIBMATROSKA_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-#include (FindLIBMATROSKA)
+include (FindMatroska)
 
 ## ==============================================================================
 ##
@@ -55,7 +55,7 @@ if (LIBMATROSKA_FROM_REPOS)
   set (LIBMATROSKA_FORCE_BUILD TRUE)
 endif (LIBMATROSKA_FROM_REPOS)
 
-if (NOT LIBMATROSKA_FOUND OR LIBMATROSKA_FORCE_BUILD)
+if (NOT MATROSKA_FOUND OR LIBMATROSKA_FORCE_BUILD)
   
   ## Locate source file to build from
   
@@ -95,11 +95,11 @@ if (NOT LIBMATROSKA_FOUND OR LIBMATROSKA_FORCE_BUILD)
     
   endif (LIBMATROSKA_FROM_REPOS)
   
-else (NOT LIBMATROSKA_FOUND OR LIBMATROSKA_FORCE_BUILD)
+else (NOT MATROSKA_FOUND OR LIBMATROSKA_FORCE_BUILD)
   
   add_custom_target (libmatroska
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[LIBMATROSKA] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT LIBMATROSKA_FOUND OR LIBMATROSKA_FORCE_BUILD)
+endif (NOT MATROSKA_FOUND OR LIBMATROSKA_FORCE_BUILD)
