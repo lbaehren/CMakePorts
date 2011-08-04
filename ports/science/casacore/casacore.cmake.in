@@ -18,9 +18,6 @@ set (ENABLE_SHARED ${CASACORE_ENABLE_SHARED} CACHE BOOL
 set (CMAKE_OSX_ARCHITECTURES "i396;x86_64" CACHE STRING
   "Build architectures for OSX."
   )
-set (CMAKE_THREAD_PREFER_PTHREAD TRUE CACHE BOOL
-  "Prefer pthread in case multiple thread libraries are available"
-  )
 
 ##____________________________________________________________________
 ##                                                       Measures data
@@ -38,6 +35,9 @@ set (PTHREAD_FOUND ${PTHREAD_FOUND} CACHE BOOL
   "Enable thread support?"
   )
 set (PTHREADS_FOUND ${PTHREAD_FOUND} CACHE BOOL
+  "Enable thread support?"
+  )
+set (Threads_FOUND ${PTHREAD_FOUND} CACHE BOOL
   "Enable thread support?"
   )
 set (PTHREADS_INCLUDE_DIR ${PTHREAD_INCLUDES} CACHE PATH

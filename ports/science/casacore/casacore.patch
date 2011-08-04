@@ -1,0 +1,37 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5858d5e..0da4e91 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -131,20 +131,22 @@ if (READLINE_FOUND)
+ endif (READLINE_FOUND)
+ 
+ # Thread support.
+-set(_errmsg "FIXME: Don't know how to enable thread support for ")
+-find_package(Pthreads REQUIRED)
+-if(CMAKE_COMPILER_IS_GNUCC)
++
++if(USE_THREADS)
++  set(_errmsg "FIXME: Don't know how to enable thread support for ")
++  find_package(Pthreads REQUIRED)
++  if(CMAKE_COMPILER_IS_GNUCC)
+     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
+-else(CMAKE_COMPILER_IS_GNUCC)
++  else(CMAKE_COMPILER_IS_GNUCC)
+     message(FATAL_ERROR "${_errmsg} ${CMAKE_C_COMPILER}")
+-endif(CMAKE_COMPILER_IS_GNUCC)
+-if(CMAKE_COMPILER_IS_GNUCXX)
++  endif(CMAKE_COMPILER_IS_GNUCC)
++  if(CMAKE_COMPILER_IS_GNUCXX)
+     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+-else(CMAKE_COMPILER_IS_GNUCXX)
++  else(CMAKE_COMPILER_IS_GNUCXX)
+     message(FATAL_ERROR "${_errmsg} ${CMAKE_CXX_COMPILER}")
+-endif(CMAKE_COMPILER_IS_GNUCXX)
+-if(USE_THREADS)
+-    add_definitions(-DUSE_THREADS)
++  endif(CMAKE_COMPILER_IS_GNUCXX)
++
++  add_definitions(-DUSE_THREADS)
+ endif(USE_THREADS)
+ 
+ # Add the modules to be built.
