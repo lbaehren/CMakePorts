@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (PLPLOT_VERSION        "5.9.7" )
+set (PLPLOT_VERSION        "5.9.8" )
 set (PLPLOT_SOURCE_ARCHIVE "plplot-${PLPLOT_VERSION}.tar.gz" )
 set (PLPLOT_URL            "http://downloads.sourceforge.net/project/plplot/plplot/${PLPLOT_VERSION}%20Source/${PLPLOT_SOURCE_ARCHIVE}" )
 set (PLPLOT_MD5            "" )
