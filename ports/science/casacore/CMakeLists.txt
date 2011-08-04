@@ -43,6 +43,7 @@ include (FindCFITSIO)
 include (FindLAPACK)
 include (FindWCSLIB)
 include (FindGFortran)
+include (FindPthread)
 
 if (GFORTRAN_LIBRARY)
   list (APPEND LAPACK_LIBRARIES ${GFORTRAN_LIBRARY})

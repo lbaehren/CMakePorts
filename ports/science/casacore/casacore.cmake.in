@@ -1,29 +1,76 @@
 
-## Installation location
+##____________________________________________________________________
+##                                               Installation location
 
-set (CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}   CACHE PATH "Installation location" )
-set (BUILD_TESTING        ${CASACORE_BUILD_TESTING} CACHE BOOL "Build test programs?"  )
-set (ENABLE_SHARED        ${CASACORE_ENABLE_SHARED} CACHE BOOL "Build shared libraries")
-set (CMAKE_Fortran_IMPLICIT_LINK_DIRECTORIES ${FORTRAN_IMPLICIT_LINK_DIRECTORIES} CACHE FILEPATH "Implicit link directories for Fortran code.")
+set (CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX} CACHE PATH
+  "Installation location"
+  )
 
-## Measures data
+##____________________________________________________________________
+##                                                 Build configuration
 
-set (DATA_DIR             ${CASACORE_DATADIR}       CACHE PATH "Measures data tables"  )
+set (BUILD_TESTING ${CASACORE_BUILD_TESTING} CACHE BOOL
+  "Build test programs?"
+  )
+set (ENABLE_SHARED ${CASACORE_ENABLE_SHARED} CACHE BOOL
+  "Build shared libraries"
+  )
+set (CMAKE_OSX_ARCHITECTURES "i396;x86_64" CACHE STRING
+  "Build architectures for OSX."
+  )
+set (CMAKE_THREAD_PREFER_PTHREAD TRUE CACHE BOOL
+  "Prefer pthread in case multiple thread libraries are available"
+  )
+
+##____________________________________________________________________
+##                                                       Measures data
+
+set (DATA_DIR ${CASACORE_DATADIR} CACHE PATH
+  "Measures data tables"
+  )
+
+##____________________________________________________________________
+##                                                  External libraries
+
+## Pthreads library
+
+set (PTHREAD_FOUND ${PTHREAD_FOUND} CACHE BOOL
+  "Enable thread support?"
+  )
+set (PTHREADS_FOUND ${PTHREAD_FOUND} CACHE BOOL
+  "Enable thread support?"
+  )
+set (PTHREADS_INCLUDE_DIR ${PTHREAD_INCLUDES} CACHE PATH
+  "The include directory of the Pthreads library"
+  )
+set (PTHREADS_LIBRARY ${PTHREAD_LIBRARIES} CACHE BOOL
+  "The location of the Pthreads library"
+  )
 
 ## FFTW3 library
 
-set (USE_FFTW3          ${FFTW3_FOUND}          CACHE BOOL   "FFTW3 library support?" )
-set (FFTW3_ROOT_DIR     ${CMAKE_INSTALL_PREFIX} CACHE PATH   "FFTW3 install root"     )
+set (USE_FFTW3 ${FFTW3_FOUND} CACHE BOOL
+  "FFTW3 library support?"
+  )
+set (FFTW3_ROOT_DIR ${CMAKE_INSTALL_PREFIX} CACHE PATH
+  "FFTW3 install root"
+  )
 
 ## HDF5 library
 
-set (USE_HDF5          ${HDF5_FOUND}           CACHE BOOL     "HDF5 library support?" )
-set (HDF5_ROOT_DIR     ${CMAKE_INSTALL_PREFIX} CACHE PATH     "HDF5 install root"     )
-set (HDF5_INCLUDE_DIRS ${HDF5_INCLUDES}        CACHE PATH     "HDF5 includes"         )
-set (HDF5_LIBRARIES    ${HDF5_LIBRARIES}       CACHE FILEPATH "HDF5 libraries"        )
-
-## WCSLIB
+set (USE_HDF5 ${HDF5_FOUND} CACHE BOOL
+  "HDF5 library support?"
+  )
+set (HDF5_ROOT_DIR ${CMAKE_INSTALL_PREFIX} CACHE PATH
+  "HDF5 install root"
+  )
+set (HDF5_INCLUDE_DIRS ${HDF5_INCLUDES} CACHE PATH
+  "HDF5 includes"
+  )
+set (HDF5_LIBRARIES ${HDF5_LIBRARIES} CACHE FILEPATH
+  "HDF5 libraries"
+  )
 
 set (WCSLIB_ROOT_DIR     ${CMAKE_INSTALL_PREFIX} CACHE PATH     "WCSLIB install root" )
 set (WCSLIB_INCLUDE_DIRS ${WCSLIB_INCLUDES}      CACHE PATH     "WCSLIB includes"     )
-set (WCSLIB_LIBRARIES    ${WCSLIB_LIBRARIES}     CACHE FILEPATH "HDF5 libraries"      )
+set (WCSLIB_LIBRARIES    ${WCSLIB_LIBRARIES}     CACHE FILEPATH "WCSLIB libraries"      )
