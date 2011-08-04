@@ -51,6 +51,9 @@ endif (ENABLE_SUDO_INSTALL)
 ##
 ## ==============================================================================
 
+##____________________________________________________________________
+##                                             (Verbose) configuration
+
 if (NOT VERBOSE_CONFIGURE)
   ## Private components
   set ( LOCAL_REPOSITORIES_FIND_QUIETLY TRUE )
@@ -116,7 +119,7 @@ list (INSERT CMAKE_LIBRARY_PATH 0 ${CMAKE_INSTALL_PREFIX})
 list (INSERT CMAKE_LIBRARY_PATH 0 ${CMAKE_INSTALL_PREFIX}/lib)
 
 ##____________________________________________________________________
-##                                                        Installation
+##                                               Installation location
 
 if (PORTS_INSTALL_PREFIX)
   set (CMAKE_INSTALL_PREFIX ${PORTS_INSTALL_PREFIX} CACHE PATH
@@ -137,13 +140,23 @@ if (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
   message (STATUS "Installation location ${CMAKE_INSTALL_PREFIX} does not exist yet.")
 endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 
-## Local clone of code repositories
+##____________________________________________________________________
+##                                         Cache initialization script
+
+configure_file (
+  ${CMakePorts_SOURCE_DIR}/configure.cmake.in
+  ${CMakePorts_BINARY_DIR}/configure.cmake
+  )
+
+##____________________________________________________________________
+##                                    Local clone of code repositories
 
 if (ENABLE_LOCAL_REPOSITORIES)
   add_subdirectory (repositories)
 endif (ENABLE_LOCAL_REPOSITORIES)
 
-## Ports of software packages
+##____________________________________________________________________
+##                                          Ports of software packages
 
 add_subdirectory (ports)
 
@@ -168,7 +181,7 @@ message (STATUS " .. CMake executable             = ${CMAKE_COMMAND}"           
 message (STATUS " .. CMake version                = ${CMAKE_VERSION}"            )
 message (STATUS " .. Module path                  = ${CMAKE_MODULE_PATH}"        )
 message (STATUS " .. Installation prefix          = ${CMAKE_INSTALL_PREFIX}"     )
-message (STATUS " .. Installation command         = ${PORT_INSTALL_COMMAND} make install"     )
+message (STATUS " .. OS X architectures           = ${CMAKE_OSX_ARCHITECTURES}"  )
 message (STATUS " Project configuration:"                                        )
 message (STATUS " .. Local repository clones      = ${LOCAL_REPOSITORIES}"       )
 

@@ -1,0 +1,18 @@
+
+## Installation location prefix
+
+set (CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX} CACHE PATH
+  "Installation location prefix"
+  )
+
+## Build architectures for OSX
+
+set (CMAKE_OSX_ARCHITECTURES "i396;x86_64" CACHE STRING
+  "Build architectures for OSX."
+  )
+
+## Enable/Disable color output during build
+
+set (CMAKE_COLOR_MAKEFILE ON CACHE BOOL
+  "Enable/Disable color output during build."
+  )
