@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ## Package information
-set (Qt_VERSION        "4.7.1" )
+set (Qt_VERSION        "4.7.3" )
 set (Qt_SOURCE_ARCHIVE "qt-everywhere-opensource-src-${Qt_VERSION}.tar.gz" )
 set (Qt_URL            "http://get.qt.nokia.com/qt/source/${Qt_SOURCE_ARCHIVE}" )
 set (Qt_SVN            "" )
@@ -75,7 +75,7 @@ if (NOT QT4_FOUND OR Qt_FORCE_BUILD)
     SOURCE_DIR source
     URL ${Qt_SOURCE}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure -opensource -no-framework -universal --prefix=${CMAKE_INSTALL_PREFIX}
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
 
