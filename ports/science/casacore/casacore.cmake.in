@@ -4,6 +4,7 @@
 set (CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}   CACHE PATH "Installation location" )
 set (BUILD_TESTING        ${CASACORE_BUILD_TESTING} CACHE BOOL "Build test programs?"  )
 set (ENABLE_SHARED        ${CASACORE_ENABLE_SHARED} CACHE BOOL "Build shared libraries")
+set (CMAKE_Fortran_IMPLICIT_LINK_DIRECTORIES ${FORTRAN_IMPLICIT_LINK_DIRECTORIES} CACHE FILEPATH "Implicit link directories for Fortran code.")
 
 ## Measures data
 
