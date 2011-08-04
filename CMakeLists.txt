@@ -141,6 +141,13 @@ if (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 
 ##____________________________________________________________________
+##                                         Build architectures for OSX
+
+if (APPLE)
+  set (CMAKE_OSX_ARCHITECTURES "i396;x86_64")
+endif (APPLE)
+
+##____________________________________________________________________
 ##                                         Cache initialization script
 
 configure_file (
