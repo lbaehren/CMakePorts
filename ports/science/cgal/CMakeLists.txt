@@ -78,7 +78,7 @@ if (NOT CGAL_FOUND OR CGAL_FORCE_BUILD)
       DOWNLOAD_DIR download
       SOURCE_DIR source
       SVN_REPOSITORY ${CGAL_SVN}
-      CMAKE_ARGS CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+      CMAKE_ARGS -C${CMakePorts_BINARY_DIR}/configure.cmake
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
@@ -89,7 +89,7 @@ if (NOT CGAL_FOUND OR CGAL_FORCE_BUILD)
       DOWNLOAD_DIR download
       SOURCE_DIR source
       URL ${CGAL_SOURCE}
-      CMAKE_ARGS CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+      CMAKE_ARGS -C${CMakePorts_BINARY_DIR}/configure.cmake
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     

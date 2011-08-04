@@ -65,7 +65,7 @@ if (NOT WCSLIB_FOUND OR WCSLIB_FORCE_BUILD)
       SOURCE_DIR source
       URL ${WCSLIB_SOURCE}
       PATCH_COMMAND cp ${PROJECT_SOURCE_DIR}/wcslib.cmake ${PROJECT_BINARY_DIR}/source/CMakeLists.txt
-      CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+      CMAKE_ARGS -C${CMakePorts_BINARY_DIR}/configure.cmake
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
