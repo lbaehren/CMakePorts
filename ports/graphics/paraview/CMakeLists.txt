@@ -75,7 +75,7 @@ if (NOT ParaView_FOUND OR ParaView_FORCE_BUILD)
     DOWNLOAD_DIR download
     SOURCE_DIR source
     GIT_REPOSITORY ${ParaView_GIT}
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+    CMAKE_ARGS -C${CMakePorts_BINARY_DIR}/configure.cmake
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   

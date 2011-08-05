@@ -77,7 +77,7 @@ if (NOT ITK_FOUND OR ITK_FORCE_BUILD)
       SOURCE_DIR source
       GIT_REPOSITORY ${ITK_GIT}
       PATCH_COMMAND git submodule update --init
-      CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+      CMAKE_ARGS -C${CMakePorts_BINARY_DIR}/configure.cmake
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
@@ -88,7 +88,7 @@ if (NOT ITK_FOUND OR ITK_FORCE_BUILD)
       DOWNLOAD_DIR download
       SOURCE_DIR source
       URL ${ITK_SOURCE}
-      CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+      CMAKE_ARGS -C${CMakePorts_BINARY_DIR}/configure.cmake
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     

@@ -33,18 +33,31 @@ set (DATA_DIR ${CASACORE_DATADIR} CACHE PATH
 
 set (PTHREAD_FOUND ${PTHREAD_FOUND} CACHE BOOL
   "Enable thread support?"
+  FORCE
   )
 set (PTHREADS_FOUND ${PTHREAD_FOUND} CACHE BOOL
   "Enable thread support?"
+  FORCE
   )
 set (Threads_FOUND ${PTHREAD_FOUND} CACHE BOOL
   "Enable thread support?"
+  FORCE
   )
 set (PTHREADS_INCLUDE_DIR ${PTHREAD_INCLUDES} CACHE PATH
   "The include directory of the Pthreads library"
+  FORCE
   )
-set (PTHREADS_LIBRARY ${PTHREAD_LIBRARIES} CACHE BOOL
+set (PTHREADS_LIBRARY ${PTHREAD_LIBRARIES} CACHE FILEPATH
   "The location of the Pthreads library"
+  FORCE
+  )
+set (CMAKE_HAVE_PTHREAD_H ${PTHREAD_FOUND} CACHE BOOL
+  "The include directory of the Pthreads library"
+  FORCE
+  )
+set (CMAKE_HAVE_THREADS_LIBRARY ${PTHREAD_FOUND} CACHE BOOL
+  "The location of the Pthreads library"
+  FORCE
   )
 
 ## FFTW3 library

@@ -56,6 +56,6 @@ ExternalProject_Add (lapack
   DOWNLOAD_DIR download
   SOURCE_DIR source
   URL ${HAVE_LAPACK_SOURCE}
-  CMAKE_ARGS -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+  CMAKE_ARGS -C${CMakePorts_BINARY_DIR}/configure.cmake
   INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
   )
