@@ -44,12 +44,7 @@ endif (OPENMPI_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-include (FindMPI)
-include (FindOpenMP)
-
-if (OPENMP_FOUND AND MPI_FOUND)
-  set (OPENMPI_FOUND TRUE)
-endif (OPENMP_FOUND AND MPI_FOUND)
+include (FindOpenMPI)
 
 ## ==============================================================================
 ##
