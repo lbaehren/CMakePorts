@@ -56,7 +56,7 @@ ExternalProject_Add (tree
   DOWNLOAD_DIR ${Tree_BINARY_DIR}/download
   SOURCE_DIR ${Tree_BINARY_DIR}/source
   URL ${HAVE_Tree_SOURCE}
-  CMAKE_ARGS -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+  CMAKE_ARGS -C${CMakePorts_BINARY_DIR}/configure.cmake
   INSTALL_COMMAND sudo make install
   )
 
