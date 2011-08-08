@@ -16,7 +16,7 @@ cmake_policy (VERSION 2.8)
 
 ## Package information
 set (WCSLIB_VERSION        "4.4.4" )
-set (WCSLIB_SOURCE_ARCHIVE "wcslib-${WCSLIB_VERSION}.tgz" )
+set (WCSLIB_SOURCE_ARCHIVE "wcslib.tar.bz2" )
 set (WCSLIB_URL            "ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib.tar.bz2" )
 set (WCSLIB_SVN            "" )
 
@@ -71,7 +71,7 @@ if (NOT WCSLIB_FOUND OR WCSLIB_FORCE_BUILD)
     
     ## copy input for configured header file
     ExternalProject_Add_Step (wcslib wcslib_config
-      COMMAND cp ${PROJECT_SOURCE_DIR}/wcsconfig.h.in ${PROJECT_BINARY_DIR}/source/wcsconfig.h.in
+      COMMAND cp -f ${PROJECT_SOURCE_DIR}/wcsconfig.h.in ${PROJECT_BINARY_DIR}/source/wcsconfig.h.in
       COMMENT "Copying input for configured header file"
       DEPENDEES patch
       DEPENDERS configure
@@ -80,6 +80,7 @@ if (NOT WCSLIB_FOUND OR WCSLIB_FORCE_BUILD)
     
   else (WCSLIB_CMAKE_BUILD)
     
+    ## Build WCSLIB using GNU Autotools
     ExternalProject_Add (wcslib
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -87,7 +88,7 @@ if (NOT WCSLIB_FOUND OR WCSLIB_FORCE_BUILD)
       URL ${WCSLIB_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-      INSTALL_COMMAND sudo make install
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
   endif (WCSLIB_CMAKE_BUILD)
