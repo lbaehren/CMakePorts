@@ -144,8 +144,14 @@ endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 ##____________________________________________________________________
 ##                                         Build architectures for OSX
 
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+  # 64-bit build
+else()
+  # 32-bit build
+endif()
+
 if (APPLE)
-  set (CMAKE_OSX_ARCHITECTURES "i396;x86_64")
+  set (CMAKE_OSX_ARCHITECTURES "i386;x86_64")
 endif (APPLE)
 
 ##____________________________________________________________________
@@ -184,6 +190,7 @@ message (STATUS " .. Processor type               = ${CMAKE_SYSTEM_PROCESSOR}"  
 message (STATUS " .. System name                  = ${CMAKE_SYSTEM}"             )
 message (STATUS " .. C++ compiler                 = ${CMAKE_CXX_COMPILER}"       )
 message (STATUS " .. C compiler                   = ${CMAKE_C_COMPILER}"         )
+message (STATUS " .. size(void*)                  = ${CMAKE_SIZEOF_VOID_P}"      )
 message (STATUS " CMake configuration:"                                          )
 message (STATUS " .. CMake executable             = ${CMAKE_COMMAND}"            )
 message (STATUS " .. CMake version                = ${CMAKE_VERSION}"            )
