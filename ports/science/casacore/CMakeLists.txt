@@ -31,7 +31,7 @@ option (CASACORE_FROM_REPOS     "Install package from repository?"         YES )
 option (CASACORE_WITH_FFTW3     "Enable FFTW3 library support?"            NO  )
 option (CASACORE_WITH_HDF5      "Enable HDF5 library support?"             YES )
 option (CASACORE_BUILD_TESTING  "Build the test programs?"                 NO  )
-option (CASACORE_ENABLE_SHARED  "Build shared libraries?"                  NO  )
+option (CASACORE_ENABLE_SHARED  "Build shared libraries?"                  YES )
 
 ## ==============================================================================
 ##
@@ -39,11 +39,10 @@ option (CASACORE_ENABLE_SHARED  "Build shared libraries?"                  NO  )
 ##
 ## ==============================================================================
 
-include (FindCFITSIO)
+include (FindBLAS)
 include (FindLAPACK)
 include (FindWCSLIB)
 include (FindGFortran)
-include (FindPthread)
 
 if (GFORTRAN_LIBRARY)
   list (APPEND LAPACK_LIBRARIES ${GFORTRAN_LIBRARY})
@@ -136,7 +135,6 @@ if (NOT CASACORE_FOUND OR CASACORE_FORCE_BUILD)
       DOWNLOAD_DIR download
       SOURCE_DIR source
       SVN_REPOSITORY ${CASACORE_SVN}
-      PATCH_COMMAND patch < ${PROJECT_SOURCE_DIR}/casacore.patch
       CMAKE_ARGS -C${CASACORE_CMAKE}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
