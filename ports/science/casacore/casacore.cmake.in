@@ -18,6 +18,9 @@ set (ENABLE_SHARED ${CASACORE_ENABLE_SHARED} CACHE BOOL
 set (DATA_DIR ${CASACORE_DATADIR} CACHE PATH
   "Measures data tables"
   )
+set (CMAKE_OSX_ARCHITECTURES ${CASACORE_OSX_ARCHITECTURES} CACHE STRING
+  "Build architectures for OSX"
+  )
 
 ##____________________________________________________________________
 ##                                                  External libraries

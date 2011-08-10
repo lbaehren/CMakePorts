@@ -146,13 +146,11 @@ endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
   # 64-bit build
+  set (CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "Build architectures for OSX")
 else()
   # 32-bit build
+  set (CMAKE_OSX_ARCHITECTURES "i386" CACHE STRING "Build architectures for OSX")
 endif()
-
-if (APPLE)
-  set (CMAKE_OSX_ARCHITECTURES "i386;x86_64")
-endif (APPLE)
 
 ##____________________________________________________________________
 ##                                         Cache initialization script

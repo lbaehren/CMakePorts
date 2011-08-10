@@ -57,6 +57,15 @@ find_path (CASACORE_DATADIR ephemerides geodetic
   )
 
 ##__________________________________________________________
+## Check for build architectures for OSX
+
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+  set (CASACORE_OSX_ARCHITECTURES "x86_64")
+else()
+  set (CASACORE_OSX_ARCHITECTURES "i386")
+endif()
+
+##__________________________________________________________
 ## Handle option: HDF5 library support
 
 if (CASACORE_WITH_HDF5)
