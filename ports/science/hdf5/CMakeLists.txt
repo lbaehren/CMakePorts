@@ -15,11 +15,11 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ## Package information
-set (HDF5_VERSION        "1.8.5" )
-set (HDF5_SOURCE_ARCHIVE "hdf5-${HDF5_VERSION}.tar.gz" )
+set (HDF5_VERSION        "1.8.7" )
+set (HDF5_SOURCE_ARCHIVE "hdf5-${HDF5_VERSION}.tar.bz2" )
 set (HDF5_URL            "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/${HDF5_SOURCE_ARCHIVE}" )
 #set (HDF5_SVN            "http://svn.hdfgroup.uiuc.edu/hdf5/trunk")
-set (HDF5_SVN            "http://svn.hdfgroup.uiuc.edu/hdf5/branches/hdf5_1_8_6")
+set (HDF5_SVN            "http://svn.hdfgroup.uiuc.edu/hdf5/branches/hdf5_1_8_7")
 
 set (H5CHECK_VERSION        "2_0" )
 set (H5CHECK_SOURCE_ARCHIVE "h5check_${H5CHECK_VERSION}.tar.gz" )
@@ -31,25 +31,24 @@ set (H5CHECK_URL            "http://www.hdfgroup.org/ftp/HDF5/special_tools/h5ch
 ##
 ## ==============================================================================
 
-option (HDF5_FORCE_BUILD          "Force build and installation of package?" NO  )
-option (HDF5_ENABLE_CMAKE         "Build HDF5 using CMake (else Autotools)"  OFF )
-option (HDF5_ENABLE_PARALLEL      "Enable parallel build (requires MPI)"     ON  )
-option (HDF5_ENABLE_Z_LIB_SUPPORT "Enable Zlib Filters"                      ON  )
-option (HDF5_BUILD_TESTING        "Build HDF5 Unit Testing"                  ON  )
-option (HDF5_BUILD_EXAMPLES       "Build HDF5 Library Examples"              ON  )
-option (BUILD_SHARED_LIBS         "Build Shared Libraries"                   ON  )
-option (HDF5_BUILD_CPP_LIB        "Build HDF5 C++ Library"                   ON  )
-option (HDF5_BUILD_TOOLS          "Build HDF5 Tools"                         ON  )
-option (HDF5_BUILD_HL_LIB         "Build HIGH Level HDF5 Library"            ON  )
+option (HDF5_FORCE_BUILD          "Force build and installation of package?"  NO  )
+option (HDF5_CMAKE_BUILD          "Build HDF5 using CMake (else Autotools)"   OFF )
+option (HDF5_ENABLE_PARALLEL      "Enable parallel build (requires MPI)"      ON  )
+option (HDF5_ENABLE_Z_LIB_SUPPORT "Enable Zlib Filters"                       ON  )
+option (HDF5_BUILD_TESTING        "Build HDF5 Unit Testing"                   ON  )
+option (HDF5_BUILD_EXAMPLES       "Build HDF5 Library Examples"               ON  )
+option (BUILD_SHARED_LIBS         "Build Shared Libraries"                    ON  )
+option (HDF5_BUILD_CPP_LIB        "Build HDF5 C++ Library"                    ON  )
+option (HDF5_BUILD_TOOLS          "Build HDF5 Tools"                          ON  )
+option (HDF5_BUILD_HL_LIB         "Build HIGH Level HDF5 Library"             ON  )
+option (HDF5_ENABLE_FORTRAN       "Compile the Fortran interface?"            NO  )
+option (HDF5_ENABLE_PARALLEL      "Search for MPI-IO and MPI support files?"  NO  )
+option (HDF5_ENABLE_THREADSAFE    "Enable thread safe capability?"            NO  )
 
-option (HDF5_BUILD_STATIC      "Build static version of the library?"      YES )
-option (HDF5_ENABLE_FORTRAN    "Compile the Fortran interface?"            NO  )
-option (HDF5_ENABLE_PARALLEL   "Search for MPI-IO and MPI support files?"  NO  )
-option (HDF5_ENABLE_THREADSAFE "Enable thread safe capability?"            NO  )
-
+##__________________________________________________________
 ## Handle options
 
-if (NOT HDF5_ENABLE_CMAKE)
+if (NOT HDF5_CMAKE_BUILD)
   
   if (HDF5_BUILD_CPP_LIB)
     set (HDF5_enable_cxx "--enable-cxx") 
@@ -71,17 +70,13 @@ if (NOT HDF5_ENABLE_CMAKE)
   
   if (BUILD_SHARED_LIBS)
     set (HDF5_enable_shared "--enable-shared") 
+    set (HDF5_enable_static "--disable-static") 
   else (BUILD_SHARED_LIBS)
     set (HDF5_enable_shared "--disable-shared") 
+    set (HDF5_enable_static "--enable-static") 
   endif (BUILD_SHARED_LIBS)
   
-  if (HDF5_BUILD_STATIC)
-    set (HDF5_enable_static "--enable-static") 
-  else (HDF5_BUILD_STATIC)
-    set (HDF5_enable_static "--disable-static") 
-  endif (HDF5_BUILD_STATIC)
-
-endif (NOT HDF5_ENABLE_CMAKE)
+endif (NOT HDF5_CMAKE_BUILD)
 
 ## ==============================================================================
 ##
@@ -144,7 +139,7 @@ if (NOT HDF5_FOUND OR HDF5_FORCE_BUILD)
   
   ## Build package from source
   
-  if (HDF5_ENABLE_CMAKE)
+  if (HDF5_CMAKE_BUILD)
     
     ExternalProject_Add (hdf5
       PREFIX ${HDF5_BINARY_DIR}
@@ -155,7 +150,7 @@ if (NOT HDF5_FOUND OR HDF5_FORCE_BUILD)
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
-  else (HDF5_ENABLE_CMAKE)
+  else (HDF5_CMAKE_BUILD)
     
     ExternalProject_Add (hdf5
       PREFIX ${HDF5_BINARY_DIR}
@@ -166,7 +161,7 @@ if (NOT HDF5_FOUND OR HDF5_FORCE_BUILD)
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
 
-  endif (HDF5_ENABLE_CMAKE)
+  endif (HDF5_CMAKE_BUILD)
   
 else (NOT HDF5_FOUND OR HDF5_FORCE_BUILD)
   
@@ -206,7 +201,7 @@ if (VERBOSE_CONFIGURE)
   message (STATUS "[HDF5] Configuration summary.")
   message (STATUS "CMake installation area                 = ${CMAKE_INSTALL_PREFIX}" )
   message (STATUS "Force build and installation of package = ${HDF5_FORCE_BUILD}"     )
-  message (STATUS "Build HDF5 using CMake (else Autotools) = ${HDF5_ENABLE_CMAKE}"    )
+  message (STATUS "Build HDF5 using CMake (else Autotools) = ${HDF5_CMAKE_BUILD}"     )
   message (STATUS "Enable parallel build (requires MPI)    = ${HDF5_ENABLE_PARALLEL}" )
   message (STATUS "Build HDF5 Unit Testing                 = ${HDF5_BUILD_TESTING}"   )
   message (STATUS "Build HDF5 Library Examples             = ${HDF5_BUILD_EXAMPLES}"  )

@@ -15,10 +15,9 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (OPENMPI_VERSION        "1.4.3" )
-set (OPENMPI_SOURCE_ARCHIVE "openmpi-${OPENMPI_VERSION}.tar.gz" )
-set (OPENMPI_URL            "http://www.open-mpi.org/software/ompi/v1.4/downloads/${OPENMPI_SOURCE_ARCHIVE}" )
-set (OPENMPI_MD5            "" )
+set (OPENMPI_VERSION        "1.4" )
+set (OPENMPI_SOURCE_ARCHIVE "openmpi-${OPENMPI_VERSION}.tar.bz2" )
+set (OPENMPI_URL            "http://www.open-mpi.org/software/ompi/v${OPENMPI_VERSION}/downloads/${OPENMPI_SOURCE_ARCHIVE}" )
 set (OPENMPI_SVN            "" )
 
 ## ==============================================================================

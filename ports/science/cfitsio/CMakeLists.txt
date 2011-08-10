@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ## Package information
-set (CFITSIO_VERSION        "3260" )
+set (CFITSIO_VERSION        "3280" )
 set (CFITSIO_SOURCE_ARCHIVE "cfitsio${CFITSIO_VERSION}.tar.gz" )
 set (CFITSIO_URL            "http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/${CFITSIO_SOURCE_ARCHIVE}" )
 set (CFITSIO_SVN            "" )
@@ -39,6 +39,10 @@ include (FindCFITSIO)
 ## ==============================================================================
 ##
 ##  Build instructions
+##
+##  - Compile CFITSIO as a Universal Binary on Mac OS-X
+##    - setenv CFLAGS "-arch ppc -arch i386 -g -O2"
+##    - export CFLAGS="-arch ppc -arch i386 -g -O2"
 ##
 ## ==============================================================================
 
