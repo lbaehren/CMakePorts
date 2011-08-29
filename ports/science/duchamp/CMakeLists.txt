@@ -44,9 +44,16 @@ endif (DUCHAMP_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-#include (FindCFITSIO)
+include (FindCFITSIO)
 include (FindWCSLIB)
 #include (FindDUCHAMP)
+
+if (CFITSIO_FOUND)
+  ## extract path from pull library name ...
+  get_filename_component (CFITSIO_LIBRARY_PATH ${CFITSIO_LIBRARIES} PATH)
+  ## ... and remove "lib" portion to get root directory
+  string (REPLACE /lib "" CFITSIO_LIBRARY_PATH ${CFITSIO_LIBRARY_PATH})
+endif (CFITSIO_FOUND)
 
 ## ==============================================================================
 ##
@@ -78,7 +85,7 @@ if (NOT DUCHAMP_FOUND OR DUCHAMP_FORCE_BUILD)
     SOURCE_DIR source
     URL ${DUCHAMP_SOURCE}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-cfitsio=${CMAKE_INSTALL_PREFIX} --with-wcslib=${CMAKE_INSTALL_PREFIX} --without-pgplot
+    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-cfitsio=${CFITSIO_LIBRARY_PATH} --with-wcslib=${CMAKE_INSTALL_PREFIX} --without-pgplot
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   
