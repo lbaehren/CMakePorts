@@ -3,7 +3,6 @@
 ##                                                     Port categories
 
 add_subdirectory (archivers)
-add_subdirectory (database)
 add_subdirectory (devel)
 add_subdirectory (editors)
 add_subdirectory (graphics)
