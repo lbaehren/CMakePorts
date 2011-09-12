@@ -113,13 +113,13 @@ enable_testing()
 ##____________________________________________________________________
 ##                                                    Search locations
 
-list (INSERT CMAKE_INCLUDE_PATH 0 /opt/local/include)
-list (INSERT CMAKE_INCLUDE_PATH 0 ${CMAKE_INSTALL_PREFIX})
-list (INSERT CMAKE_INCLUDE_PATH 0 ${CMAKE_INSTALL_PREFIX}/include)
+foreach (_pathBase /usr /usr/local /opt/local /sw ${CMAKE_INSTALL_PREFIX})
 
-list (INSERT CMAKE_LIBRARY_PATH 0 /opt/local/lib)
-list (INSERT CMAKE_LIBRARY_PATH 0 ${CMAKE_INSTALL_PREFIX})
-list (INSERT CMAKE_LIBRARY_PATH 0 ${CMAKE_INSTALL_PREFIX}/lib)
+  list (INSERT CMAKE_INCLUDE_PATH 0 ${_pathBase}/include )
+  list (INSERT CMAKE_LIBRARY_PATH 0 ${_pathBase}/lib     )
+  list (INSERT CMAKE_PROGRAM_PATH 0 ${_pathBase}/bin     )
+
+endforeach (_pathBase)
 
 ##____________________________________________________________________
 ##                                               Installation location
