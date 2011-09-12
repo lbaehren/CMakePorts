@@ -1,8 +1,6 @@
 # +-----------------------------------------------------------------------------+
-# | $Id::                                                                     $ |
-# +-----------------------------------------------------------------------------+
 # |   Copyright (C) 2007                                                        |
-# |   Lars B"ahren (bahren@astron.nl)                                           |
+# |   Lars B"ahren (lbaehren@gmail.com)                                         |
 # |                                                                             |
 # |   This program is free software; you can redistribute it and/or modify      |
 # |   it under the terms of the GNU General Public License as published by      |
@@ -34,28 +32,19 @@ if (NOT GMP_FOUND)
   ##_____________________________________________________________________________
   ## Check for the header files
   
-  find_path (GMP_INCLUDES gmp.h
-    PATHS /sw /usr /usr/local /opt/local ${CMAKE_INSTALL_PREFIX}
-    PATH_SUFFIXES include
-    )
+  find_path (GMP_INCLUDES gmp.h)
   
   ##_____________________________________________________________________________
   ## Check for the library
 
   set (GMP_LIBRARIES "")
 
-  find_library (GMP_GMP_LIBRARY gmp
-    PATHS /sw /usr /usr/local ${CMAKE_INSTALL_PREFIX}
-    PATH_SUFFIXES lib
-    )
+  find_library (GMP_GMP_LIBRARY gmp)
   if (GMP_GMP_LIBRARY)
     list (APPEND GMP_LIBRARIES ${GMP_GMP_LIBRARY})
   endif (GMP_GMP_LIBRARY)
   
-  find_library (GMP_GMPXX_LIBRARY gmpxx
-    PATHS /sw /usr /usr/local ${CMAKE_INSTALL_PREFIX}
-    PATH_SUFFIXES lib
-    )
+  find_library (GMP_GMPXX_LIBRARY gmpxx)
   if (GMP_GMPXX_LIBRARY)
     list (APPEND GMP_LIBRARIES ${GMP_GMPXX_LIBRARY})
   endif (GMP_GMPXX_LIBRARY)  

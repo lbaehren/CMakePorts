@@ -46,7 +46,16 @@ endif (BOOST_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-include (FindBOOST)
+find_package (Boost)
+
+## Compatibility variables
+if (Boost_FOUND)
+
+  set ( BOOST_FOUND     TRUE                  )
+  set ( BOOST_INCLUDES  ${Boost_INCLUDE_DIRS} )
+  set ( BOOST_LIBRARIES ${Boost_LIBRARIES}    )
+
+endif (Boost_FOUND)
 
 ## ==============================================================================
 ##

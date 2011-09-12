@@ -91,16 +91,3 @@ else (NOT GUILE_FOUND OR GUILE_FORCE_BUILD)
     )
   
 endif (NOT GUILE_FOUND OR GUILE_FORCE_BUILD)
-## ==============================================================================
-##
-##  Configuration summary
-##
-## ==============================================================================
-
-message (STATUS "+------------------------------------------------------------+")
-
-message (STATUS "[Guile] Configuration summary.")
-message (STATUS " GMP includes  = ${GMP_INCLUDES}")
-message (STATUS " GMP libraries = ${GMP_LIBRARIES}")
-
-message (STATUS "+------------------------------------------------------------+")

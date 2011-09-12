@@ -43,7 +43,6 @@ if (NOT FIND_AUTOCONF_CMAKE)
     string (TOUPPER ${_program} _var)
 
     find_program (${_var}_EXECUTABLE ${_program}
-      PATHS /sw /usr /opt /opt/usr ${CMAKE_INSTALL_PREFIX}
       PATH_SUFFIXES bin local/bin
       )
     
