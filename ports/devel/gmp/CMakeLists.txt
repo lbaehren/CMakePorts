@@ -100,7 +100,4 @@ else (NOT GMP_FOUND OR GMP_FORCE_BUILD)
     COMMENT "[GMP] Found system-wide installation; skipping rebuild!"
     )
 
-  message (STATUS " GMP includes  = ${GMP_INCLUDES}")
-  message (STATUS " GMP libraries = ${GMP_LIBRARIES}")
-  
 endif (NOT GMP_FOUND OR GMP_FORCE_BUILD)

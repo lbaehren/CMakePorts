@@ -33,18 +33,12 @@ if (NOT FIND_CPPUNIT_CMAKE)
   ##_____________________________________________________________________________
   ## Check for the header files
   
-  find_path (CPPUNIT_INCLUDES cppunit/TestAssert.h
-    PATHS /usr /usr/local /sw ${CMAKE_INSTALL_PREFIX}
-    PATH_SUFFIXES include include/cppunit
-    )
+  find_path (CPPUNIT_INCLUDES cppunit/TestAssert.h cppunit/Exception.h)
   
   ##_____________________________________________________________________________
   ## Check for the library
   
-  find_library (CPPUNIT_LIBRARIES cppunit
-    PATHS /usr /usr/local /sw ${CMAKE_INSTALL_PREFIX}
-    PATH_SUFFIXES lib
-    )
+  find_library (CPPUNIT_LIBRARIES cppunit)
   
   ##_____________________________________________________________________________
   ## Actions taken when all components have been found

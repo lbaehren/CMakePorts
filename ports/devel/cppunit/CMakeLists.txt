@@ -51,10 +51,6 @@ include (FindCppUnit)
 ##
 ## ==============================================================================
 
-if (CPPUNIT_FROM_REPOS)
-  set (CPPUNIT_FORCE_BUILD TRUE)
-endif (CPPUNIT_FROM_REPOS)
-
 if (NOT CPPUNIT_FOUND OR CPPUNIT_FORCE_BUILD)
   
   ## Locate source file to build from
