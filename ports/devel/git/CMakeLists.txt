@@ -109,7 +109,7 @@ if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
       GIT_REPOSITORY ${GIT_GIT}
       BUILD_IN_SOURCE 1
       PATCH_COMMAND ${PROJECT_BINARY_DIR}/source/make configure
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX} #--with-iconv=${CMAKE_INSTALL_PREFIX}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
@@ -121,7 +121,7 @@ if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
       SOURCE_DIR source
       URL ${GIT_SOURCE}
       BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX} #--with-iconv=${CMAKE_INSTALL_PREFIX}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
@@ -144,29 +144,3 @@ else (NOT GIT_FOUND OR GIT_FORCE_BUILD)
   
 endif (NOT GIT_FOUND OR GIT_FORCE_BUILD)
 
-## ==============================================================================
-##
-##  Configuration summary
-##
-## ==============================================================================
-
-if (GIT_VERBOSE_CONFIGURE)
-  
-  message (STATUS "+------------------------------------------------------------+")
-  
-  message (STATUS "[Git] Configuration summary.")
-  message (STATUS " Curl includes     = ${CURL_INCLUDE_DIRS}")
-  message (STATUS " Curl libraries    = ${CURL_LIBRARIES}")
-  message (STATUS " Iconv includes    = ${ICONV_INCLUDES}")
-  message (STATUS " Iconv libraries   = ${ICONV_LIBRARIES}")
-  message (STATUS " OpenSSL includes  = ${OPENSSL_INCLUDE_DIR}")
-  message (STATUS " OpenSSL libraries = ${OPENSSL_LIBRARIES}")
-  message (STATUS " Perl executable   = ${PERL_EXECUTABLE}")
-  message (STATUS " Perl includes     = ${PERL_INCLUDE_PATH}")
-  message (STATUS " Perl libraries    = ${PERL_LIBRARY}")
-  message (STATUS " Zlib includes     = ${ZLIB_INCLUDE_DIRS}")
-  message (STATUS " Zlib libraries    = ${ZLIB_LIBRARIES}")
-  
-  message (STATUS "+------------------------------------------------------------+")
-  
-endif (GIT_VERBOSE_CONFIGURE)
