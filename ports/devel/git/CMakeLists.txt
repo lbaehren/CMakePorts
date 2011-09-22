@@ -18,7 +18,7 @@ cmake_policy (VERSION 2.8)
 set (GIT_VERSION        "1.7.5.1")
 set (GIT_SOURCE_ARCHIVE "git-${GIT_VERSION}.tar.gz")
 set (GIT_URL            "http://kernel.org/pub/software/scm/git/${GIT_SOURCE_ARCHIVE}")
-set (GIT_GIT            "git://git.kernel.org/pub/scm/git/git.git")
+set (GIT_GIT            "git://github.com/git/git.git")
 
 ## ==============================================================================
 ##
