@@ -38,7 +38,6 @@ if (NOT <PACKAGE>_FOUND)
   
   find_path (<PACKAGE>_INCLUDES <header file(s)>
     HINTS ${<PACKAGE>_ROOT_DIR}
-    PATHS /sw /usr /usr/local /opt/local
     PATH_SUFFIXES include
     )
   
@@ -47,7 +46,6 @@ if (NOT <PACKAGE>_FOUND)
   
   find_library (<PACKAGE>_LIBRARIES <package name>
     HINTS ${<PACKAGE>_ROOT_DIR}
-    PATHS /sw /usr /usr/local /opt/local
     PATH_SUFFIXES lib
     )
   
@@ -56,7 +54,6 @@ if (NOT <PACKAGE>_FOUND)
   
   find_program (<PACKAGE>_EXECUTABLE <package name>
     HINTS ${<PACKAGE>_ROOT_DIR}
-    PATHS /sw /usr /usr/local /opt/local
     PATH_SUFFIXES bin
     )
   
