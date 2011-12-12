@@ -1,0 +1,99 @@
+#!/bin/sh
+
+## ==============================================================================
+##
+##  Function definitions
+##
+## ==============================================================================
+
+##_______________________________________________________________________________
+## Installation of MacPorts itself
+
+install_macports ()
+{
+    ## Set basic variables required
+    varMacPortsVersion=2.0.3
+    varMacPortsArchive=MacPorts-${varMacPortsVersion}.tar.gz
+    varMacPortsURL=https://distfiles.macports.org/MacPorts/$varMacPortsArchive
+    
+    ## Get the source code
+    curl $varMacPortsURL -o MacPorts-2.0.3.tar.gz -#
+
+    ## Unpack the source file
+    tar -xvzf $varMacPortsArchive
+
+    ## Configure, build and install MacPorts
+    cd MacPorts-$varMacPortsVersion
+    ./configure && make && sudo make install
+
+    ## Update configuration of MacPorts
+    sudo port -v selfupdate
+}
+
+##_______________________________________________________________________________
+## Remove MacPorts from the system, removing all files
+
+uninstall_macports ()
+{
+    ## Uninstall all the installed ports
+    sudo port -fp uninstall --follow-dependents installed
+
+    ## Clean up directories used by MacPorts
+    sudo rm -rf /opt/local
+    sudo rm -rf /Applications/DarwinPorts
+    sudo rm -rf /Applications/MacPorts
+    sudo rm -rf /Library/LaunchDaemons/org.macports.*
+    sudo rm -rf /Library/Receipts/DarwinPorts*.pkg
+    sudo rm -rf /Library/Receipts/MacPorts*.pkg
+    sudo rm -rf /Library/StartupItems/DarwinPortsStartup
+    sudo rm -rf /Library/Tcl/darwinports1.0
+    sudo rm -rf /Library/Tcl/macports1.0
+    sudo rm -rf ~/.macports
+}
+
+##_______________________________________________________________________________
+## Installation of development tools
+
+install_devel ()
+{
+    port install boost 
+    port install cmake
+    port install cppunit
+    port install doxygen
+    port install git-core +doc+pcre+python27+svn
+    port install python27
+    port select --set python python27
+    port install qt4-mac +quartz
+    port install subversion
+    port install tcl
+    port install tk
+    port install valgrind
+}
+
+##_______________________________________________________________________________
+## Installation of basic ports
+
+install_ports ()
+{
+    port install texlive +full
+    port install task +bash_completion
+    port install cfitsio
+    port install openssl
+    port install dvdauthor
+    port install wget +ssl
+    port install curl +ssl
+    port install plplot +aquaterm
+    port install silo +hdf5
+    port install kde4-baseapps kdemultimedia4 libksane taglib
+    
+    sudo launchctl load -w /Library/LaunchDaemons/org.freedesktop.dbus-system.plist
+}
+
+## ==============================================================================
+##
+##  Main command sequence of the script
+##
+## ==============================================================================
+
+install_devel
+install_ports
