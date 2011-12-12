@@ -93,9 +93,11 @@ install_ports ()
     port install dvdauthor
     port install ghostscript
     port install gnuplot +luaterm+pangocairo
+    port install graphviz
     port install gsl
     port install hdf5-18
     port install ilmbase
+    port install jpeg
     port install kde4-baseapps kdemultimedia4 libksane taglib
     port install libgphoto2
     port install mplayer-devel
@@ -103,7 +105,9 @@ install_ports ()
     port install openssl
     port install pgplot +gcc44
     port install plplot +aquaterm
+    port install poppler
     port install silo +hdf5
+    port install szip
     port install task +bash_completion
     port install texlive +full
     port install wget +ssl
