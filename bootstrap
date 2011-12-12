@@ -56,14 +56,27 @@ uninstall_macports ()
 
 install_devel ()
 {
-    port install boost 
+    echo "[MacPorts] Installation of development tools ..."
+
+    port install bison
+    port install blitz
+    port install boost
     port install cmake
     port install cppunit
     port install doxygen
+    port install fftw-3
+    port install flex
     port install git-core +doc+pcre+python27+svn
+    port install libxml2
+    port install log4cplus
+    port install ncurses
     port install python27
     port select --set python python27
+    port install py27-numpy
+    port install py27-scipy +gcc44
+    port install py27-matplotlib +tkinter
     port install qt4-mac +quartz
+    port install readline
     port install subversion
     port install tcl
     port install tk
@@ -75,16 +88,25 @@ install_devel ()
 
 install_ports ()
 {
-    port install texlive +full
-    port install task +bash_completion
     port install cfitsio
-    port install openssl
-    port install dvdauthor
-    port install wget +ssl
     port install curl +ssl
+    port install dvdauthor
+    port install ghostscript
+    port install gnuplot +luaterm+pangocairo
+    port install gsl
+    port install hdf5-18
+    port install ilmbase
+    port install kde4-baseapps kdemultimedia4 libksane taglib
+    port install libgphoto2
+    port install mplayer-devel
+    port install openexr
+    port install openssl
+    port install pgplot +gcc44
     port install plplot +aquaterm
     port install silo +hdf5
-    port install kde4-baseapps kdemultimedia4 libksane taglib
+    port install task +bash_completion
+    port install texlive +full
+    port install wget +ssl
     
     sudo launchctl load -w /Library/LaunchDaemons/org.freedesktop.dbus-system.plist
 }
