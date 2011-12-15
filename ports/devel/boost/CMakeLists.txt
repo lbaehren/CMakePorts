@@ -16,7 +16,7 @@ cmake_policy (VERSION 2.8)
 
 ##  Package information
 set (BOOST_VERSION_MAJOR  "1" )
-set (BOOST_VERSION_MINOR  "47" )
+set (BOOST_VERSION_MINOR  "48" )
 set (BOOST_VERSION_PATCH  "0" )
 set (BOOST_VERSION        "${BOOST_VERSION_MAJOR}_${BOOST_VERSION_MINOR}_${BOOST_VERSION_PATCH}" )
 set (BOOST_SOURCE_ARCHIVE "boost_${BOOST_VERSION}.tar.bz2" )
