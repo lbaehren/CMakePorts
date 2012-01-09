@@ -78,7 +78,7 @@ if (NOT GUTENPRINT_FOUND OR GUTENPRINT_FORCE_BUILD)
       SOURCE_DIR source
       SVN_REPOSITORY ${GUTENPRINT_SVN}
       BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-cups-ppds --enable-globalized-cups-ppds
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
@@ -90,7 +90,7 @@ if (NOT GUTENPRINT_FOUND OR GUTENPRINT_FORCE_BUILD)
       SOURCE_DIR source
       URL ${GUTENPRINT_SOURCE}
       BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-cups-ppds --enable-globalized-cups-ppds
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
