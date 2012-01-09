@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (SUBVERSION_VERSION        "1.6.12" )
+set (SUBVERSION_VERSION        "1.7.2" )
 set (SUBVERSION_SOURCE_ARCHIVE "subversion-${SUBVERSION_VERSION}.tar.gz" )
 set (SUBVERSION_URL            "http://subversion.tigris.org/downloads/${SUBVERSION_SOURCE_ARCHIVE}" )
 set (SUBVERSION_SVN            "http://svn.apache.org/repos/asf/subversion/trunk" )
