@@ -157,13 +157,28 @@ endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 ##____________________________________________________________________
 ##                                         Build architectures for OSX
 
-if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-  # 64-bit build
-  set (CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "Build architectures for OSX")
-else()
-  # 32-bit build
-  set (CMAKE_OSX_ARCHITECTURES "i386" CACHE STRING "Build architectures for OSX")
-endif()
+if (APPLE)
+
+  message (STATUS "Detecting OSX architecture")
+
+  foreach (osxArch
+      powerpc
+      i386
+      x86_64
+      )
+    
+    if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL ${osxArch})
+      set (CMAKE_OSX_ARCHITECTURES "${osxArch}" CACHE STRING
+	"Build architectures for OSX"
+	FORCE
+	)
+    endif (${CMAKE_SYSTEM_PROCESSOR} STREQUAL ${osxArch})
+    
+  endforeach (osxArch)
+
+  message (STATUS "Detecting OSX architecture - ${CMAKE_OSX_ARCHITECTURES}")
+  
+endif (APPLE)
 
 ##____________________________________________________________________
 ##                                         Cache initialization script
