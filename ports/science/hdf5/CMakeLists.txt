@@ -15,11 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ## Package information
-set (HDF5_VERSION        "1.8.7" )
-set (HDF5_SOURCE_ARCHIVE "hdf5-${HDF5_VERSION}.tar.bz2" )
-set (HDF5_URL            "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/${HDF5_SOURCE_ARCHIVE}" )
-#set (HDF5_SVN            "http://svn.hdfgroup.uiuc.edu/hdf5/trunk")
-set (HDF5_SVN            "http://svn.hdfgroup.uiuc.edu/hdf5/branches/hdf5_1_8_7")
+set (HDF5_VERSION        "1.8.8" )
+set (HDF5_SOURCE_ARCHIVE "hdf5-${HDF5_VERSION}.tar.gz" )
+set (HDF5_URL            "http://www.hdfgroup.org/ftp/HDF5/current/src/${HDF5_SOURCE_ARCHIVE}" )
+set (HDF5_SVN            "http://svn.hdfgroup.uiuc.edu/hdf5/branches/hdf5_1_8_8")
 
 set (H5CHECK_VERSION        "2_0" )
 set (H5CHECK_SOURCE_ARCHIVE "h5check_${H5CHECK_VERSION}.tar.gz" )
