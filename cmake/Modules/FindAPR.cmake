@@ -33,7 +33,6 @@ if (NOT APR_FOUND)
   ## Check for the header files
   
   find_path (APR_INCLUDES apr.h apr_lib.h apr_md5.h
-    PATHS /usr /usr/local /sw ${CMAKE_INSTALL_PREFIX}
     PATH_SUFFIXES include include/apache2 include/apr-1
     )
   
@@ -41,7 +40,6 @@ if (NOT APR_FOUND)
   ## Check for the library
   
   find_library (APR_LIBRARIES apr apr-1
-    PATHS /usr /usr/local /sw ${CMAKE_INSTALL_PREFIX}
     PATH_SUFFIXES lib
     )
 

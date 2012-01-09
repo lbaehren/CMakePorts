@@ -43,7 +43,19 @@ endif (APR_UTIL_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-#include (FindAPR_UTIL)
+include (FindAPR)
+
+## Extract base directory of APR installation
+
+if (APR_LIBRARIES)
+  get_filename_component (APR_LIBRARY_DIR ${APR_LIBRARIES} PATH)
+endif (APR_LIBRARIES)
+
+if (APR_LIBRARY_DIR)
+  set (APR_PREFIX ${APR_LIBRARY_DIR}/..)
+else (APR_LIBRARY_DIR)
+  set (APR_PREFIX ${CMAKE_INSTALL_PREFIX})
+endif (APR_LIBRARY_DIR)
 
 ## ==============================================================================
 ##
@@ -75,7 +87,7 @@ if (NOT HAVE_APR_UTIL OR APR_UTIL_FORCE_BUILD)
     SOURCE_DIR source
     URL ${APR_UTIL_SOURCE}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-apr=${CMAKE_INSTALL_PREFIX}
+    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-apr=${APR_PREFIX}
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   

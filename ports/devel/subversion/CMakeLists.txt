@@ -17,7 +17,7 @@ cmake_policy (VERSION 2.8)
 ##  Package information
 set (SUBVERSION_VERSION        "1.7.2" )
 set (SUBVERSION_SOURCE_ARCHIVE "subversion-${SUBVERSION_VERSION}.tar.gz" )
-set (SUBVERSION_URL            "http://subversion.tigris.org/downloads/${SUBVERSION_SOURCE_ARCHIVE}" )
+set (SUBVERSION_URL            "http://flymed.ru:8080/mirrors/apache/subversion/${SUBVERSION_SOURCE_ARCHIVE}" )
 set (SUBVERSION_SVN            "http://svn.apache.org/repos/asf/subversion/trunk" )
 
 ## ==============================================================================
@@ -46,6 +46,18 @@ endif (SUBVERSION_ENABLE_TESTING)
 include (FindSubversion)
 include (FindOpenSSL)
 include (FindAPR)
+
+## Extract base directory of APR installation
+
+if (APR_LIBRARIES)
+  get_filename_component (APR_LIBRARY_DIR ${APR_LIBRARIES} PATH)
+endif (APR_LIBRARIES)
+
+if (APR_LIBRARY_DIR)
+  set (APR_PREFIX ${APR_LIBRARY_DIR}/..)
+else (APR_LIBRARY_DIR)
+  set (APR_PREFIX ${CMAKE_INSTALL_PREFIX})
+endif (APR_LIBRARY_DIR)
 
 ## ==============================================================================
 ##
@@ -82,7 +94,7 @@ if (NOT SUBVERSION_FOUND OR SUBVERSION_FORCE_BUILD)
       SOURCE_DIR source
       SVN_REPOSITORY ${SUBVERSION_SVN}
       BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-apr=${CMAKE_INSTALL_PREFIX} --with-apr-util=${CMAKE_INSTALL_PREFIX} --with-serf=${CMAKE_INSTALL_PREFIX} --with-neon=${CMAKE_INSTALL_PREFIX}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-apr=${APR_PREFIX} --with-apr-util=${CMAKE_INSTALL_PREFIX} --with-serf=${CMAKE_INSTALL_PREFIX} --with-neon=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
 
@@ -94,7 +106,7 @@ if (NOT SUBVERSION_FOUND OR SUBVERSION_FORCE_BUILD)
       SOURCE_DIR source
       URL ${SUBVERSION_SOURCE}
       BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-apr=${CMAKE_INSTALL_PREFIX} --with-apr-util=${CMAKE_INSTALL_PREFIX} --with-serf=${CMAKE_INSTALL_PREFIX} --with-neon=${CMAKE_INSTALL_PREFIX}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-apr=${APR_PREFIX} --with-apr-util=${CMAKE_INSTALL_PREFIX} --with-serf=${CMAKE_INSTALL_PREFIX} --with-neon=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
