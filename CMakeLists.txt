@@ -160,22 +160,28 @@ endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 if (APPLE)
 
   message (STATUS "Detecting OSX architecture")
-
-  foreach (osxArch
-      powerpc
-      i386
-      x86_64
+  
+  if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386")
+    set (CMAKE_OSX_ARCHITECTURES "i386" CACHE STRING
+      "Build architectures for OSX"
+      FORCE
       )
-    
-    if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL ${osxArch})
-      set (CMAKE_OSX_ARCHITECTURES "${osxArch}" CACHE STRING
-	"Build architectures for OSX"
-	FORCE
-	)
-    endif (${CMAKE_SYSTEM_PROCESSOR} STREQUAL ${osxArch})
-    
-  endforeach (osxArch)
-
+  endif (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386")
+  
+  if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+    set (CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING
+      "Build architectures for OSX"
+      FORCE
+      )
+  endif (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+  
+  if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "powerpc")
+    set (CMAKE_OSX_ARCHITECTURES "ppc" CACHE STRING
+      "Build architectures for OSX"
+      FORCE
+      )
+  endif (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "powerpc")
+  
   message (STATUS "Detecting OSX architecture - ${CMAKE_OSX_ARCHITECTURES}")
   
 endif (APPLE)
