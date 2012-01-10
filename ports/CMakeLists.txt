@@ -47,7 +47,7 @@ add_dependencies (libmpc mpfr)
 add_dependencies (libtool automake)
 add_dependencies (mpfr gmp)
 add_dependencies (ppl gmp)
-add_dependencies (subversion swig expat serf)
+add_dependencies (subversion swig expat serf sqlite)
 
 ## ___ editors ___________________________________
 
