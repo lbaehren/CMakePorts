@@ -42,12 +42,12 @@ add_dependencies (cmake git)
 add_dependencies (cppunit autoconf automake)
 add_dependencies (doxygen swig)
 #add_dependencies (gcc mpc cloog libiconv)
-add_dependencies (git curl expat openssl zlib)
+add_dependencies (git subversion curl expat openssl zlib)
 add_dependencies (libmpc mpfr)
 add_dependencies (libtool automake)
 add_dependencies (mpfr gmp)
 add_dependencies (ppl gmp)
-add_dependencies (subversion swig expat serf sqlite)
+add_dependencies (subversion swig expat neon serf sqlite)
 
 ## ___ editors ___________________________________
 
