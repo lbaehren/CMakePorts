@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (SERF_VERSION        "0.7.2" )
+set (SERF_VERSION        "1.0.0" )
 set (SERF_SOURCE_ARCHIVE "serf-${SERF_VERSION}.tar.gz" )
 set (SERF_URL            "http://serf.googlecode.com/files/${SERF_SOURCE_ARCHIVE}" )
 set (SERF_SVN            "http://serf.googlecode.com/svn/trunk" )
