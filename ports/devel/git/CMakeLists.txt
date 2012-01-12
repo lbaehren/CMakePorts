@@ -15,9 +15,9 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (GIT_VERSION        "1.7.5.1")
+set (GIT_VERSION        "1.7.8.3")
 set (GIT_SOURCE_ARCHIVE "git-${GIT_VERSION}.tar.gz")
-set (GIT_URL            "http://kernel.org/pub/software/scm/git/${GIT_SOURCE_ARCHIVE}")
+set (GIT_URL            "http://code.google.com/p/git-core/downloads/detail?name=${GIT_SOURCE_ARCHIVE}")
 set (GIT_GIT            "git://github.com/git/git.git")
 
 ## ==============================================================================
@@ -27,7 +27,7 @@ set (GIT_GIT            "git://github.com/git/git.git")
 ## ==============================================================================
 
 option (GIT_FORCE_BUILD       "Force build and installation of package?"  NO  )
-option (GIT_FROM_REPOS        "Install package from repository?"          NO  )
+option (GIT_FROM_REPOS        "Install package from repository?"          YES )
 option (GIT_ENABLE_TESTING    "Enable testing and experimental builds?"   YES )
 option (GIT_VERBOSE_CONFIGURE "Be verbose during configugration?"         NO  )
 option (GIT_WITH_CURL         "Support for http(s):// transports?"        YES )
@@ -108,10 +108,18 @@ if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
       SOURCE_DIR source
       GIT_REPOSITORY ${GIT_GIT}
       BUILD_IN_SOURCE 1
-      PATCH_COMMAND ${PROJECT_BINARY_DIR}/source/make configure
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX} --with-neon=${CMAKE_INSTALL_PREFIX} --with-openssl=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
+
+    ExternalProject_Add_Step (git make_configure
+      COMMAND make configure
+      COMMENT "Generating configure script..."
+      DEPENDEES patch
+      DEPENDERS configure
+      WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/source
+      )
+    
   
   else (GIT_FROM_REPOS)
     
@@ -121,7 +129,7 @@ if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
       SOURCE_DIR source
       URL ${GIT_SOURCE}
       BUILD_IN_SOURCE 1
-      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX} --with-neon=${CMAKE_INSTALL_PREFIX} --with-openssl=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
