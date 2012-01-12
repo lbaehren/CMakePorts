@@ -76,8 +76,8 @@ if (NOT HAVE_Neon OR Neon_FORCE_BUILD)
     SOURCE_DIR source
     URL ${Neon_SOURCE}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-ssl
-    INSTALL_COMMAND sudo make install
+    CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-libs=${CMAKE_INSTALL_PREFIX} --with-ssl=openssl --with-expat
+    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   
 else (NOT HAVE_Neon OR Neon_FORCE_BUILD)
