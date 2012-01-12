@@ -46,7 +46,7 @@ endif (DUCHAMP_ENABLE_TESTING)
 
 find_package (CFITSIO)
 find_package (WCSLIB)
-find_package (Duchamp)
+#find_package (Duchamp)
 
 if (CFITSIO_FOUND)
   ## extract path from pull library name ...
