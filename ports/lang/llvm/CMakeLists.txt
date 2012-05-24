@@ -20,12 +20,16 @@ set (LLVM_SOURCE_ARCHIVE "llvm-${LLVM_VERSION}.tgz" )
 set (LLVM_URL            "http://llvm.org/releases/${LLVM_VERSION}/${LLVM_SOURCE_ARCHIVE}" )
 set (LLVM_SVN            "http://llvm.org/svn/llvm-project/llvm/trunk")
 
+set (CLANG_SVN           "http://llvm.org/svn/llvm-project/cfe/trunk")
+
 ## ==============================================================================
 ##
 ##  Options
 ##
 ## ==============================================================================
 
+option (LLVM_FORCE_BUILD  "Force build and installation of package?"      NO  )
+option (LLVM_FROM_REPOS   "Install package from repository?"              YES )
 option (LLVM_ENABLE_CLANG "Enable LLVM native C/C++/Objective-C compiler" YES )
 
 ## ==============================================================================
@@ -42,6 +46,11 @@ include (FindSubversion)
 ##
 ## ==============================================================================
 
+if (LLVM_FROM_REPOS)
+  set (LLVM_FORCE_BUILD TRUE)
+endif (LLVM_FROM_REPOS)
+
+##__________________________________________________________
 ## Locate source file to build from
 
 find_file (LLVM_SOURCE ${LLVM_SOURCE_ARCHIVE}
@@ -52,6 +61,7 @@ if (NOT LLVM_SOURCE)
   set (LLVM_SOURCE ${LLVM_URL})
 endif (NOT LLVM_SOURCE)
 
+##__________________________________________________________
 ## Build package from source
 
 ExternalProject_Add (llvm
@@ -65,14 +75,25 @@ ExternalProject_Add (llvm
   INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
   )
 
+##__________________________________________________________
 ## Enable LLVM native C/C++/Objective-C compiler
 
-if (LLVM_ENABLE_CLANG AND Subversion_SVN_EXECUTABLE)
-  ExternalProject_Add_Step (llvm clang
-    COMMAND ${Subversion_SVN_EXECUTABLE} co http://llvm.org/svn/llvm-project/cfe/trunk clang
-    COMMENT "Checking out sources for Clang ..."
-    DEPENDEES patch
-    DEPENDERS configure
-    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/source/tools
-    )
-endif (LLVM_ENABLE_CLANG AND Subversion_SVN_EXECUTABLE)
+if (LLVM_ENABLE_CLANG)
+
+  if (Subversion_SVN_EXECUTABLE)
+    
+    ExternalProject_Add_Step (llvm clang
+      COMMAND ${Subversion_SVN_EXECUTABLE} co ${CLANG_SVN} clang
+      COMMENT "[LLVM] Checking out sources for Clang ..."
+      DEPENDEES patch
+      DEPENDERS configure
+      WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/source/tools
+      )
+    
+  else (Subversion_SVN_EXECUTABLE)
+    
+    message (STATUS "[LLVM] Unable to get sources for clang - missing Subversion!")
+
+  endif (Subversion_SVN_EXECUTABLE)
+  
+endif (LLVM_ENABLE_CLANG)
