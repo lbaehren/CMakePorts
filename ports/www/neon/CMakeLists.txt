@@ -44,7 +44,7 @@ endif (Neon_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-include (FindNeon)
+find_package (Neon)
 
 ## ==============================================================================
 ##
@@ -56,7 +56,7 @@ if (Neon_FROM_REPOS)
   set (Neon_FORCE_BUILD TRUE)
 endif (Neon_FROM_REPOS)
 
-if (NOT HAVE_Neon OR Neon_FORCE_BUILD)
+if (NOT NEON_FOUND OR Neon_FORCE_BUILD)
   
   ## Locate source file to build from
   
@@ -80,11 +80,11 @@ if (NOT HAVE_Neon OR Neon_FORCE_BUILD)
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
   
-else (NOT HAVE_Neon OR Neon_FORCE_BUILD)
+else (NOT NEON_FOUND OR Neon_FORCE_BUILD)
   
   add_custom_target (neon
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[Neon] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT HAVE_Neon OR Neon_FORCE_BUILD)
+endif (NOT NEON_FOUND OR Neon_FORCE_BUILD)

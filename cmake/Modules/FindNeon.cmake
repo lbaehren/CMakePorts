@@ -1,8 +1,6 @@
 # +-----------------------------------------------------------------------------+
-# | $Id::                                                                     $ |
-# +-----------------------------------------------------------------------------+
-# |   Copyright (C) 2007                                                        |
-# |   Lars B"ahren (bahren@astron.nl)                                           |
+# |   Copyright (C) 2011                                                        |
+# |   Lars B"ahren (lbaehren@gmail.com)                                         |
 # |                                                                             |
 # |   This program is free software; you can redistribute it and/or modify      |
 # |   it under the terms of the GNU General Public License as published by      |
@@ -23,20 +21,22 @@
 # - Check for the presence of NEON
 #
 # The following variables are set when NEON is found:
-#  NEON_FOUND       = Set to true, if all components of NEON have been found.
+#  NEON_FOUND      = Set to true, if all components of NEON have been found.
 #  NEON_INCLUDES   = Include path for the header files of NEON
 #  NEON_LIBRARIES  = Link these to use NEON
 #  NEON_LFLAGS     = Linker flags (optional)
 
-if (NOT FIND_NEON_CMAKE)
-  
-  set (FIND_NEON_CMAKE TRUE)
+if (NOT NEON_FOUND)
+    
+  if (NOT NEON_ROOT_DIR)
+    set (NEON_ROOT_DIR ${CMAKE_INSTALL_PREFIX})
+  endif (NOT NEON_ROOT_DIR)
   
   ##_____________________________________________________________________________
   ## Check for the header files
   
   find_path (NEON_INCLUDES neon.h
-    PATHS /sw /usr /usr/local /opt/local ${CMAKE_INSTALL_PREFIX}
+    HINTS ${NEON_ROOT_DIR}
     PATH_SUFFIXES include
     )
   
@@ -44,7 +44,7 @@ if (NOT FIND_NEON_CMAKE)
   ## Check for the library
   
   find_library (NEON_LIBRARIES neon
-    PATHS /sw /usr /usr/local /opt/local ${CMAKE_INSTALL_PREFIX}
+    HINTS ${NEON_ROOT_DIR}
     PATH_SUFFIXES lib
     )
   
@@ -68,6 +68,7 @@ if (NOT FIND_NEON_CMAKE)
   if (NEON_FOUND)
     if (NOT NEON_FIND_QUIETLY)
       message (STATUS "Found components for NEON")
+      message (STATUS "NEON_ROOT_DIR  = ${NEON_ROOT_DIR}")
       message (STATUS "NEON_INCLUDES  = ${NEON_INCLUDES}")
       message (STATUS "NEON_LIBRARIES = ${NEON_LIBRARIES}")
     endif (NOT NEON_FIND_QUIETLY)
@@ -81,8 +82,9 @@ if (NOT FIND_NEON_CMAKE)
   ## Mark advanced variables
   
   mark_as_advanced (
+    NEON_ROOT_DIR
     NEON_INCLUDES
     NEON_LIBRARIES
     )
   
-endif (NOT FIND_NEON_CMAKE)
+endif (NOT NEON_FOUND)
