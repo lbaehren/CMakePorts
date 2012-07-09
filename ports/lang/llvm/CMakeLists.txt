@@ -31,6 +31,7 @@ set (CLANG_SVN           "http://llvm.org/svn/llvm-project/cfe/trunk")
 option (LLVM_FORCE_BUILD  "Force build and installation of package?"      NO  )
 option (LLVM_FROM_REPOS   "Install package from repository?"              YES )
 option (LLVM_ENABLE_CLANG "Enable LLVM native C/C++/Objective-C compiler" YES )
+option (LLVM_ENABLE_ADA   "Enable LLVM Ada front-end"                     ON  )
 
 ## ==============================================================================
 ##
@@ -38,7 +39,7 @@ option (LLVM_ENABLE_CLANG "Enable LLVM native C/C++/Objective-C compiler" YES )
 ##
 ## ==============================================================================
 
-include (FindSubversion)
+find_package (Subversion)
 
 ## ==============================================================================
 ##
@@ -97,3 +98,10 @@ if (LLVM_ENABLE_CLANG)
   endif (Subversion_SVN_EXECUTABLE)
   
 endif (LLVM_ENABLE_CLANG)
+
+##__________________________________________________________
+## Enable LLVM Ada front-end
+
+if (LLVM_ENABLE_ADA)
+
+endif (LLVM_ENABLE_ADA)
