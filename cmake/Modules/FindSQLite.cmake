@@ -1,5 +1,5 @@
 # +-----------------------------------------------------------------------------+
-# |   Copyright (C) 2011                                                        |
+# |   Copyright (C) 2011-2012                                                   |
 # |   Lars B"ahren (lbaehren@gmail.com)                                         |
 # |                                                                             |
 # |   This program is free software; you can redistribute it and/or modify      |
@@ -32,14 +32,11 @@ if (NOT SQLITE_FOUND)
     set (SQLITE_ROOT_DIR ${CMAKE_INSTALL_PREFIX})
   endif (NOT SQLITE_ROOT_DIR)
 
-  # /Developer/SDKs/MacOSX10.6.sdk/usr/include/sqlite3.h
-
   ##_____________________________________________________________________________
   ## Check for the header files
   
   find_path (SQLITE_INCLUDES sqlite3.h sqlite3ext.h
     HINTS ${SQLITE_ROOT_DIR}
-    PATHS /sw /usr /usr/local /opt/local
     PATH_SUFFIXES include
     )
   
@@ -48,8 +45,15 @@ if (NOT SQLITE_FOUND)
   
   find_library (SQLITE_LIBRARIES sqlite3
     HINTS ${SQLITE_ROOT_DIR}
-    PATHS /sw /usr /usr/local /opt/local
     PATH_SUFFIXES lib
+    )
+  
+  ##_____________________________________________________________________________
+  ## Check for the program executables
+  
+  find_program (SQLITE_LIBRARIES sqlite3
+    HINTS ${SQLITE_ROOT_DIR}
+    PATH_SUFFIXES bin
     )
   
   ##_____________________________________________________________________________
