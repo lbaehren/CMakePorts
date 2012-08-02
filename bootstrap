@@ -1,5 +1,7 @@
 #!/bin/sh
 
+varMacPortsVersion=2.1.2
+
 ## ==============================================================================
 ##
 ##  Function definitions
@@ -12,7 +14,6 @@
 install_macports ()
 {
     ## Set basic variables required
-    varMacPortsVersion=2.1.2
     varMacPortsArchive=MacPorts-${varMacPortsVersion}.tar.gz
     varMacPortsURL=https://distfiles.macports.org/MacPorts/$varMacPortsArchive
     
