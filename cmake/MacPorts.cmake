@@ -20,6 +20,7 @@ if (PORT_EXECUTABLE)
   ## List of packages ______________________________________
 
   foreach (varPackage
+      atlas
       bison
       blitz
       boost
@@ -38,7 +39,9 @@ if (PORT_EXECUTABLE)
       libxml2
       log4cplus
       ncurses
+      neon
       openexr
+      openmotif
       openssl
       poppler
       qt4-mac-devel
@@ -76,7 +79,7 @@ if (PORT_EXECUTABLE)
       add_custom_command (
 	TARGET InstallPorts
 	POST_BUILD
-	COMMAND ${PORT_EXECUTABLE} install ${varPackage}
+	COMMAND ${PORT_INSTALL_COMMAND} ${PORT_EXECUTABLE} install ${varPackage}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 	COMMENT "Installing MacPorts package ${varPackage} ..."
 	)
