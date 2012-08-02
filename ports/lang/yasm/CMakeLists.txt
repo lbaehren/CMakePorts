@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ## Package information
-set (YASM_VERSION        "1.1.0" )
+set (YASM_VERSION        "1.2.0" )
 set (YASM_SOURCE_ARCHIVE "yasm-${YASM_VERSION}.tar.gz" )
 set (YASM_URL            "http://www.tortall.net/projects/yasm/releases/${YASM_SOURCE_ARCHIVE}" )
 set (YASM_SVN            "http://www.tortall.net/svn/yasm/trunk/yasm" )
