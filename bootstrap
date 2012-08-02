@@ -12,12 +12,12 @@
 install_macports ()
 {
     ## Set basic variables required
-    varMacPortsVersion=2.0.3
+    varMacPortsVersion=2.1.2
     varMacPortsArchive=MacPorts-${varMacPortsVersion}.tar.gz
     varMacPortsURL=https://distfiles.macports.org/MacPorts/$varMacPortsArchive
     
     ## Get the source code
-    curl $varMacPortsURL -o MacPorts-2.0.3.tar.gz -#
+    curl $varMacPortsURL -o ${varMacPortsArchive} -#
 
     ## Unpack the source file
     tar -xvzf $varMacPortsArchive
@@ -52,62 +52,20 @@ uninstall_macports ()
 }
 
 ##_______________________________________________________________________________
-## Installation of development tools
-
-install_devel ()
-{
-    echo "[MacPorts] Installation of development tools ..."
-
-    port install bison
-    port install blitz
-    port install boost
-    port install cmake
-    port install cppunit
-    port install doxygen
-    port install fftw-3
-    port install flex
-    port install git-core +doc+pcre+python27+svn
-    port install libxml2
-    port install log4cplus
-    port install ncurses
-    port install python27
-    port select --set python python27
-    port install py27-numpy
-    port install py27-scipy +gcc44
-    port install py27-matplotlib +tkinter
-    port install qt4-mac +quartz
-    port install readline
-    port install subversion
-    port install tcl
-    port install tk
-    port install valgrind
-}
-
-##_______________________________________________________________________________
 ## Installation of basic ports
 
 install_ports ()
 {
-    port install cfitsio
     port install curl +ssl
     port install dvdauthor
-    port install ghostscript
     port install gnuplot +luaterm+pangocairo
-    port install graphviz
-    port install gsl
     port install hdf5-18
-    port install ilmbase
     port install jpeg
     port install kde4-baseapps kdemultimedia4 libksane taglib
-    port install libgphoto2
     port install mplayer-devel
-    port install openexr
-    port install openssl
     port install pgplot +gcc44
     port install plplot +aquaterm
-    port install poppler
     port install silo +hdf5
-    port install szip
     port install task +bash_completion
     port install texlive +full
     port install wget +ssl
@@ -121,5 +79,4 @@ install_ports ()
 ##
 ## ==============================================================================
 
-install_devel
 install_ports

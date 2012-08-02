@@ -5,11 +5,11 @@
 ##
 ## ==============================================================================
 
-## Minimum required version of CMake to configure the project
-cmake_minimum_required (VERSION 2.8)
-
 ## Name of the project handled by CMake
 project (CMakePorts)
+
+## Minimum required version of CMake to configure the project
+cmake_minimum_required (VERSION 2.8)
 
 ## Enforced CMake policy 
 cmake_policy (VERSION 2.8)
@@ -23,6 +23,7 @@ cmake_policy (VERSION 2.8)
 option (ENABLE_SUDO_INSTALL       "Use sudo when installing package?"       NO  )
 option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" YES )
 option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  )
+option (ENABLE_TESTING            "Enable CTest test driver?"               NO  )
 
 ## ==============================================================================
 ##
@@ -45,6 +46,14 @@ else (ENABLE_SUDO_INSTALL)
   set ( PORT_INSTALL_COMMAND "" )
 endif (ENABLE_SUDO_INSTALL)
 
+##__________________________________________________________
+## Handle option: Enable CTest test driver?
+
+if (ENABLE_TESTING)
+  include (CTest)
+  enable_testing()
+endif (ENABLE_TESTING)
+
 ## ==============================================================================
 ##
 ##  Project settings & sub-directories
@@ -63,6 +72,7 @@ if (NOT VERBOSE_CONFIGURE)
   set ( BLITZ_FIND_QUIETLY        TRUE )
   set ( CFITSIO_FIND_QUIETLY      TRUE )
   set ( CPPUNIT_FIND_QUIETLY      TRUE )
+  set ( EXIV2_FIND_QUIETLY        TRUE )
   set ( GHOSTSCRIPT_FIND_QUIETLY  TRUE )
   set ( GIT_FIND_QUIETLY          TRUE )
   set ( GSL_FIND_QUIETLY          TRUE )
@@ -83,6 +93,7 @@ if (NOT VERBOSE_CONFIGURE)
   set ( READLINE_FIND_QUIETLY     TRUE )
   set ( SILO_FIND_QUIETLY         TRUE )
   set ( SLANG_FIND_QUIETLY        TRUE )
+  set ( SQLITE_FIND_QUIETLY       TRUE )
   set ( WCSLIB_FIND_QUIETLY       TRUE )
   set ( YASM_FIND_QUIETLY         TRUE )
 endif (NOT VERBOSE_CONFIGURE)
@@ -108,8 +119,6 @@ endif (PROJECT_CMAKE_MODULES)
 ##                                              Required CMake modules
 
 include (ExternalProject)
-include (CTest)
-enable_testing()
 
 ##____________________________________________________________________
 ##                                                    Search locations
@@ -145,7 +154,7 @@ else (PORTS_INSTALL_PREFIX)
     if (APPLE)
       set (CMAKE_INSTALL_PREFIX "/sw" CACHE PATH "Installation prefix" FORCE)
     else (APPLE)
-      set (CMAKE_INSTALL_PREFIX "/opt" CACHE PATH "Installation prefix" FORCE)
+      set (CMAKE_INSTALL_PREFIX "/opt/local" CACHE PATH "Installation prefix" FORCE)
     endif (APPLE)
   endif (UNIX)
 endif (PORTS_INSTALL_PREFIX)
@@ -204,6 +213,7 @@ endif (ENABLE_LOCAL_REPOSITORIES)
 ##____________________________________________________________________
 ##                                          Ports of software packages
 
+add_subdirectory (cmake)
 add_subdirectory (ports)
 
 ## ==============================================================================
