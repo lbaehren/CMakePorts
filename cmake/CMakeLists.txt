@@ -66,7 +66,6 @@ if (PORT_EXECUTABLE)
       neon
       openexr
       openmotif
-      openssl
       poppler
       qt4-mac-devel
       readline
@@ -76,9 +75,10 @@ if (PORT_EXECUTABLE)
       subversion
       szip
       tcl
-      texlive    # +full
+      texlive       # +full
       tk
       valgrind
+      wget          # +openssl
       xz
       )
     
