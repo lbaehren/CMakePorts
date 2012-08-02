@@ -60,6 +60,8 @@ endif (ENABLE_TESTING)
 ##
 ## ==============================================================================
 
+include (ExternalProject)
+
 ##____________________________________________________________________
 ##                                             (Verbose) configuration
 
@@ -114,11 +116,6 @@ if (PROJECT_CMAKE_MODULES)
     "CMake module path"
     FORCE)
 endif (PROJECT_CMAKE_MODULES)
-
-##____________________________________________________________________
-##                                              Required CMake modules
-
-include (ExternalProject)
 
 ##____________________________________________________________________
 ##                                                    Search locations
