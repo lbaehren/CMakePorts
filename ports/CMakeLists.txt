@@ -38,7 +38,6 @@ add_dependencies (cloog polylib ppl)
 
 add_dependencies (apr-util apr)
 add_dependencies (bison help2man)
-add_dependencies (cmake git)
 add_dependencies (cppunit autoconf automake)
 add_dependencies (doxygen swig)
 #add_dependencies (gcc mpc cloog libiconv)

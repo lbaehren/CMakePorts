@@ -6,7 +6,7 @@
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (CMake)
+project (CMAKE)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -14,18 +14,12 @@ cmake_minimum_required (VERSION 2.8)
 ## Enforced CMake policy 
 cmake_policy (VERSION 2.8)
 
-## ==============================================================================
-##
 ##  Package information
-##
-## ==============================================================================
-
-set (CMAKE_VERSION_MAJOR  "2" )
-set (CMAKE_VERSION_MINOR  "8" )
-set (CMAKE_VERSION        "${CMAKE_VERSION_MAJOR}.${CMAKE_VERSION_MINOR}.3" )
+set (CMAKE_VERSION_SERIES "2.8" )
+set (CMAKE_VERSION_PATCH  "8" )
+set (CMAKE_VERSION        "${CMAKE_VERSION_SERIES}.${CMAKE_VERSION_PATCH}" )
 set (CMAKE_SOURCE_ARCHIVE "cmake-${CMAKE_VERSION}.tar.gz" )
-set (CMAKE_URL            "http://www.cmake.org/files/v${CMAKE_VERSION_MAJOR}.${CMAKE_VERSION_MINOR}/${CMAKE_SOURCE_ARCHIVE}" )
-set (CMAKE_SVN            ":pserver:anonymous@cmake.org:/cmake.git" )
+set (CMAKE_URL            "http://www.cmake.org/files/v${CMAKE_VERSION_SERIES}/${CMAKE_SOURCE_ARCHIVE}" )
 set (CMAKE_GIT            "git://cmake.org/cmake.git")
 
 ## ==============================================================================
@@ -34,21 +28,16 @@ set (CMAKE_GIT            "git://cmake.org/cmake.git")
 ##
 ## ==============================================================================
 
-option (CMake_FORCE_BUILD    "Force build and installation of package?" NO  )
-option (CMake_FROM_REPOS     "Install package from repository?"         YES )
-option (CMake_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (CMAKE_FORCE_BUILD    "Force build and installation of package?" NO  )
+option (CMAKE_FROM_REPOS     "Install package from repository?"         YES )
+option (CMAKE_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (CMake_ENABLE_TESTING)
-  ## CMake settings
+if (CMAKE_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-  ## build command 
-  set (BUILD_COMMAND "make Experimental")
-else (CMake_ENABLE_TESTING)
-  set (BUILD_COMMAND "make")
-endif (CMake_ENABLE_TESTING)
+endif (CMAKE_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -56,7 +45,7 @@ endif (CMake_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-include (FindGit)
+find_package (Git)
 
 ## ==============================================================================
 ##
@@ -64,19 +53,53 @@ include (FindGit)
 ##
 ## ==============================================================================
 
-if (GIT_FOUND)
-  ExternalProject_Add (cmake
-    PREFIX ${CMake_BINARY_DIR}
-    DOWNLOAD_DIR download
-    SOURCE_DIR source
-    GIT_REPOSITORY ${CMAKE_GIT}
-    CONFIGURE_COMMAND ${CMake_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
-    INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
+if (CMAKE_FROM_REPOS AND GIT_FOUND)
+  set (CMAKE_FORCE_BUILD TRUE)
+endif (CMAKE_FROM_REPOS AND GIT_FOUND)
+
+if (NOT CMAKE_FOUND OR CMAKE_FORCE_BUILD)
+  
+  ## Locate source file to build from
+  
+  find_file (CMAKE_SOURCE ${CMAKE_SOURCE_ARCHIVE}
+    PATHS ${PROJECT_SOURCE_DIR}
     )
-else (GIT_FOUND)
+  
+  if (NOT CMAKE_SOURCE)
+    set (CMAKE_SOURCE ${CMAKE_URL})
+  endif (NOT CMAKE_SOURCE)
+  
+  ## Build package from source
+  
+  if (CMAKE_FROM_REPOS)
+    
+    ExternalProject_Add (cmake
+      PREFIX ${PROJECT_BINARY_DIR}
+      DOWNLOAD_DIR download
+      SOURCE_DIR source
+      GIT_REPOSITORY ${CMAKE_GIT}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
+      )
+  
+  else (CMAKE_FROM_REPOS)
+    
+    ExternalProject_Add (cmake
+      PREFIX ${PROJECT_BINARY_DIR}
+      DOWNLOAD_DIR download
+      SOURCE_DIR source
+      URL ${CMAKE_SOURCE}
+      CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
+      INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
+      )
+    
+  endif (CMAKE_FROM_REPOS)
+  
+else (NOT CMAKE_FOUND OR CMAKE_FORCE_BUILD)
+  
   add_custom_target (cmake
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[cmake] Missing installation of Git - unable to get source code!"
+    COMMENT "[CMake] Found system-wide installation; skipping rebuild!"
     )
-endif (GIT_FOUND)
-
+  
+endif (NOT CMAKE_FOUND OR CMAKE_FORCE_BUILD)
