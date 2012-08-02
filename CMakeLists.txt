@@ -103,7 +103,8 @@ endif (NOT VERBOSE_CONFIGURE)
 ##____________________________________________________________________
 ##                                                       CMake modules
 
-find_path (PROJECT_CMAKE_MODULES template_FindXX.cmake
+find_path (PROJECT_CMAKE_MODULES
+  NAMES template_FindXX.cmake FindBlitz.cmake FindCppUnit.cmake
   PATHS ${PROJECT_SOURCE_DIR}
   share
   share/cmake
