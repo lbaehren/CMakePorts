@@ -15,9 +15,9 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (AUTOGEN_VERSION        "5.2.11" )
+set (AUTOGEN_VERSION        "5.12" )
 set (AUTOGEN_SOURCE_ARCHIVE "autogen-${AUTOGEN_VERSION}.tar.gz" )
-set (AUTOGEN_URL            "ftp://ftp.mirror.nl/pub/mirror/gnu/autogen/${AUTOGEN_SOURCE_ARCHIVE}" )
+set (AUTOGEN_URL            "http://ftp.gnu.org/gnu/autogen/rel${AUTOGEN_VERSION}/${AUTOGEN_SOURCE_ARCHIVE}" )
 set (AUTOGEN_MD5            "" )
 set (AUTOGEN_SVN            "" )
 
