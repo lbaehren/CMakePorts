@@ -70,6 +70,7 @@ if (PORT_EXECUTABLE)
       qt4-mac-devel
       readline
       ruby
+      rb-rake
       rb-rubygems
       sqlite3
       subversion
