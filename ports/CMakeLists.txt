@@ -1,6 +1,10 @@
 
 include(ExternalProject)
 
+if (APPLE)
+  include (InstallMacPorts.cmake)
+endif (APPLE)
+
 ##____________________________________________________________________
 ##                                                     Port categories
 
