@@ -15,7 +15,7 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (TASK_VERSION        "1.9.4" )
+set (TASK_VERSION        "2.1.1" )
 set (TASK_SOURCE_ARCHIVE "task-${TASK_VERSION}.tar.gz" )
 set (TASK_URL            "http://www.taskwarrior.org/download/${TASK_SOURCE_ARCHIVE}" )
 set (TASK_GIT            "git://tasktools.org/task.git" )
