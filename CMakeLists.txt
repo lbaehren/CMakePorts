@@ -68,36 +68,40 @@ include (ExternalProject)
 if (NOT VERBOSE_CONFIGURE)
   ## Private components
   set ( LOCAL_REPOSITORIES_FIND_QUIETLY TRUE )
-  ## Search for ported packages
-  set ( APR_FIND_QUIETLY          TRUE )
-  set ( AUTOCONF_FIND_QUIETLY     TRUE )
-  set ( BLITZ_FIND_QUIETLY        TRUE )
-  set ( CFITSIO_FIND_QUIETLY      TRUE )
-  set ( CPPUNIT_FIND_QUIETLY      TRUE )
-  set ( EXIV2_FIND_QUIETLY        TRUE )
-  set ( GHOSTSCRIPT_FIND_QUIETLY  TRUE )
-  set ( GIT_FIND_QUIETLY          TRUE )
-  set ( GSL_FIND_QUIETLY          TRUE )
-  set ( GMP_FIND_QUIETLY          TRUE )
-  set ( HDF5_FIND_QUIETLY         TRUE )
-  set ( ICONV_FIND_QUIETLY        TRUE )
-  set ( LAPACK_FIND_QUIETLY       TRUE )
-  set ( MATROSKA_FIND_QUIETLY     TRUE )
-  set ( MPC_FIND_QUIETLY          TRUE )
-  set ( MPFR_FIND_QUIETLY         TRUE )
-  set ( OPENMPI_FIND_QUIETLY      TRUE )
-  set ( PELICAN_FIND_QUIETLY      TRUE )
-  set ( PPL_FIND_QUIETLY          TRUE )
-  set ( POPT_FIND_QUIETLY         TRUE )
-  set ( PTH_FIND_QUIETLY          TRUE )
-  set ( PYTHON_FIND_QUIETLY       TRUE )
-  set ( QT_FIND_QUIETLY           TRUE )
-  set ( READLINE_FIND_QUIETLY     TRUE )
-  set ( SILO_FIND_QUIETLY         TRUE )
-  set ( SLANG_FIND_QUIETLY        TRUE )
-  set ( SQLITE_FIND_QUIETLY       TRUE )
-  set ( WCSLIB_FIND_QUIETLY       TRUE )
-  set ( YASM_FIND_QUIETLY         TRUE )
+  foreach (varPackage
+      APR
+      AUTOCONF
+      BLITZ
+      CFITSIO
+      CPPUNIT
+      EXIV2
+      GHOSTSCRIPT
+      GIT
+      GSL
+      GMP
+      HDF5
+      ICONV
+      LAPACK
+      LLVM
+      MATROSKA
+      MPC
+      MPFR
+      OPENMPI
+      PELICAN
+      PPL
+      POPT
+      PTH
+      PYTHON
+      QT
+      READLINE
+      SILO
+      SLANG
+      SQLITE
+      WCSLIB
+      YASM
+      )
+    set (${varPackage}_FIND_QUIETLY TRUE )
+  endforeach (varPackage)
 endif (NOT VERBOSE_CONFIGURE)
 
 ##____________________________________________________________________
@@ -211,7 +215,6 @@ endif (ENABLE_LOCAL_REPOSITORIES)
 ##____________________________________________________________________
 ##                                          Ports of software packages
 
-add_subdirectory (cmake)
 add_subdirectory (ports)
 
 ## ==============================================================================
