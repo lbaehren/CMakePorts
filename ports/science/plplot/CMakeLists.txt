@@ -27,8 +27,8 @@ set (PLPLOT_SVN            "https://plplot.svn.sourceforge.net/svnroot/plplot/tr
 ##
 ## ==============================================================================
 
-option (PLPLOT_FORCE_BUILD    "Force build and installation of package?" NO )
-option (PLPLOT_FROM_REPOS     "Install package from repository?"         NO )
+option (PLPLOT_FORCE_BUILD    "Force build and installation of package?" NO  )
+option (PLPLOT_FROM_REPOS     "Install package from repository?"         YES )
 option (PLPLOT_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
