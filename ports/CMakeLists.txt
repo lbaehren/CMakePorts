@@ -67,9 +67,11 @@ add_dependencies (python readline gettext zlib)
 
 ## ___ multimedia ________________________________
 
+add_dependencies (libvorbis libogg)
 add_dependencies (libvpx yasm)
 add_dependencies (libmatroska libebml)
 add_dependencies (mplayer libvpx)
+#add_dependencies (vlc libvorbis a52dec)
 
 ## ___ net _______________________________________
 
