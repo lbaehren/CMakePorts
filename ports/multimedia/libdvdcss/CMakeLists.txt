@@ -6,7 +6,7 @@
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (A52DEC)
+project (LIBDVDCSS)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -15,10 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (A52DEC_VERSION        "0.7.4" )
-set (A52DEC_SOURCE_ARCHIVE "a52dec-${A52DEC_VERSION}.tar.gz" )
-set (A52DEC_URL            "ftp://ftp.videolan.org/pub/videolan/contrib/${A52DEC_SOURCE_ARCHIVE}" )
-set (A52DEC_SVN            "" )
+set (LIBDVDCSS_VERSION        "1.2.12" )
+set (LIBDVDCSS_SOURCE_ARCHIVE "libdvdcss-${LIBDVDCSS_VERSION}.tar.bz2" )
+set (LIBDVDCSS_URL            "http://download.videolan.org/pub/libdvdcss/${LIBDVDCSS_VERSION}/${LIBDVDCSS_SOURCE_ARCHIVE}" )
+set (LIBDVDCSS_SVN            "svn://svn.videolan.org/libdvdcss/trunk" )
 
 ## ==============================================================================
 ##
@@ -26,16 +26,16 @@ set (A52DEC_SVN            "" )
 ##
 ## ==============================================================================
 
-option (A52DEC_FORCE_BUILD    "Force build and installation of package?" NO )
-option (A52DEC_FROM_REPOS     "Install package from repository?"         NO )
-option (A52DEC_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (LIBDVDCSS_FORCE_BUILD    "Force build and installation of package?" NO )
+option (LIBDVDCSS_FROM_REPOS     "Install package from repository?"         NO )
+option (LIBDVDCSS_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (A52DEC_ENABLE_TESTING)
+if (LIBDVDCSS_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-endif (A52DEC_ENABLE_TESTING)
+endif (LIBDVDCSS_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -43,7 +43,7 @@ endif (A52DEC_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-find_package (A52Dec)
+#find_package (LIBDVDCSS)
 
 ## ==============================================================================
 ##
@@ -51,55 +51,55 @@ find_package (A52Dec)
 ##
 ## ==============================================================================
 
-if (A52DEC_FROM_REPOS)
-  set (A52DEC_FORCE_BUILD TRUE)
-endif (A52DEC_FROM_REPOS)
+if (LIBDVDCSS_FROM_REPOS)
+  set (LIBDVDCSS_FORCE_BUILD TRUE)
+endif (LIBDVDCSS_FROM_REPOS)
 
-if (NOT A52DEC_FOUND OR A52DEC_FORCE_BUILD)
+if (NOT LIBDVDCSS_FOUND OR LIBDVDCSS_FORCE_BUILD)
   
   ## Locate source file to build from
   
-  find_file (A52DEC_SOURCE ${A52DEC_SOURCE_ARCHIVE}
+  find_file (LIBDVDCSS_SOURCE ${LIBDVDCSS_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
   
-  if (NOT A52DEC_SOURCE)
-    set (A52DEC_SOURCE ${A52DEC_URL})
-  endif (NOT A52DEC_SOURCE)
+  if (NOT LIBDVDCSS_SOURCE)
+    set (LIBDVDCSS_SOURCE ${LIBDVDCSS_URL})
+  endif (NOT LIBDVDCSS_SOURCE)
   
   ## Build package from source
   
-  if (A52DEC_FROM_REPOS)
+  if (LIBDVDCSS_FROM_REPOS)
     
-    ExternalProject_Add (a52dec
+    ExternalProject_Add (libdvdcss
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      SVN_REPOSITORY ${A52DEC_SVN}
+      SVN_REPOSITORY ${LIBDVDCSS_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
-  else (A52DEC_FROM_REPOS)
+  else (LIBDVDCSS_FROM_REPOS)
     
-    ExternalProject_Add (a52dec
+    ExternalProject_Add (libdvdcss
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      URL ${A52DEC_SOURCE}
+      URL ${LIBDVDCSS_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
-  endif (A52DEC_FROM_REPOS)
+  endif (LIBDVDCSS_FROM_REPOS)
   
-else (NOT A52DEC_FOUND OR A52DEC_FORCE_BUILD)
+else (NOT LIBDVDCSS_FOUND OR LIBDVDCSS_FORCE_BUILD)
   
-  add_custom_target (a52dec
+  add_custom_target (libdvdcss
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[a52dec] Found system-wide installation; skipping rebuild!"
+    COMMENT "[libdvdcss] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT A52DEC_FOUND OR A52DEC_FORCE_BUILD)
+endif (NOT LIBDVDCSS_FOUND OR LIBDVDCSS_FORCE_BUILD)

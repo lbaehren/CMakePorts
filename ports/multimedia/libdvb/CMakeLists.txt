@@ -6,7 +6,7 @@
 ## ==============================================================================
 
 ## Name of the project handled by CMake
-project (A52DEC)
+project (LIBDVB)
 
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
@@ -15,10 +15,10 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ##  Package information
-set (A52DEC_VERSION        "0.7.4" )
-set (A52DEC_SOURCE_ARCHIVE "a52dec-${A52DEC_VERSION}.tar.gz" )
-set (A52DEC_URL            "ftp://ftp.videolan.org/pub/videolan/contrib/${A52DEC_SOURCE_ARCHIVE}" )
-set (A52DEC_SVN            "" )
+set (LIBDVB_VERSION        "0.5.0" )
+set (LIBDVB_SOURCE_ARCHIVE "libdvb-${LIBDVB_VERSION}.tar.gz" )
+set (LIBDVB_URL            "ftp://ftp.videolan.org/pub/videolan/contrib/${LIBDVB_SOURCE_ARCHIVE}" )
+set (LIBDVB_SVN            "" )
 
 ## ==============================================================================
 ##
@@ -26,16 +26,16 @@ set (A52DEC_SVN            "" )
 ##
 ## ==============================================================================
 
-option (A52DEC_FORCE_BUILD    "Force build and installation of package?" NO )
-option (A52DEC_FROM_REPOS     "Install package from repository?"         NO )
-option (A52DEC_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
+option (LIBDVB_FORCE_BUILD    "Force build and installation of package?" NO )
+option (LIBDVB_FROM_REPOS     "Install package from repository?"         NO )
+option (LIBDVB_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
 
-if (A52DEC_ENABLE_TESTING)
+if (LIBDVB_ENABLE_TESTING)
   include (CTest)
   enable_testing()
-endif (A52DEC_ENABLE_TESTING)
+endif (LIBDVB_ENABLE_TESTING)
 
 ## ==============================================================================
 ##
@@ -43,7 +43,7 @@ endif (A52DEC_ENABLE_TESTING)
 ##
 ## ==============================================================================
 
-find_package (A52Dec)
+find_package (LibDvb)
 
 ## ==============================================================================
 ##
@@ -51,55 +51,55 @@ find_package (A52Dec)
 ##
 ## ==============================================================================
 
-if (A52DEC_FROM_REPOS)
-  set (A52DEC_FORCE_BUILD TRUE)
-endif (A52DEC_FROM_REPOS)
+if (LIBDVB_FROM_REPOS)
+  set (LIBDVB_FORCE_BUILD TRUE)
+endif (LIBDVB_FROM_REPOS)
 
-if (NOT A52DEC_FOUND OR A52DEC_FORCE_BUILD)
+if (NOT LIBDVB_FOUND OR LIBDVB_FORCE_BUILD)
   
   ## Locate source file to build from
   
-  find_file (A52DEC_SOURCE ${A52DEC_SOURCE_ARCHIVE}
+  find_file (LIBDVB_SOURCE ${LIBDVB_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
   
-  if (NOT A52DEC_SOURCE)
-    set (A52DEC_SOURCE ${A52DEC_URL})
-  endif (NOT A52DEC_SOURCE)
+  if (NOT LIBDVB_SOURCE)
+    set (LIBDVB_SOURCE ${LIBDVB_URL})
+  endif (NOT LIBDVB_SOURCE)
   
   ## Build package from source
   
-  if (A52DEC_FROM_REPOS)
+  if (LIBDVB_FROM_REPOS)
     
-    ExternalProject_Add (a52dec
+    ExternalProject_Add (libdvb
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      SVN_REPOSITORY ${A52DEC_SVN}
+      SVN_REPOSITORY ${LIBDVB_SVN}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   
-  else (A52DEC_FROM_REPOS)
+  else (LIBDVB_FROM_REPOS)
     
-    ExternalProject_Add (a52dec
+    ExternalProject_Add (libdvb
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
-      URL ${A52DEC_SOURCE}
+      URL ${LIBDVB_SOURCE}
       BUILD_IN_SOURCE 1
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
     
-  endif (A52DEC_FROM_REPOS)
+  endif (LIBDVB_FROM_REPOS)
   
-else (NOT A52DEC_FOUND OR A52DEC_FORCE_BUILD)
+else (NOT LIBDVB_FOUND OR LIBDVB_FORCE_BUILD)
   
-  add_custom_target (a52dec
+  add_custom_target (libdvb
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
-    COMMENT "[a52dec] Found system-wide installation; skipping rebuild!"
+    COMMENT "[libdvb] Found system-wide installation; skipping rebuild!"
     )
   
-endif (NOT A52DEC_FOUND OR A52DEC_FORCE_BUILD)
+endif (NOT LIBDVB_FOUND OR LIBDVB_FORCE_BUILD)
