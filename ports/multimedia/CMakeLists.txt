@@ -1,5 +1,6 @@
 
 add_subdirectory (a52dec)
+add_subdirectory (libdvbpsi)
 add_subdirectory (libdvdcss)
 add_subdirectory (libflac)
 add_subdirectory (libmatroska)
