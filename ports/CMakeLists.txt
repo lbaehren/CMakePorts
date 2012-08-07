@@ -71,7 +71,7 @@ add_dependencies (libvorbis libogg)
 add_dependencies (libvpx yasm)
 add_dependencies (libmatroska libebml)
 add_dependencies (mplayer libvpx)
-#add_dependencies (vlc libdvdcss libdvb libvorbis a52dec)
+#add_dependencies (vlc libdvdcss libdvb libvorbis a52dec freetype)
 
 ## ___ net _______________________________________
 
