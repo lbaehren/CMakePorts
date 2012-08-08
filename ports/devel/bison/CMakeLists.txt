@@ -15,9 +15,9 @@ cmake_minimum_required (VERSION 2.8)
 cmake_policy (VERSION 2.8)
 
 ## Package information
-set (Bison_VERSION        "2.4" )
+set (Bison_VERSION        "2.6" )
 set (Bison_SOURCE_ARCHIVE "bison-${Bison_VERSION}.tar.gz" )
-set (Bison_URL            "" )
+set (Bison_URL            "http://ftp.gnu.org/gnu/bison/${Bison_SOURCE_ARCHIVE}" )
 set (Bison_SVN            "" )
 
 ## ==============================================================================
