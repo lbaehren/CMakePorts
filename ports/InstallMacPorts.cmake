@@ -62,6 +62,7 @@ if (PORT_EXECUTABLE)
       libgphoto2
       libxml2
       log4cplus
+      nano
       ncurses
       neon
       openexr
