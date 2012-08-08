@@ -55,6 +55,7 @@ add_dependencies (subversion swig expat neon serf sqlite)
 ## ___ editors ___________________________________
 
 add_dependencies (nedit lesstif)
+add_dependencies (nano ncurses)
 
 ## ___ graphics __________________________________
 
