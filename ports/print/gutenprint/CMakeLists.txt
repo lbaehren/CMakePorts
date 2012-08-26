@@ -17,9 +17,11 @@ cmake_policy (VERSION 2.8)
 ##  Package information
 set (GUTENPRINT_VERSION_MAJOR  "5" )
 set (GUTENPRINT_VERSION_MINOR  "2" )
-set (GUTENPRINT_VERSION        "${GUTENPRINT_VERSION_MAJOR}.${GUTENPRINT_VERSION_MINOR}.7" )
+set (GUTENPRINT_VERSION_PATCH  "9" )
+set (GUTENPRINT_VERSION_SERIES "${GUTENPRINT_VERSION_MAJOR}.${GUTENPRINT_VERSION_MINOR}" )
+set (GUTENPRINT_VERSION        "${GUTENPRINT_VERSION_SERIES}.${GUTENPRINT_VERSION_PATCH}" )
 set (GUTENPRINT_SOURCE_ARCHIVE "gutenprint-${GUTENPRINT_VERSION}.tar.bz2" )
-set (GUTENPRINT_URL            "http://downloads.sourceforge.net/project/gimp-print/gutenprint-5.2/${GUTENPRINT_VERSION}/${GUTENPRINT_SOURCE_ARCHIVE}" )
+set (GUTENPRINT_URL            "http://downloads.sourceforge.net/project/gimp-print/gutenprint-${GUTENPRINT_VERSION_SERIES}/${GUTENPRINT_VERSION}/${GUTENPRINT_SOURCE_ARCHIVE}" )
 set (GUTENPRINT_SVN            "" )
 
 ## ==============================================================================
