@@ -18,7 +18,7 @@ cmake_policy (VERSION 2.8)
 set (NANO_VERSION        "2.3.1" )
 set (NANO_SOURCE_ARCHIVE "nano-${NANO_VERSION}.tar.gz" )
 set (NANO_URL            "http://ftp.gnu.org/gnu/nano/${NANO_SOURCE_ARCHIVE}" )
-set (NANO_SVN            "" )
+set (NANO_SVN            "svn://svn.sv.gnu.org/nano/trunk/nano" )
 
 ## ==============================================================================
 ##
