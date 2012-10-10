@@ -11,7 +11,7 @@ project (DARKTABLE)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## Enforced CMake policy
 cmake_policy (VERSION 2.8)
 
 ##  Package information
@@ -27,8 +27,8 @@ set (DARKTABLE_GIT            "git://github.com/darktable-org/darktable.git" )
 ##
 ## ==============================================================================
 
-option (DARKTABLE_FORCE_BUILD    "Force build and installation of package?" NO )
-option (DARKTABLE_FROM_REPOS     "Install package from repository?"         NO )
+option (DARKTABLE_FORCE_BUILD    "Force build and installation of package?" NO  )
+option (DARKTABLE_FROM_REPOS     "Install package from repository?"         YES )
 option (DARKTABLE_ENABLE_TESTING "Enable testing and experimental builds?"  YES )
 
 ## Handle options
@@ -57,48 +57,86 @@ if (DARKTABLE_FROM_REPOS)
 endif (DARKTABLE_FROM_REPOS)
 
 if (NOT DARKTABLE_FOUND OR DARKTABLE_FORCE_BUILD)
-  
+
+  ##_________________________________________________________
   ## Locate source file to build from
-  
+
   find_file (DARKTABLE_SOURCE ${DARKTABLE_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT DARKTABLE_SOURCE)
     set (DARKTABLE_SOURCE ${DARKTABLE_URL})
   endif (NOT DARKTABLE_SOURCE)
-  
+
+  ##_________________________________________________________
   ## Build package from source
-  
+
   if (DARKTABLE_FROM_REPOS)
-    
+
     ExternalProject_Add (darktable
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
       GIT_REPOSITORY ${DARKTABLE_GIT}
-      CMAKE_ARGS  -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+      CMAKE_ARGS -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-  
+
   else (DARKTABLE_FROM_REPOS)
-    
+
     ExternalProject_Add (darktable
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
       SOURCE_DIR source
       URL ${DARKTABLE_SOURCE}
-      CMAKE_ARGS  -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+      CMAKE_ARGS -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-    
+
   endif (DARKTABLE_FROM_REPOS)
+
+  ##_________________________________________________________
+  ## Required external packages
+
+  if (APPLE)
+    foreach (darktable_dependency
+	libxslt
+	tiff
+	sqlite3
+	openexr
+	librsvg
+	libpng
+	libgphoto2
+	libglade2
+	lensfun
+	lcms
+	jpeg
+	gtk-engines2
+	gtk2
+	gnome-doc-utils
+	fop
+	exiv2
+	dbus-glib
+	curl
+	pkgconfig
+	intltool
+	)
+      ExternalProject_Add_Step (darktable darktable_${darktable_dependency}
+	COMMAND ${PORT_INSTALL_COMMAND} port install ${darktable_dependency}
+	COMMENT "Installing MacPort ${darktable_dependency} ..."
+	DEPENDEES download
+	DEPENDERS patch
+	WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/source
+	)
+    endforeach (darktable_dependency)
+  endif (APPLE)
   
 else (NOT DARKTABLE_FOUND OR DARKTABLE_FORCE_BUILD)
-  
+
   add_custom_target (darktable
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[darktable] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT DARKTABLE_FOUND OR DARKTABLE_FORCE_BUILD)
