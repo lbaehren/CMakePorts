@@ -11,7 +11,7 @@ project (<PACKAGE>)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## Enforced CMake policy
 cmake_policy (VERSION 2.8)
 
 ##  Package information
@@ -56,21 +56,21 @@ if (<PACKAGE>_FROM_REPOS)
 endif (<PACKAGE>_FROM_REPOS)
 
 if (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (<PACKAGE>_SOURCE ${<PACKAGE>_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT <PACKAGE>_SOURCE)
     set (<PACKAGE>_SOURCE ${<PACKAGE>_URL})
   endif (NOT <PACKAGE>_SOURCE)
-  
+
   ## Build package from source
-  
+
   if (<PACKAGE>_FROM_REPOS)
-    
+
     ExternalProject_Add (<package>
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -80,9 +80,9 @@ if (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-  
+
   else (<PACKAGE>_FROM_REPOS)
-    
+
     ExternalProject_Add (<package>
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -92,14 +92,14 @@ if (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-    
+
   endif (<PACKAGE>_FROM_REPOS)
-  
+
 else (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
-  
+
   add_custom_target (<package>
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[<package>] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT <PACKAGE>_FOUND OR <PACKAGE>_FORCE_BUILD)
