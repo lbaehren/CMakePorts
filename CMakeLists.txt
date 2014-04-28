@@ -53,7 +53,7 @@ set (PROJECT_VERSION "${PROJECT_VERSION_SERIES}.${PROJECT_VERSION_PATCH}")
 
 
 option (ENABLE_SUDO_INSTALL       "Use sudo when installing package?"       NO  )
-option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" YES )
+option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" NO  )
 option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  )
 option (ENABLE_TESTING            "Enable CTest test driver?"               NO  )
 
@@ -70,6 +70,14 @@ if (HOSTNAME_COMMAND)
 endif (HOSTNAME_COMMAND)
 
 ##__________________________________________________________
+## Handle option: Enable CTest test driver?
+
+if (ENABLE_TESTING)
+  include (CTest)
+  enable_testing()
+endif (ENABLE_TESTING)
+
+##__________________________________________________________
 ## Handle option: Use sudo when installing package?
 
 if (ENABLE_SUDO_INSTALL)
@@ -79,12 +87,12 @@ else (ENABLE_SUDO_INSTALL)
 endif (ENABLE_SUDO_INSTALL)
 
 ##__________________________________________________________
-## Handle option: Enable CTest test driver?
+## Handle option: Enable keeping local repository clones?
 
-if (ENABLE_TESTING)
-  include (CTest)
-  enable_testing()
-endif (ENABLE_TESTING)
+if (ENABLE_LOCAL_REPOSITORIES)
+  include (AddRepositories)
+endif (ENABLE_LOCAL_REPOSITORIES)
+
 
 ## =============================================================================
 ##
@@ -139,20 +147,7 @@ endif (NOT VERBOSE_CONFIGURE)
 ##____________________________________________________________________
 ##                                                       CMake modules
 
-find_path (PROJECT_CMAKE_MODULES
-  NAMES template_FindXX.cmake FindBlitz.cmake FindCppUnit.cmake
-  PATHS ${PROJECT_SOURCE_DIR}
-  share
-  share/cmake
-  cmake
-  PATH_SUFFIXES Modules
-  )
-
-if (PROJECT_CMAKE_MODULES)
-  set (CMAKE_MODULE_PATH ${PROJECT_CMAKE_MODULES} CACHE PATH
-    "CMake module path"
-    FORCE)
-endif (PROJECT_CMAKE_MODULES)
+list (INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
 
 ##____________________________________________________________________
 ##                                                    Search locations
@@ -229,16 +224,11 @@ if (APPLE)
 
 endif (APPLE)
 
-
-##____________________________________________________________________
-##                                    Local clone of code repositories
-
-if (ENABLE_LOCAL_REPOSITORIES)
-  add_subdirectory (repositories)
-endif (ENABLE_LOCAL_REPOSITORIES)
-
-##____________________________________________________________________
-##                                          Ports of software packages
+## =============================================================================
+##
+##  Project build instructions
+##
+## =============================================================================
 
 add_subdirectory (ports)
 
