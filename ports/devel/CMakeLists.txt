@@ -1,15 +1,31 @@
 
+add_custom_target (devel ALL)
+
+foreach (_package
+    bison
+    doxygen
+    )
+
+    add_custom_target (${_package} ALL
+        COMMAND sudo port install ${_package}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Installing port ${_package} ..."
+    )
+
+    add_dependencies (devel ${_package})
+
+endforeach (_package)
+
+
 add_subdirectory (apr)
 add_subdirectory (apr-util)
 add_subdirectory (autoconf)
 add_subdirectory (autogen)
 add_subdirectory (automake)
-add_subdirectory (bison)
 add_subdirectory (boost)
 add_subdirectory (cloog-ppl)
 add_subdirectory (cmake)
 add_subdirectory (cppunit)
-add_subdirectory (doxygen)
 add_subdirectory (gettext)
 add_subdirectory (git)
 add_subdirectory (gmp)
