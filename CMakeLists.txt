@@ -100,7 +100,10 @@ endif (ENABLE_LOCAL_REPOSITORIES)
 ##
 ## =============================================================================
 
+list (INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
+
 include (ExternalProject)
+include (InstallPorts)
 
 ##____________________________________________________________________
 ##                                             (Verbose) configuration
@@ -143,11 +146,6 @@ if (NOT VERBOSE_CONFIGURE)
     set (${varPackage}_FIND_QUIETLY TRUE )
   endforeach (varPackage)
 endif (NOT VERBOSE_CONFIGURE)
-
-##____________________________________________________________________
-##                                                       CMake modules
-
-list (INSERT CMAKE_MODULE_PATH 0 "${PROJECT_SOURCE_DIR}/cmake")
 
 ##____________________________________________________________________
 ##                                                    Search locations
@@ -255,7 +253,7 @@ message ( "  .. Memory checker ............. = ${MEMORYCHECK_COMMAND}"     )
 message ( " * CMake configuration:"                                        )
 message ( "  .. CMake executable ........... = ${CMAKE_COMMAND}"           )
 message ( "  .. CMake version .............. = ${CMAKE_VERSION}"           )
-message ( "  .. Module path . = ${CMAKE_MODULE_PATH}"                      )
+message ( "  .. Module path ................ = ${CMAKE_MODULE_PATH}"       )
 message ( "  .. Installation prefix ........ = ${CMAKE_INSTALL_PREFIX}"    )
 message ( "  .. OS X architectures ......... = ${CMAKE_OSX_ARCHITECTURES}" )
 message ( " * MacPorts configuration:"                                     )

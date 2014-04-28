@@ -105,12 +105,7 @@ install_base: office devel science multimedia
 ##______________________________________________________________________________
 ##                                                                     Archivers
 
-archivers:
-	${PORT_COMMAND} bzip2
-	${PORT_COMMAND} unrar
-	${PORT_COMMAND} xz
-	${PORT_COMMAND} zip
-	${PORT_COMMAND} zlib
+
 
 ##______________________________________________________________________________
 ##                                                                     Databases
