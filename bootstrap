@@ -1,6 +1,14 @@
 #!/bin/sh
 
-varMacPortsVersion=2.1.2
+## ==============================================================================
+##
+##  Settings
+##
+## ==============================================================================
+
+varMacPortsVersion=2.2.1
+varMacPortsArchive=MacPorts-${varMacPortsVersion}.tar.gz
+varMacPortsURL=https://distfiles.macports.org/MacPorts/${varMacPortsArchive}
 
 ## ==============================================================================
 ##
@@ -13,10 +21,6 @@ varMacPortsVersion=2.1.2
 
 install_macports ()
 {
-    ## Set basic variables required
-    varMacPortsArchive=MacPorts-${varMacPortsVersion}.tar.gz
-    varMacPortsURL=https://distfiles.macports.org/MacPorts/$varMacPortsArchive
-    
     ## Get the source code
     curl $varMacPortsURL -o ${varMacPortsArchive} -#
 
@@ -29,27 +33,6 @@ install_macports ()
 
     ## Update configuration of MacPorts
     sudo port -v selfupdate
-}
-
-##_______________________________________________________________________________
-## Remove MacPorts from the system, removing all files
-
-uninstall_macports ()
-{
-    ## Uninstall all the installed ports
-    sudo port -fp uninstall --follow-dependents installed
-
-    ## Clean up directories used by MacPorts
-    sudo rm -rf /opt/local
-    sudo rm -rf /Applications/DarwinPorts
-    sudo rm -rf /Applications/MacPorts
-    sudo rm -rf /Library/LaunchDaemons/org.macports.*
-    sudo rm -rf /Library/Receipts/DarwinPorts*.pkg
-    sudo rm -rf /Library/Receipts/MacPorts*.pkg
-    sudo rm -rf /Library/StartupItems/DarwinPortsStartup
-    sudo rm -rf /Library/Tcl/darwinports1.0
-    sudo rm -rf /Library/Tcl/macports1.0
-    sudo rm -rf ~/.macports
 }
 
 ##_______________________________________________________________________________
@@ -70,14 +53,21 @@ install_ports ()
     port install task +bash_completion
     port install texlive +full
     port install wget +ssl
-    
+
     sudo launchctl load -w /Library/LaunchDaemons/org.freedesktop.dbus-system.plist
 }
 
-## ==============================================================================
+##===============================================================================
 ##
-##  Main command sequence of the script
+##  Command line options
 ##
-## ==============================================================================
+##===============================================================================
 
-install_ports
+case $1 in
+    install)
+        uninstall_macports
+        ;;
+    *)
+        echo "This script has been depricated - plase use 'make update' instead."
+        ;;
+esac
