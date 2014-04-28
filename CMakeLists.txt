@@ -1,35 +1,67 @@
+#-------------------------------------------------------------------------------
+# Copyright (c) 2014, Lars Baehren <lbaehren@gmail.com>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+#  * Redistributions of source code must retain the above copyright notice, this
+#    list of conditions and the following disclaimer.
+#  * Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#-------------------------------------------------------------------------------
 
-## ==============================================================================
+## =============================================================================
 ##
 ##  CMake project settings
 ##
-## ==============================================================================
+## =============================================================================
 
 ## Name of the project handled by CMake
 project (CMakePorts)
 
 ## Minimum required version of CMake to configure the project
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 2.8.2)
 
-## Enforced CMake policy 
-cmake_policy (VERSION 2.8)
+## Enforced CMake policy
+cmake_policy (VERSION 2.8.2)
 
-## ==============================================================================
+## Project release version (major.minor.patch)
+set (PROJECT_VERSION_MAJOR 0 )
+set (PROJECT_VERSION_MINOR 1 )
+set (PROJECT_VERSION_PATCH 0 )
+set (PROJECT_VERSION_SERIES "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}")
+set (PROJECT_VERSION "${PROJECT_VERSION_SERIES}.${PROJECT_VERSION_PATCH}")
+
+## =============================================================================
 ##
 ##  Options
 ##
-## ==============================================================================
+## =============================================================================
+
 
 option (ENABLE_SUDO_INSTALL       "Use sudo when installing package?"       NO  )
 option (ENABLE_LOCAL_REPOSITORIES "Enable keeping local repository clones?" YES )
 option (VERBOSE_CONFIGURE         "Be verbose during configuration?"        NO  )
 option (ENABLE_TESTING            "Enable CTest test driver?"               NO  )
 
-## ==============================================================================
+## =============================================================================
 ##
 ##  System inspection
 ##
-##===============================================================================
+## =============================================================================
 
 find_program (HOSTNAME_COMMAND NAMES hostname )
 
@@ -54,11 +86,11 @@ if (ENABLE_TESTING)
   enable_testing()
 endif (ENABLE_TESTING)
 
-## ==============================================================================
+## =============================================================================
 ##
 ##  Project settings & sub-directories
 ##
-## ==============================================================================
+## =============================================================================
 
 include (ExternalProject)
 
@@ -171,39 +203,32 @@ endif (NOT EXISTS ${CMAKE_INSTALL_PREFIX})
 if (APPLE)
 
   message (STATUS "Detecting OSX architecture")
-  
+
   if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386")
     set (CMAKE_OSX_ARCHITECTURES "i386" CACHE STRING
       "Build architectures for OSX"
       FORCE
       )
   endif (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i386")
-  
+
   if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
     set (CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING
       "Build architectures for OSX"
       FORCE
       )
   endif (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
-  
+
   if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "powerpc")
     set (CMAKE_OSX_ARCHITECTURES "ppc" CACHE STRING
       "Build architectures for OSX"
       FORCE
       )
   endif (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "powerpc")
-  
+
   message (STATUS "Detecting OSX architecture - ${CMAKE_OSX_ARCHITECTURES}")
-  
+
 endif (APPLE)
 
-##____________________________________________________________________
-##                                         Cache initialization script
-
-configure_file (
-  ${CMakePorts_SOURCE_DIR}/configure.cmake.in
-  ${CMakePorts_BINARY_DIR}/configure.cmake
-  )
 
 ##____________________________________________________________________
 ##                                    Local clone of code repositories
@@ -217,30 +242,36 @@ endif (ENABLE_LOCAL_REPOSITORIES)
 
 add_subdirectory (ports)
 
-## ==============================================================================
+## =============================================================================
 ##
 ##  Configuration summary
 ##
-## ==============================================================================
+## =============================================================================
 
-message (STATUS "==============================================================" )
-message (STATUS "[CMakePorts] Configuration summary:"                            )
-message (STATUS "+------------------------------------------------------------+" )
+message ( "------------------------------------------------------------"   )
+message ( "[${PROJECT_NAME}] Configuration summary."                       )
+message ( "------------------------------------------------------------ "  )
+message ( " * System configuration"                                        )
+message ( "  .. Processor type ............. = ${CMAKE_SYSTEM_PROCESSOR}"  )
+message ( "  .. CMake executable ........... = ${CMAKE_COMMAND}"           )
+message ( "  .. CMake version .............. = ${CMAKE_VERSION}"           )
+message ( "  .. System name ................ = ${CMAKE_SYSTEM_NAME}"       )
+message ( "  .. System version ............. = ${CMAKE_SYSTEM_VERSION}"    )
+message ( "  .. C compiler ................. = ${CMAKE_C_COMPILER}"        )
+message ( "  .. C compiler flags ........... = ${CMAKE_C_FLAGS}"           )
+message ( "  .. C++ compiler ............... = ${CMAKE_CXX_COMPILER}"      )
+message ( "  .. C++ compiler flags ......... = ${CMAKE_CXX_FLAGS}"         )
+message ( "  .. Memory checker ............. = ${MEMORYCHECK_COMMAND}"     )
+message ( " * CMake configuration:"                                        )
+message ( "  .. CMake executable ........... = ${CMAKE_COMMAND}"           )
+message ( "  .. CMake version .............. = ${CMAKE_VERSION}"           )
+message ( "  .. Module path . = ${CMAKE_MODULE_PATH}"                      )
+message ( "  .. Installation prefix ........ = ${CMAKE_INSTALL_PREFIX}"    )
+message ( "  .. OS X architectures ......... = ${CMAKE_OSX_ARCHITECTURES}" )
+message ( " * MacPorts configuration:"                                     )
+message ( "------------------------------------------------------------ "  )
 
-message (STATUS " System configuration:"                                         )
-message (STATUS " .. Hostname                     = ${CMAKE_SYSTEM_HOSTNAME}"    )
-message (STATUS " .. Processor type               = ${CMAKE_SYSTEM_PROCESSOR}"   )
-message (STATUS " .. System name                  = ${CMAKE_SYSTEM}"             )
-message (STATUS " .. C++ compiler                 = ${CMAKE_CXX_COMPILER}"       )
-message (STATUS " .. C compiler                   = ${CMAKE_C_COMPILER}"         )
-message (STATUS " .. size(void*)                  = ${CMAKE_SIZEOF_VOID_P}"      )
-message (STATUS " CMake configuration:"                                          )
-message (STATUS " .. CMake executable             = ${CMAKE_COMMAND}"            )
-message (STATUS " .. CMake version                = ${CMAKE_VERSION}"            )
-message (STATUS " .. Module path                  = ${CMAKE_MODULE_PATH}"        )
-message (STATUS " .. Installation prefix          = ${CMAKE_INSTALL_PREFIX}"     )
-message (STATUS " .. OS X architectures           = ${CMAKE_OSX_ARCHITECTURES}"  )
-message (STATUS " Project configuration:"                                        )
-message (STATUS " .. Local repository clones      = ${LOCAL_REPOSITORIES}"       )
 
-message (STATUS "+------------------------------------------------------------+")
+
+
+
