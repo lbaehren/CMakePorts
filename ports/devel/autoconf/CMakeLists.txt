@@ -11,8 +11,12 @@ project (AUTOCONF)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (AUTOCONF_VERSION        "2.67" )
@@ -57,19 +61,19 @@ if (AUTOCONF_FROM_REPOS)
 endif (AUTOCONF_FROM_REPOS)
 
 if (NOT AUTOCONF_FOUND OR AUTOCONF_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (AUTOCONF_SOURCE ${AUTOCONF_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT AUTOCONF_SOURCE)
     set (AUTOCONF_SOURCE ${AUTOCONF_URL})
   endif (NOT AUTOCONF_SOURCE)
-  
+
   ## Build package from source
-  
+
   ExternalProject_Add (autoconf
     PREFIX ${PROJECT_BINARY_DIR}
     DOWNLOAD_DIR download
@@ -79,12 +83,12 @@ if (NOT AUTOCONF_FOUND OR AUTOCONF_FORCE_BUILD)
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
-  
+
 else (NOT AUTOCONF_FOUND OR AUTOCONF_FORCE_BUILD)
-  
+
   add_custom_target (autoconf
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[Autoconf] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT AUTOCONF_FOUND OR AUTOCONF_FORCE_BUILD)

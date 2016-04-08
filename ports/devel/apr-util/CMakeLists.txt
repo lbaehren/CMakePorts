@@ -11,8 +11,12 @@ project (APR_UTIL)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (APR_UTIL_VERSION        "1.3.12" )
@@ -68,19 +72,19 @@ if (APR_UTIL_FROM_REPOS)
 endif (APR_UTIL_FROM_REPOS)
 
 if (NOT HAVE_APR_UTIL OR APR_UTIL_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (APR_UTIL_SOURCE ${APR_UTIL_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT APR_UTIL_SOURCE)
     set (APR_UTIL_SOURCE ${APR_UTIL_URL})
   endif (NOT APR_UTIL_SOURCE)
-  
+
   ## Build package from source
-  
+
   ExternalProject_Add (apr-util
     PREFIX ${PROJECT_BINARY_DIR}
     DOWNLOAD_DIR download
@@ -90,12 +94,12 @@ if (NOT HAVE_APR_UTIL OR APR_UTIL_FORCE_BUILD)
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-apr=${APR_PREFIX}
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
-  
+
 else (NOT HAVE_APR_UTIL OR APR_UTIL_FORCE_BUILD)
-  
+
   add_custom_target (apr-util
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[APR_UTIL] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT HAVE_APR_UTIL OR APR_UTIL_FORCE_BUILD)

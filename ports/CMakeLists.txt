@@ -8,24 +8,28 @@ endif (APPLE)
 ##____________________________________________________________________
 ##                                                     Port categories
 
-add_subdirectory (archivers)
-add_subdirectory (database)
-add_subdirectory (devel)
-add_subdirectory (editors)
-add_subdirectory (graphics)
-add_subdirectory (lang)
-add_subdirectory (math)
-add_subdirectory (multimedia)
-add_subdirectory (net)
-add_subdirectory (office)
-add_subdirectory (parallel)
-add_subdirectory (print)
-add_subdirectory (science)
-add_subdirectory (sysutils)
-add_subdirectory (tex)
-add_subdirectory (textproc)
-add_subdirectory (www)
-add_subdirectory (x11)
+foreach (category_
+    archivers
+    database
+    devel
+    editors
+    graphics
+    lang
+    math
+    multimedia
+    net
+    office
+    parallel
+    print
+    science
+    sysutils
+    tex
+    textproc
+    www
+    x11
+    )
+    add_subdirectory (${category_})
+endforeach(category_)
 
 ##____________________________________________________________________
 ##                                                Package dependencies

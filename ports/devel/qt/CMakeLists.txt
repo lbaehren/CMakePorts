@@ -11,8 +11,12 @@ project (Qt)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ## Package information
 set (Qt_VERSION        "4.7.3" )
@@ -56,19 +60,19 @@ if (Qt_FROM_REPOS)
 endif (Qt_FROM_REPOS)
 
 if (NOT QT4_FOUND OR Qt_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (Qt_SOURCE ${Qt_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT Qt_SOURCE)
     set (Qt_SOURCE ${Qt_URL})
   endif (NOT Qt_SOURCE)
-  
+
   ## Build package from source
-  
+
   ExternalProject_Add (qt
     PREFIX ${PROJECT_BINARY_DIR}
     DOWNLOAD_DIR download
@@ -80,10 +84,10 @@ if (NOT QT4_FOUND OR Qt_FORCE_BUILD)
     )
 
 else (NOT QT4_FOUND OR Qt_FORCE_BUILD)
-  
+
   add_custom_target (qt
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[Qt] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT QT4_FOUND OR Qt_FORCE_BUILD)

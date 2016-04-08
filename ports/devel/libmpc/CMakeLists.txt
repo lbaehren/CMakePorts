@@ -11,8 +11,12 @@ project (MPC)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (MPC_VERSION        "0.8.1" )
@@ -58,19 +62,19 @@ if (MPC_FROM_REPOS)
 endif (MPC_FROM_REPOS)
 
 if (NOT MPC_FOUND OR MPC_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (MPC_SOURCE ${MPC_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT MPC_SOURCE)
     set (MPC_SOURCE ${MPC_URL})
   endif (NOT MPC_SOURCE)
-  
+
   ## Build package from source
-  
+
   ExternalProject_Add (libmpc
     PREFIX ${PROJECT_BINARY_DIR}
     DOWNLOAD_DIR download
@@ -80,12 +84,12 @@ if (NOT MPC_FOUND OR MPC_FORCE_BUILD)
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --disable-shared --with-gmp-include=${CMAKE_INSTALL_PREFIX}/include --with-gmp-lib=${CMAKE_INSTALL_PREFIX}/lib --with-mpfr-include=${CMAKE_INSTALL_PREFIX}/include --with-mpfr-lib=${CMAKE_INSTALL_PREFIX}/lib
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
-  
+
 else (NOT MPC_FOUND OR MPC_FORCE_BUILD)
-  
+
   add_custom_target (libmpc
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[MPC] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT MPC_FOUND OR MPC_FORCE_BUILD)

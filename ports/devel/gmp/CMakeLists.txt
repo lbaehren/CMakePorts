@@ -11,8 +11,12 @@ project (GMP)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (GMP_VERSION        "5.0.1" )
@@ -70,19 +74,19 @@ endif (NOT GMP_FOUND)
 ## ==============================================================================
 
 if (NOT GMP_FOUND OR GMP_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (GMP_SOURCE ${GMP_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT GMP_SOURCE)
     set (GMP_SOURCE ${GMP_URL})
   endif (NOT GMP_SOURCE)
-  
+
   ## Build package from source
-  
+
   ExternalProject_Add (gmp
     PREFIX ${PROJECT_BINARY_DIR}
     DOWNLOAD_DIR ${PROJECT_BINARY_DIR}/download
@@ -92,9 +96,9 @@ if (NOT GMP_FOUND OR GMP_FORCE_BUILD)
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-cxx ${enable_mpbsd} ${enable_fft}
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
-  
+
 else (NOT GMP_FOUND OR GMP_FORCE_BUILD)
-  
+
   add_custom_target (gmp
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[GMP] Found system-wide installation; skipping rebuild!"

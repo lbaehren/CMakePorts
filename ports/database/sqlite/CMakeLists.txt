@@ -8,11 +8,12 @@
 ## Name of the project handled by CMake
 project (SQLITE)
 
-## Minimum required version of CMake to configure the project
-cmake_minimum_required (VERSION 2.8)
-
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (SQLITE_VERSION        "3070900" )
@@ -56,21 +57,21 @@ if (SQLITE_FROM_REPOS)
 endif (SQLITE_FROM_REPOS)
 
 if (NOT SQLITE_FOUND OR SQLITE_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (SQLITE_SOURCE ${SQLITE_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT SQLITE_SOURCE)
     set (SQLITE_SOURCE ${SQLITE_URL})
   endif (NOT SQLITE_SOURCE)
-  
+
   ## Build package from source
-  
+
   if (SQLITE_FROM_REPOS)
-    
+
     ExternalProject_Add (sqlite
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -80,9 +81,9 @@ if (NOT SQLITE_FOUND OR SQLITE_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-  
+
   else (SQLITE_FROM_REPOS)
-    
+
     ExternalProject_Add (sqlite
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -92,14 +93,14 @@ if (NOT SQLITE_FOUND OR SQLITE_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-    
+
   endif (SQLITE_FROM_REPOS)
-  
+
 else (NOT SQLITE_FOUND OR SQLITE_FORCE_BUILD)
-  
+
   add_custom_target (sqlite
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[sqlite] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT SQLITE_FOUND OR SQLITE_FORCE_BUILD)

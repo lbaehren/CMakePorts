@@ -11,8 +11,12 @@ project (GETTEXT)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (GETTEXT_VERSION        "0.18" )
@@ -56,21 +60,21 @@ if (GETTEXT_FROM_REPOS)
 endif (GETTEXT_FROM_REPOS)
 
 if (NOT GETTEXT_FOUND OR GETTEXT_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (GETTEXT_SOURCE ${GETTEXT_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT GETTEXT_SOURCE)
     set (GETTEXT_SOURCE ${GETTEXT_URL})
   endif (NOT GETTEXT_SOURCE)
-  
+
   ## Build package from source
-  
+
   if (GETTEXT_FROM_REPOS)
-    
+
     ExternalProject_Add (gettext
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -80,9 +84,9 @@ if (NOT GETTEXT_FOUND OR GETTEXT_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-  
+
   else (GETTEXT_FROM_REPOS)
-    
+
     ExternalProject_Add (gettext
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -92,14 +96,14 @@ if (NOT GETTEXT_FOUND OR GETTEXT_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-    
+
   endif (GETTEXT_FROM_REPOS)
-  
+
 else (NOT GETTEXT_FOUND OR GETTEXT_FORCE_BUILD)
-  
+
   add_custom_target (gettext
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[gettext] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT GETTEXT_FOUND OR GETTEXT_FORCE_BUILD)

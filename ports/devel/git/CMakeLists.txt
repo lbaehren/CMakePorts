@@ -11,8 +11,12 @@ project (GIT)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (GIT_VERSION        "1.7.8.3")
@@ -87,21 +91,21 @@ if (GIT_FROM_REPOS)
 endif (GIT_FROM_REPOS)
 
 if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (GIT_SOURCE ${GIT_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT GIT_SOURCE)
     set (GIT_SOURCE ${GIT_URL})
   endif (NOT GIT_SOURCE)
-  
+
   ## Build package from source
-  
+
   if (GIT_FROM_REPOS)
-    
+
     ExternalProject_Add (git
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -119,10 +123,10 @@ if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
       DEPENDERS configure
       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/source
       )
-    
-  
+
+
   else (GIT_FROM_REPOS)
-    
+
     ExternalProject_Add (git
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -132,23 +136,22 @@ if (NOT GIT_FOUND OR GIT_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-curl=${CMAKE_INSTALL_PREFIX} --with-expat=${CMAKE_INSTALL_PREFIX} --with-neon=${CMAKE_INSTALL_PREFIX} --with-openssl=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-    
+
   endif (GIT_FROM_REPOS)
 
   ## Post installation instructions
-  
+
   # git config --global user.name "Lars Baehren"
   # git config --global user.email lbaehren@gmail.com
   # git config --global color.diff auto
   # git config --global color.status auto
   # git config --global color.branch auto
-  
+
 else (NOT GIT_FOUND OR GIT_FORCE_BUILD)
-  
+
   add_custom_target (git
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[Git] Found system-wide installation; skipping rebuild!"
     )
-  
-endif (NOT GIT_FOUND OR GIT_FORCE_BUILD)
 
+endif (NOT GIT_FOUND OR GIT_FORCE_BUILD)

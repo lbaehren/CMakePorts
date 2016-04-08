@@ -11,8 +11,12 @@ project (OPENSSL)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ## Package information
 set (OPENSSL_VERSION        "1.0.0a" )
@@ -57,19 +61,19 @@ if (OPENSSL_FROM_REPOS)
 endif (OPENSSL_FROM_REPOS)
 
 if (NOT OPENSSL_FOUND OR OPENSSL_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (OPENSSL_FOUND_SOURCE ${OPENSSL_SOURCE_ARCHIVE}
     PATHS ${OPENSSL_SOURCE_DIR}
     )
-  
+
   if (NOT OPENSSL_FOUND_SOURCE)
     set (OPENSSL_FOUND_SOURCE ${OPENSSL_URL})
   endif (NOT OPENSSL_FOUND_SOURCE)
-  
+
   ## Build package from source
-  
+
   ExternalProject_Add (openssl
     PREFIX ${OPENSSL_BINARY_DIR}
     DOWNLOAD_DIR download
@@ -79,12 +83,12 @@ if (NOT OPENSSL_FOUND OR OPENSSL_FORCE_BUILD)
     CONFIGURE_COMMAND ${OPENSSL_BINARY_DIR}/source/config --openssldir=${CMAKE_INSTALL_PREFIX}/lib/openssl
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
-  
+
 else (NOT OPENSSL_FOUND OR OPENSSL_FORCE_BUILD)
-  
+
   add_custom_target (openssl
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[OpenSSL] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT OPENSSL_FOUND OR OPENSSL_FORCE_BUILD)

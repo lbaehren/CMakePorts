@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------
-# Copyright (c) 2014, Lars Baehren <lbaehren@gmail.com>
+# Copyright (c) 2014-2016, Lars Baehren <lbaehren@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification,
@@ -33,10 +33,14 @@
 project (CMakePorts)
 
 ## Minimum required version of CMake to configure the project
-cmake_minimum_required (VERSION 2.8.2)
+cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy
-cmake_policy (VERSION 2.8.2)
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
+cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ## Project release version (major.minor.patch)
 set (PROJECT_VERSION_MAJOR 0 )
@@ -258,8 +262,3 @@ message ( "  .. Installation prefix ........ = ${CMAKE_INSTALL_PREFIX}"    )
 message ( "  .. OS X architectures ......... = ${CMAKE_OSX_ARCHITECTURES}" )
 message ( " * MacPorts configuration:"                                     )
 message ( "------------------------------------------------------------ "  )
-
-
-
-
-

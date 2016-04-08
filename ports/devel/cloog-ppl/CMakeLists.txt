@@ -11,8 +11,12 @@ project (CLooG)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (CLooG_VERSION        "0.15.9" )
@@ -62,21 +66,21 @@ if (CLooG_FROM_REPOS)
 endif (CLooG_FROM_REPOS)
 
 if (NOT HAVE_CLooG OR CLooG_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (HAVE_CLooG_SOURCE ${CLooG_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT HAVE_CLooG_SOURCE)
     set (HAVE_CLooG_SOURCE ${CLooG_URL})
   endif (NOT HAVE_CLooG_SOURCE)
-  
+
   ## Build package from source
-  
+
   if (CLooG_FROM_REPOS)
-    
+
     ExternalProject_Add (cloog
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -85,9 +89,9 @@ if (NOT HAVE_CLooG OR CLooG_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --without-polylib --with-gmp=${CMAKE_INSTALL_PREFIX} --with-polylib-prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-    
+
   else (CLooG_FROM_REPOS)
-  
+
     ExternalProject_Add (cloog
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -99,12 +103,12 @@ if (NOT HAVE_CLooG OR CLooG_FORCE_BUILD)
       )
 
   endif (CLooG_FROM_REPOS)
-  
+
 else (NOT HAVE_CLooG OR CLooG_FORCE_BUILD)
-  
+
   add_custom_target (cloog
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[CLooG] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT HAVE_CLooG OR CLooG_FORCE_BUILD)

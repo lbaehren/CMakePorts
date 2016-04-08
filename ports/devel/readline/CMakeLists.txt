@@ -11,8 +11,12 @@ project (READLINE)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (READLINE_VERSION        "6.1" )
@@ -57,19 +61,19 @@ if (READLINE_FROM_REPOS)
 endif (READLINE_FROM_REPOS)
 
 if (NOT READLINE_FOUND OR READLINE_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (READLINE_SOURCE ${READLINE_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT READLINE_SOURCE)
     set (READLINE_SOURCE ${READLINE_URL})
   endif (NOT READLINE_SOURCE)
-  
+
   ## Build package from source
-  
+
   ExternalProject_Add (readline
     PREFIX ${PROJECT_BINARY_DIR}
     DOWNLOAD_DIR download
@@ -79,12 +83,12 @@ if (NOT READLINE_FOUND OR READLINE_FORCE_BUILD)
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
-  
+
 else (NOT READLINE_FOUND OR READLINE_FORCE_BUILD)
-  
+
   add_custom_target (readline
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[readline] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT READLINE_FOUND OR READLINE_FORCE_BUILD)

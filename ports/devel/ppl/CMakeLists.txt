@@ -11,8 +11,12 @@ project (PPL)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (PPL_VERSION        "0.11" )
@@ -63,21 +67,21 @@ if (PPL_FROM_REPOS)
 endif (PPL_FROM_REPOS)
 
 if (NOT PPL_FOUND OR PPL_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (PPL_SOURCE ${PPL_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT PPL_SOURCE)
     set (PPL_SOURCE ${PPL_URL})
   endif (NOT PPL_SOURCE)
-  
+
   ## Build package from source
 
   if (PPL_FROM_REPOS)
-  
+
     ExternalProject_Add (ppl
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -88,9 +92,9 @@ if (NOT PPL_FOUND OR PPL_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-gmp-prefix=${GMP_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-    
+
   else (PPL_FROM_REPOS)
-    
+
     ExternalProject_Add (ppl
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -101,12 +105,12 @@ if (NOT PPL_FOUND OR PPL_FORCE_BUILD)
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
   endif (PPL_FROM_REPOS)
-  
+
 else (NOT PPL_FOUND OR PPL_FORCE_BUILD)
-  
+
   add_custom_target (ppl
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[PPL] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT PPL_FOUND OR PPL_FORCE_BUILD)

@@ -11,8 +11,12 @@ project (MPFR)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (MPFR_VERSION        "2.4.2" )
@@ -69,19 +73,19 @@ if (MPFR_FROM_REPOS)
 endif (MPFR_FROM_REPOS)
 
 if (NOT MPFR_FOUND OR MPFR_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (MPFR_SOURCE ${MPFR_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT MPFR_SOURCE)
     set (MPFR_SOURCE ${MPFR_URL})
   endif (NOT MPFR_SOURCE)
-  
+
   ## Build package from source
-  
+
   ExternalProject_Add (mpfr
     PREFIX ${PROJECT_BINARY_DIR}
     DOWNLOAD_DIR download
@@ -91,12 +95,12 @@ if (NOT MPFR_FOUND OR MPFR_FORCE_BUILD)
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX} --with-gmp-include=${CMAKE_INSTALL_PREFIX}/include --with-gmp-lib=${CMAKE_INSTALL_PREFIX}/lib
     INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
     )
-  
+
 else (NOT MPFR_FOUND OR MPFR_FORCE_BUILD)
-  
+
   add_custom_target (mpfr
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[MPFR] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT MPFR_FOUND OR MPFR_FORCE_BUILD)

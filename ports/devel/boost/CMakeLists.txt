@@ -11,12 +11,16 @@ project (BOOST)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (BOOST_VERSION_MAJOR  "1" )
-set (BOOST_VERSION_MINOR  "51" )
+set (BOOST_VERSION_MINOR  "60" )
 set (BOOST_VERSION_PATCH  "0" )
 set (BOOST_VERSION        "${BOOST_VERSION_MAJOR}_${BOOST_VERSION_MINOR}_${BOOST_VERSION_PATCH}" )
 set (BOOST_SOURCE_ARCHIVE "boost_${BOOST_VERSION}.tar.bz2" )
@@ -68,21 +72,21 @@ if (BOOST_FROM_REPOS)
 endif (BOOST_FROM_REPOS)
 
 if (NOT BOOST_FOUND OR BOOST_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (BOOST_SOURCE ${BOOST_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT BOOST_SOURCE)
     set (BOOST_SOURCE ${BOOST_URL})
   endif (NOT BOOST_SOURCE)
-  
+
   ## Build package from source
-  
+
   if (BOOST_FROM_REPOS)
-    
+
     ExternalProject_Add (boost
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -92,9 +96,9 @@ if (NOT BOOST_FOUND OR BOOST_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} ./b2 install
       )
-  
+
   else (BOOST_FROM_REPOS)
-    
+
     ExternalProject_Add (boost
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -105,14 +109,14 @@ if (NOT BOOST_FOUND OR BOOST_FORCE_BUILD)
       BUILD_COMMAND ./b2
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} ./b2 install
       )
-    
+
   endif (BOOST_FROM_REPOS)
-  
+
 else (NOT BOOST_FOUND OR BOOST_FORCE_BUILD)
-  
+
   add_custom_target (boost
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[boost] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT BOOST_FOUND OR BOOST_FORCE_BUILD)

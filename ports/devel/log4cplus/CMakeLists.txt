@@ -15,8 +15,12 @@ project (LOG4CPLUS)
 ## Minimum required version of CMake to configure the project
 cmake_minimum_required (VERSION 2.8)
 
-## Enforced CMake policy 
+## CMake policy (https://cmake.org/Wiki/CMake_Policies)
 cmake_policy (VERSION 2.8)
+
+if (POLICY CMP0042)
+    cmake_policy (SET CMP0042 NEW)
+endif (POLICY CMP0042)
 
 ##  Package information
 set (LOG4CPLUS_VERSION        "1.0.4" )
@@ -60,21 +64,21 @@ if (LOG4CPLUS_FROM_REPOS)
 endif (LOG4CPLUS_FROM_REPOS)
 
 if (NOT LOG4CPLUS_FOUND OR LOG4CPLUS_FORCE_BUILD)
-  
+
   ## Locate source file to build from
-  
+
   find_file (LOG4CPLUS_SOURCE ${LOG4CPLUS_SOURCE_ARCHIVE}
     PATHS ${PROJECT_SOURCE_DIR}
     )
-  
+
   if (NOT LOG4CPLUS_SOURCE)
     set (LOG4CPLUS_SOURCE ${LOG4CPLUS_URL})
   endif (NOT LOG4CPLUS_SOURCE)
-  
+
   ## Build package from source
-  
+
   if (LOG4CPLUS_FROM_REPOS)
-    
+
     ExternalProject_Add (log4cplus
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -84,9 +88,9 @@ if (NOT LOG4CPLUS_FOUND OR LOG4CPLUS_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-  
+
   else (LOG4CPLUS_FROM_REPOS)
-    
+
     ExternalProject_Add (log4cplus
       PREFIX ${PROJECT_BINARY_DIR}
       DOWNLOAD_DIR download
@@ -96,14 +100,14 @@ if (NOT LOG4CPLUS_FOUND OR LOG4CPLUS_FORCE_BUILD)
       CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/source/configure --prefix=${CMAKE_INSTALL_PREFIX}
       INSTALL_COMMAND ${PORT_INSTALL_COMMAND} make install
       )
-    
+
   endif (LOG4CPLUS_FROM_REPOS)
-  
+
 else (NOT LOG4CPLUS_FOUND OR LOG4CPLUS_FORCE_BUILD)
-  
+
   add_custom_target (log4cplus
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "[log4cplus] Found system-wide installation; skipping rebuild!"
     )
-  
+
 endif (NOT LOG4CPLUS_FOUND OR LOG4CPLUS_FORCE_BUILD)
